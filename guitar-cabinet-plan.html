@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Measurement &amp; Climate Plan: 8-Instrument DIY Guitar Cabinet (v2)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            color: #d35400;
+            text-align: center;
+            border-bottom: 3px solid #d35400;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 35px;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #34495e;
+            margin-bottom: 4px;
+        }
+        .section-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fbfb;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #c0392b;
+        }
+        .note {
+            background-color: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .warn {
+            background-color: #fdecea;
+            border-left: 4px solid #e74c3c;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        .warn strong { color: #c0392b; }
+        code {
+            background: #f0f3f4;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
+        ul li { margin-bottom: 6px; }
+        .meta { text-align:center; color:#7f8c8d; font-size:0.9em; margin-top:-8px; }
+    </style>
+</head>
+<body>
+
+    <h1>Master Measurement &amp; Climate Plan: 8-Instrument DIY Guitar Cabinet</h1>
+    <p class="meta">Revision 2 &mdash; engineering review and corrections applied. Verify all instrument dimensions yourself before cutting wood.</p>
+
+    <div class="section-card">
+        <h2>0. Read This First &mdash; Reality Check</h2>
+        <p>This is an ambitious, achievable build, but four things are harder than they first appear. Address them deliberately or the climate goals will not hold:</p>
+        <div class="warn">
+            <strong>1. A PAX is not a sealed box.</strong> The frame is melamine-faced particleboard with a thin fiberboard back and gapped door hinges. Achieving a true 45&ndash;50% RH "vault" depends almost entirely on your sealing work (Section&nbsp;5), not on the cabinet itself.
+        </div>
+        <div class="warn">
+            <strong>2. Particleboard holds screws poorly.</strong> Eight instruments plus hardware is real weight hanging off the frame. Hang from a plywood backer/French cleat that spans to the solid frame members, never from raw particleboard, and anchor the whole cabinet to wall studs (anti-tip). See Section&nbsp;3.
+        </div>
+        <div class="warn">
+            <strong>3. Heat rises &mdash; and your amp is on the bottom.</strong> A tube Orange amp under a sealed vault will push the vault temperature up. Plan for thermal isolation (Section&nbsp;4) and accept that real temperature control mostly comes from the room's HVAC, not from inside the box.
+        </div>
+        <div class="warn">
+            <strong>4. A humidifier and a dehumidifier in one chamber will fight each other</strong> unless you give the controllers a dead zone between their setpoints (Section&nbsp;6).
+        </div>
+        <div class="note">
+            Every dimension below for your instruments is an <em>estimate</em>. Measure each instrument's true maximum body width, body depth (profile thickness), and overall length, and add your own neck/headstock width &mdash; headstocks are the parts that collide. Measure twice, cut once.
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h2>1. Core Cabinet Dimensions</h2>
+        <p>The foundation uses the tallest IKEA PAX frame to fit your longest basses with room for the open amp section below.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Exact Dimensions (Inches)</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>IKEA PAX Frame (Tall, 100&nbsp;cm)</strong></td>
+                    <td>39 3/8" W &times; 22 7/8" D &times; 92 7/8" H</td>
+                    <td>External. Internal width &asymp; 37.5"&ndash;38"; internal depth &asymp; 22". Confirm against your actual frame before relying on it.</td>
+                </tr>
+                <tr>
+                    <td><strong>Amp Zone (Bottom)</strong></td>
+                    <td>37.5" W &times; 22" D &times; ~22" H</td>
+                    <td>Leave open/doorless to showcase and ventilate the Orange amp and pedalboard. Heat here dissipates to the room &mdash; not into the vault, provided the divider is isolated (Section&nbsp;4).</td>
+                </tr>
+                <tr>
+                    <td><strong>Divider Shelf (thermal + moisture break)</strong></td>
+                    <td>37.5" W &times; 22" D &times; 3/4" plywood</td>
+                    <td>Separates amp and vault. Caulk every joint to block humidity transfer, <em>and</em> add a thermal break on the underside (Section&nbsp;4). Use plywood, not particleboard, for screw-holding and stiffness.</td>
+                </tr>
+                <tr>
+                    <td><strong>Guitar Vault (Top)</strong></td>
+                    <td>37.5" W &times; 22" D &times; ~70" H</td>
+                    <td>Sealed upper chamber. Target <span class="highlight">45&ndash;50% RH</span> and <span class="highlight">68&ndash;75&deg;F</span> (steady matters more than the exact number; avoid swings &gt; &plusmn;5% RH / day).</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="note">
+            70" of vault height is far more than the ~50" a hung bass needs. Use the surplus: stagger headstock heights (Section&nbsp;3) so necks don't collide, and reserve the top ~12" for the upper circulation fan and sensors.
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h2>2. Instrument Dimension Index</h2>
+        <p>Your collection varies widely in body depth, which is the dimension that drives the horizontal layout when instruments hang edge-out (profile-style). Confirm each value on your actual instruments.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Instrument</th>
+                    <th>Est. Length</th>
+                    <th>Max Body Width</th>
+                    <th>Body Depth (Profile)</th>
+                    <th>Headstock Width (measure!)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Egyptian Oud</td><td>32"</td><td>13.5"</td><td><strong>7.25"</strong> (bulbous back)</td><td>peghead is wide &amp; angled &mdash; needs the most room</td></tr>
+                <tr><td>Taylor GS Mini Bass</td><td>38.25"</td><td>14.3"</td><td><strong>4.4"</strong></td><td>~3"</td></tr>
+                <tr><td>Slim Martin Acoustic</td><td>~40"</td><td>~15"</td><td><strong>~3.5"&ndash;4"</strong></td><td>~3"</td></tr>
+                <tr><td>Fender Stratocaster</td><td>39"</td><td>12.5"</td><td><strong>1.75"</strong></td><td>~3.5" (6-in-line)</td></tr>
+                <tr><td>Schecter C-1 Platinum</td><td>39"</td><td>12.5"</td><td><strong>1.75"</strong></td><td>~3" (3+3)</td></tr>
+                <tr><td>Music Man Bass</td><td>~45"</td><td>13.5"</td><td><strong>1.75"</strong></td><td>~3.5"</td></tr>
+                <tr><td>1980 Rickenbacker 4003</td><td>44.8"</td><td>13.5"</td><td><strong>1.25"</strong></td><td>~3.5" <span class="highlight">(vintage &mdash; prioritize stable climate)</span></td></tr>
+                <tr><td>Martin Backpacker</td><td>35"</td><td>8.5"</td><td><strong>2.0"</strong> (tapered)</td><td>~2.5"</td></tr>
+            </tbody>
+        </table>
+        <div class="note">
+            Widest body is the Martin Acoustic at ~15". Inside a 22" internal depth that leaves ~7" of rear clearance for airflow and the rear circulation duct &mdash; <em>before</em> subtracting cedar lining. After lining (Section&nbsp;5) you have ~6.5". Still adequate.
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h2>3. Linear Hanging Layout &amp; Spacing</h2>
+        <p>Instruments hang neck-up, edge-out, lined up across the 37.5" internal width. Each one's horizontal "slot" is governed by its body depth plus clearance.</p>
+        <h3>The width math &mdash; and the problem</h3>
+        <table>
+            <thead>
+                <tr><th>Zone</th><th>Instrument</th><th>Slot Width (on-center)</th><th>Running total</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Deep</td><td>Egyptian Oud</td><td>8.0"</td><td>8.0"</td></tr>
+                <tr><td>Deep</td><td>Taylor GS Mini Bass</td><td>6.0"</td><td>14.0"</td></tr>
+                <tr><td>Mid</td><td>Slim Martin Acoustic</td><td>5.5"</td><td>19.5"</td></tr>
+                <tr><td>Electric</td><td>Fender Stratocaster</td><td>3.5"</td><td>23.0"</td></tr>
+                <tr><td>Electric</td><td>Schecter C-1 Platinum</td><td>3.5"</td><td>26.5"</td></tr>
+                <tr><td>Electric</td><td>Music Man Bass</td><td>3.5"</td><td>30.0"</td></tr>
+                <tr><td>Electric</td><td>1980 Rickenbacker 4003</td><td>3.5"</td><td>33.5"</td></tr>
+                <tr><td>Filler</td><td>Martin Backpacker</td><td>3.0"</td><td><strong>36.5"</strong></td></tr>
+            </tbody>
+        </table>
+        <div class="warn">
+            <strong>36.5" of slots vs. ~37" usable (after 1/4" cedar each side) is effectively zero margin</strong> &mdash; and that math ignores headstocks, which are wider than bodies and fan outward at the top where they will collide. As drawn, eight-across is over-packed. Pick one of the fixes below.
+        </div>
+        <h3>Fixes (pick one or combine)</h3>
+        <ul>
+            <li><strong>Stagger headstock heights.</strong> Mount the hangers at two or three different heights so adjacent headstocks pass each other instead of clashing. Easiest fix; keeps all 8 in one row. The 70" vault has the vertical room for it.</li>
+            <li><strong>Use two depth ranks.</strong> With 22" of depth you can run a front rank and a rear rank of hangers. Put the thin solid-bodies (1.25&ndash;1.75") in the rear rank and the deep acoustics/oud in the front rank. This roughly halves the width crunch and gives generous margin.</li>
+            <li><strong>Drop to 6&ndash;7 per row.</strong> Move the Backpacker (small, light) and/or Oud to a dedicated wall hook or a small shelf, relieving the row.</li>
+        </ul>
+        <h3>Hanger hardware</h3>
+        <ul>
+            <li>Use proper yoke-style guitar hangers (auto-grip or felt-lined) screwed into a <strong>3/4" plywood mounting board</strong>, not into the PAX particleboard. Run the board vertically/horizontally to the frame's solid members and through-bolt or use a French cleat.</li>
+            <li>For the <strong>oud</strong>, the bulbous back means a standard neck yoke leaves it hanging well proud of the wall &mdash; verify it clears neighbors and the cedar lining, and consider a wider cradle.</li>
+            <li>Pad every contact point with the cedar/cork &mdash; nitro-finished and vintage instruments (the Rickenbacker) can react with some foams; use felt or cured cork, not raw foam.</li>
+        </ul>
+    </div>
+
+    <div class="section-card">
+        <h2>4. Thermal Isolation (Amp &rarr; Vault)</h2>
+        <p>The amp lives directly under the vault, so manage the heat path:</p>
+        <ul>
+            <li><strong>Insulate the divider's underside.</strong> Add foil-faced foam board or a reflective radiant barrier to the bottom of the divider shelf to reject the amp's radiant heat. Leave a small air gap so the shelf underside isn't a hotplate.</li>
+            <li><strong>Vent the amp zone to the room, not upward.</strong> The bottom section stays open at the front; that is the heat's exit. Keep the divider's seal continuous so warm air can't migrate up around the edges.</li>
+            <li><strong>Don't run a tube amp 24/7.</strong> An Orange amp only heats the cabinet while powered. Power it down when not playing and the thermal load on the vault disappears.</li>
+            <li><strong>Be honest about temperature control.</strong> Inside a sealed wooden box you cannot meaningfully air-condition; the vault temperature will track the room. Real temperature stability comes from keeping the <em>room</em> at 68&ndash;75&deg;F. The ITC-308 (Section&nbsp;6) is best used to switch a small, thermostatically-limited warming element in a cold room, or simply as a high/low <em>alarm</em> &mdash; not as a cooler.</li>
+        </ul>
+    </div>
+
+    <div class="section-card">
+        <h2>5. Sealing &amp; Wood Buffering</h2>
+        <ul>
+            <li><strong>Seal the weak points of the PAX:</strong> caulk the back-panel perimeter, reinforce or replace the thin fiberboard back if it flexes, and gasket the door. EPDM rubber gaskets around the door frame plus compression latches give an airtight seal; account for ~1/4" thickness reduction at the closure.</li>
+            <li><strong>Spanish cedar lining</strong> (1/4" veneer on walls) buffers moisture, smells great, and deters insects. It reduces internal dimensions by ~1/2" total in width and depth &mdash; already accounted for in Section&nbsp;3. Lining the back and sides is enough; you needn't line the door.</li>
+            <li><strong>The cedar is also your safety net.</strong> Its hygroscopic mass slows RH swings, so during a power outage the vault drifts slowly rather than crashing. Pair it with a couple of two-way humidity packs (e.g. 49% Boveda) as passive backup.</li>
+            <li><strong>Let everything off-gas first.</strong> New particleboard, silicone caulk, and EPDM all release VOCs/formaldehyde as they cure. Build, seal, run the fans, and air the vault out for <strong>1&ndash;2 weeks</strong> before sealing instruments inside. Use neutral-cure (not acetoxy/vinegar-smell) silicone to avoid acid attack on metal hardware.</li>
+        </ul>
+    </div>
+
+    <div class="section-card">
+        <h2>6. Climate Hardware &amp; Control Logic</h2>
+        <table>
+            <thead><tr><th>Subsystem</th><th>Hardware</th><th>Setup detail</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td><strong>Controllers</strong></td>
+                    <td>Inkbird IHC-200 (humidity) + ITC-308 (temp), or AC Infinity Controller 69 Pro</td>
+                    <td>Mount <em>outside</em> the vault. Route probe wires through a sealed grommet, then caulk. Place probes at instrument height, away from the humidifier outlet, so they read the real environment.</td>
+                </tr>
+                <tr>
+                    <td><strong>Humidify</strong></td>
+                    <td>Small ultrasonic humidifier, distilled water only</td>
+                    <td>Aim the mist <em>away</em> from instruments and let it disperse &mdash; cool mist can over-humidify locally and condense. Keep the reservoir small and refill often rather than blasting. A fan-assisted evaporative unit or passive Boveda is gentler if you live somewhere humid.</td>
+                </tr>
+                <tr>
+                    <td><strong>Dehumidify</strong></td>
+                    <td>Peltier dehumidifier with external drain tube</td>
+                    <td>Run the drain out through a sealed grommet to a bottle or floor drain so collected water leaves the vault.</td>
+                </tr>
+                <tr>
+                    <td><strong>Circulate</strong></td>
+                    <td>Two 120&nbsp;mm USB fans (~4.7" sq &times; 1")</td>
+                    <td>These recirculate <em>internal</em> air (do not exhaust). Set up a single loop: one fan low pushing air up the <em>front</em>, the other high pulling it down the <em>rear</em> duct, so air rotates past every instrument instead of two fans canceling each other.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Controller deadband &mdash; stop the fight</h3>
+        <p>If the humidifier and dehumidifier setpoints overlap they will short-cycle against each other and burn out. Give them a dead zone:</p>
+        <ul>
+            <li>Humidifier: turn <strong>ON below 43%</strong>, OFF at 47%.</li>
+            <li>Dehumidifier: turn <strong>ON above 52%</strong>, OFF at 48%.</li>
+            <li>Result: nothing runs in the 47&ndash;52% comfort band, so the two devices never run at once. Set the controller's hysteresis/differential to at least 2&ndash;3% to avoid rapid cycling.</li>
+        </ul>
+        <h3>Footprint</h3>
+        <p>Allocate a ~6" &times; 8" corner of the divider shelf for the humidifier + dehumidifier. Keep them on the shelf (not the floor of the vault) and sit them in a shallow tray to catch any drips.</p>
+    </div>
+
+    <div class="section-card">
+        <h2>7. Monitoring, Electrical Safety &amp; Failover</h2>
+        <ul>
+            <li><strong>Trust two sensors, not one.</strong> Add an independent logging hygrometer/thermometer with phone alerts (SensorPush, Govee, etc.) inside the vault, separate from the controllers. Calibrate every sensor with a salt test (75% RH reference) before you rely on it &mdash; cheap hygrometers are often off by 5&ndash;10%.</li>
+            <li><strong>Set high/low alarms</strong> (e.g. RH &lt; 40% or &gt; 55%, temp &gt; 80&deg;F) so a failed humidifier or a stuck dehumidifier wakes you before the instruments suffer.</li>
+            <li><strong>Electrical:</strong> everything plugs into a single <strong>GFCI-protected</strong> outlet/strip. Keep all water vessels below and away from electronics, leave drip loops in every cord, and use a strip with a resettable breaker. Water + mains in a wooden box is the real hazard here, not climate.</li>
+            <li><strong>Power-loss plan:</strong> cedar mass + Boveda packs hold the line passively for a day or two. For longer outages or vintage pieces, a small UPS on the controllers/sensors at least keeps monitoring and alerts alive.</li>
+        </ul>
+    </div>
+
+    <div class="section-card">
+        <h2>8. Suggested Build Sequence</h2>
+        <ol>
+            <li>Assemble PAX frame; <strong>anchor it to wall studs</strong> (anti-tip) before loading anything.</li>
+            <li>Install the 3/4" plywood divider; caulk all joints; add the underside thermal break.</li>
+            <li>Mount the plywood hanger board to the frame's solid members; dry-fit hangers and confirm spacing/height-stagger or two-rank layout with the <em>actual</em> instruments (no strings attached to climate yet).</li>
+            <li>Line walls with Spanish cedar; gasket and latch the door.</li>
+            <li>Install grommets, route probe/drain/power; mount humidifier, dehumidifier, fans, controllers.</li>
+            <li>Run empty for 1&ndash;2 weeks: off-gas, then tune the deadbands and verify RH/temp hold steady through a day/night cycle. Calibrate sensors.</li>
+            <li>Only once it holds &plusmn;3% RH for several days, move the instruments in &mdash; least valuable first as a final check, vintage Rickenbacker last.</li>
+        </ol>
+    </div>
+
+</body>
+</html>
