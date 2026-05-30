@@ -8,7 +8,9 @@ for 8 instruments, with an open amp section below.
 - **[`cabinet-3d.html`](cabinet-3d.html)** — an interactive 3D walkthrough you can
   orbit, zoom, and pan. Shows where each of the 8 instruments hangs (edge-out) plus
   the two Orange amps, divider shelf, humidifier/dehumidifier, circulation fans,
-  external controllers, sensor, optional Spanish-cedar lining, and glass vault door.
+  controllers, sensor, the full **power &amp; cabling** layer (GFCI strip, sealed
+  grommet, back raceway, drip-looped cable runs, wall outlet), optional
+  Spanish-cedar lining, and glass vault door.
   **Hover any part** to see its name and measurements (the cabinet frame reports the
   full external/internal/zone dimensions). **Just double-click it** — Three.js is
   embedded, so it works offline with no install.

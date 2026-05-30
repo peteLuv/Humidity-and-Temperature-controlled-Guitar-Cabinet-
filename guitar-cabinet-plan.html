@@ -244,7 +244,7 @@
                 <tr>
                     <td><strong>Controllers</strong></td>
                     <td>Inkbird IHC-200 (humidity) + ITC-308 (temp), or AC Infinity Controller 69 Pro</td>
-                    <td>Mount <em>outside</em> the vault. Route probe wires through a sealed grommet, then caulk. Place probes at instrument height, away from the humidifier outlet, so they read the real environment.</td>
+                    <td>Mount in the open amp zone (outside the sealed vault). Route probe wires up through the sealed grommet, then caulk. Place probes at instrument height, away from the humidifier outlet, so they read the real environment. Devices plug into the controllers' switched outlets (see Section&nbsp;7).</td>
                 </tr>
                 <tr>
                     <td><strong>Humidify</strong></td>
@@ -275,11 +275,24 @@
     </div>
 
     <div class="section-card">
-        <h2>7. Monitoring, Electrical Safety &amp; Failover</h2>
+        <h2>7. Power, Cable Management, Monitoring &amp; Failover</h2>
+        <h3>Electrical layout</h3>
+        <ul>
+            <li><strong>One mains hub.</strong> A single <strong>GFCI surge-protected power strip with a resettable breaker</strong>, mounted to the amp-zone back wall <em>off the floor</em>, feeds everything: both amps, the two controllers, and the fans' USB adapter. Only <strong>one cord leaves the cabinet</strong>, exiting a grommet at the back to a GFCI wall receptacle.</li>
+            <li><strong>Put the controllers in the open amp zone, not inside the vault.</strong> The bottom section is already outside the sealed chamber, so the Inkbird IHC-200 and ITC-308 live there with their displays facing out. Each device plugs straight into its controller's switched outlet (humidifier + dehumidifier &rarr; IHC-200; a small heater or just a high/low alarm &rarr; ITC-308). Short, tidy runs &mdash; no long cords across the cabinet.</li>
+            <li><strong>Keep water below mains.</strong> The humidifier/dehumidifier and the drain bottle sit lower than the strip and controllers; water vessels never sit above an outlet or electronics.</li>
+        </ul>
+        <h3>Cable management</h3>
+        <ul>
+            <li><strong>One sealed pass-through.</strong> Route <em>all</em> vault cabling &mdash; controller probes going up, device power cords coming down &mdash; through a single caulked grommet in the divider shelf, alongside the dehumidifier drain. Fewer penetrations = an easier airtight seal.</li>
+            <li><strong>Drip loop on every cord.</strong> Let each cable dip <em>below</em> its entry point before reaching a device or the grommet, so condensation runs off the low point instead of tracking along the wire into electronics or through the seal.</li>
+            <li><strong>Corral cords up the back.</strong> Run an adhesive cable raceway (D-Line or similar) up the rear wall of the vault so the humidifier, dehumidifier, and fan leads stay off the instruments. Bundle with hook-and-loop ties, not zip ties you have to cut.</li>
+            <li><strong>Label both ends</strong> of every cable and leave a little service slack &mdash; you <em>will</em> pull devices out to refill, clean, or replace them.</li>
+        </ul>
+        <h3>Monitoring &amp; failover</h3>
         <ul>
             <li><strong>Trust two sensors, not one.</strong> Add an independent logging hygrometer/thermometer with phone alerts (SensorPush, Govee, etc.) inside the vault, separate from the controllers. Calibrate every sensor with a salt test (75% RH reference) before you rely on it &mdash; cheap hygrometers are often off by 5&ndash;10%.</li>
             <li><strong>Set high/low alarms</strong> (e.g. RH &lt; 40% or &gt; 55%, temp &gt; 80&deg;F) so a failed humidifier or a stuck dehumidifier wakes you before the instruments suffer.</li>
-            <li><strong>Electrical:</strong> everything plugs into a single <strong>GFCI-protected</strong> outlet/strip. Keep all water vessels below and away from electronics, leave drip loops in every cord, and use a strip with a resettable breaker. Water + mains in a wooden box is the real hazard here, not climate.</li>
             <li><strong>Power-loss plan:</strong> cedar mass + Boveda packs hold the line passively for a day or two. For longer outages or vintage pieces, a small UPS on the controllers/sensors at least keeps monitoring and alerts alive.</li>
         </ul>
     </div>
