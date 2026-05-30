@@ -5,6 +5,22 @@ for 8 instruments, with an open amp section below.
 
 - **[`guitar-cabinet-plan.html`](guitar-cabinet-plan.html)** — the full measurement
   and climate plan (open it in a browser).
+- **[`cabinet-3d.html`](cabinet-3d.html)** — an interactive 3D walkthrough you can
+  orbit, zoom, and pan. Shows where each of the 8 instruments hangs (edge-out) plus
+  the amp, divider shelf, humidifier/dehumidifier, circulation fans, external
+  controllers, sensor, optional Spanish-cedar lining, and glass vault door. **Just
+  double-click it** — Three.js is embedded, so it works offline with no install.
+
+### Rebuilding the 3D viewer
+
+`cabinet-3d.html` is generated. Edit the scene in `cabinet-3d.template.html`, then:
+
+```
+python3 build-3d.py
+```
+
+This inlines the `vendor/` Three.js modules as data-URL imports so the output
+stays a single self-contained file that opens over `file://` without CORS errors.
 
 ## What changed in Revision 2
 
