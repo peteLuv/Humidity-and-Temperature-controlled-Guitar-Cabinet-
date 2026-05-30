@@ -86,9 +86,9 @@ try {
 const EXT_W = 39.375, EXT_D = 22.875, EXT_H = 92.875, WALL = 0.9;
 const INT_W = EXT_W - 2*WALL;            // ~37.6
 const INT_D = EXT_D - 2*WALL;            // ~21.1
-const AMP_H = 22;                        // amp-zone interior height
+const AMP_H = 24;                        // amp-zone interior height (clearance for 19" bass amp + hot tube amp)
 const SHELF_T = 0.75;
-const SHELF_TOP = AMP_H + SHELF_T;       // 22.75
+const SHELF_TOP = AMP_H + SHELF_T;       // 24.75
 const FRONT_Z = EXT_D/2 - WALL;          // interior front face z
 const BACK_Z  = -(EXT_D/2 - WALL);
 
@@ -324,18 +324,31 @@ function gear(name, color, mesh, lx, ly, lz) {
   return mesh;
 }
 
-// Orange amp (bottom zone)
-const amp = box(22, 10, 10, std(0xe67e22, { r:0.55 }));
-amp.position.set(-2, WALL + 5, -0.5);
-const grille = box(20, 7, 0.4, std(0x161616, { r:0.9 }));
-grille.position.set(0, 0, 5.1); amp.add(grille);
-gear('Orange amp', 0xe67e22, amp, 0, 7, 0);
+// Two Orange amps side by side in the open bottom zone.
+const ampMat = std(0xe67e22, { r:0.55 });
+const grilleMat = std(0x161616, { r:0.9 });
+function orangeAmp(w, h, d, x, label, color) {
+  const a = box(w, h, d, ampMat);
+  a.position.set(x, WALL + h/2, -0.5);
+  const gr = box(w*0.86, h*0.74, 0.4, grilleMat);
+  gr.position.set(0, -h*0.06, d/2 + 0.1); a.add(gr);
+  // little top control panel strip
+  const top = box(w*0.9, 0.5, d*0.7, std(0x121212, { r:0.7 }));
+  top.position.set(0, h/2 + 0.26, -d*0.05); a.add(top);
+  gear(label, color, a, 0, h/2 + 2, 0);
+  return a;
+}
+// Orange Rocker 15 — 15W TUBE guitar combo (runs hot); shorter, so it gets the most headroom
+orangeAmp(18.5, 16.14, 10.24, -9.0, 'Orange Rocker 15 (15W tube — runs HOT)', 0xe67e22);
+// Orange Crush Bass 50 — 50W solid-state bass combo (cooler); taller
+orangeAmp(16.92, 19.09, 10.83, 9.5, 'Orange Crush Bass 50 (50W solid-state)', 0xf39c12);
+legendGear.push({ name:'Orange amps ×2 (tube + solid-state)', color:0xe67e22 });
 
-// pedalboard (bottom zone, front)
-const pedalboard = box(15, 1, 8, std(0x2b2b2b, { r:0.8 }));
-pedalboard.position.set(11, WALL + 0.6, 6); pedalboard.rotation.x = -0.18;
-[0x27ae60,0x2980b9,0xc0392b,0xf1c40f].forEach((c,k)=>{ const p = box(2.2,1.6,2.6,std(c,{r:0.5})); p.position.set(-4.5+k*3,1.3,0); pedalboard.add(p); });
-gear('Pedalboard', 0x2b2b2b, pedalboard, 0, 4, 0);
+// pedalboard lies flat on the floor in front of the amps
+const pedalboard = box(28, 1, 6, std(0x2b2b2b, { r:0.8 }));
+pedalboard.position.set(0, WALL + 0.6, 7.8);
+[0x27ae60,0x2980b9,0xc0392b,0xf1c40f,0x8e44ad].forEach((c,k)=>{ const p = box(2.4,1.6,2.6,std(c,{r:0.5})); p.position.set(-9+k*4.5,1.3,0); pedalboard.add(p); });
+gear('Pedalboard', 0x2b2b2b, pedalboard, 0, 3.5, 0);
 
 // humidifier + dehumidifier on the divider shelf (corner)
 const humid = box(4.5, 7, 6, std(0xecf0f1, { r:0.4 }));
