@@ -36,15 +36,23 @@
   .lbl.gear  { color: #ffe9c7; border-color: rgba(230,126,34,.6); }
   .lbl-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 
+  #tip { position: absolute; pointer-events: none; display: none; z-index: 20; max-width: 270px;
+         background: rgba(15,22,26,.96); border: 1px solid #e67e22; border-radius: 8px; padding: 8px 11px;
+         box-shadow: 0 6px 18px rgba(0,0,0,.55); }
+  #tip h3 { margin: 0 0 5px; font-size: 13px; color: #e67e22; }
+  #tip .dim { font-size: 12px; line-height: 1.45; color: #d7dee2; font-variant-numeric: tabular-nums; }
+  #tip .dim:first-of-type { color: #fff; font-weight: 600; }
+
   #err { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; text-align: center; padding: 40px; }
 </style>
 </head>
 <body>
 <div id="app"></div>
+<div id="tip"></div>
 
 <div id="title" class="ui">
   <h1>8-Instrument Climate Cabinet &mdash; 3D</h1>
-  <p><b>Drag</b> to orbit &middot; <b>scroll</b> to zoom &middot; <b>right-drag</b> to pan. Units are inches; instruments hang edge-out (profile toward you) so each takes only its body-<i>depth</i> of width.</p>
+  <p><b>Drag</b> to orbit &middot; <b>scroll</b> to zoom &middot; <b>right-drag</b> to pan &middot; <b>hover any part</b> for its dimensions (try the frame). Units are inches; instruments hang edge-out (profile toward you) so each takes only its body-<i>depth</i> of width.</p>
 </div>
 
 <div id="panel" class="ui">
@@ -168,6 +176,20 @@ function box(w, h, d, mat) {
 const std = (c, o={}) => new THREE.MeshStandardMaterial({ color: c, roughness: o.r ?? 0.7, metalness: o.m ?? 0.0,
   transparent: o.t ?? false, opacity: o.o ?? 1, side: o.side ?? THREE.FrontSide, depthWrite: o.dw ?? true });
 
+// attach hover metadata (title + dimension lines) used by the tooltip raycaster
+function info(obj, title, lines) { obj.userData.info = { title, lines }; return obj; }
+
+// shared summary shown when hovering any part of the cabinet frame
+const CABINET_INFO = [
+  'External: 39³⁄₈ × 22⁷⁄₈ × 92⁷⁄₈ in  (W × D × H)',
+  'External (mm): 1000 × 581 × 2360',
+  'Internal: ~37.6 W × ~21.1 D in',
+  'Wall: ~0.9 in (18 mm) particleboard',
+  'Amp zone: 37.5 × 22 × 24 in (open)',
+  'Vault: 37.5 × 22 × ~68 in (sealed)',
+  'IKEA PAX tall frame, 100 cm wide',
+];
+
 //// ---- Cabinet shell ----
 const cabinet = new THREE.Group();
 scene.add(cabinet);
@@ -180,10 +202,20 @@ const wallPanels = [];
 wallPanels.push(panel(WALL, EXT_H, EXT_D, -(EXT_W/2-WALL/2), EXT_H/2, 0, wallMat)); // left
 wallPanels.push(panel(WALL, EXT_H, EXT_D,  (EXT_W/2-WALL/2), EXT_H/2, 0, wallMat)); // right
 wallPanels.push(panel(EXT_W, EXT_H, WALL, 0, EXT_H/2, -(EXT_D/2-WALL/2), wallMat)); // back
-panel(EXT_W, WALL, EXT_D, 0, WALL/2, 0, solidMat);                 // bottom
-panel(EXT_W, WALL, EXT_D, 0, EXT_H-WALL/2, 0, solidMat);           // top
+const botP = panel(EXT_W, WALL, EXT_D, 0, WALL/2, 0, solidMat);                 // bottom
+const topP = panel(EXT_W, WALL, EXT_D, 0, EXT_H-WALL/2, 0, solidMat);           // top
 const shelf = panel(EXT_W-0.2, SHELF_T, EXT_D-0.2, 0, AMP_H+SHELF_T/2, 0, solidMat); // divider
 addLabel(shelf, 'Sealed + insulated divider shelf', 0, 2, FRONT_Z-2, 'gear');
+
+// hover info for the cabinet frame (the priority part)
+wallPanels.forEach(p => info(p, 'IKEA PAX cabinet (tall frame)', CABINET_INFO));
+info(topP, 'Top panel', ['39³⁄₈ W × 22⁷⁄₈ D × 0.9 in thick', ...CABINET_INFO]);
+info(botP, 'Bottom panel', ['39³⁄₈ W × 22⁷⁄₈ D × 0.9 in thick', ...CABINET_INFO]);
+info(shelf, 'Divider shelf (amp ↔ vault)', [
+  '37.5 W × 22 D × 0.75 in plywood',
+  'Caulk all joints airtight',
+  'Foil/foam thermal break on underside',
+]);
 
 // crisp outer outline
 const edges = new THREE.LineSegments(
@@ -199,7 +231,8 @@ addLabel(cabinet, 'OPEN AMP ZONE (vents heat to room)', 0, 9, FRONT_Z, 'gear');
 //// ---- Spanish cedar lining (toggle) ----
 const cedarGroup = new THREE.Group(); cabinet.add(cedarGroup);
 const cedarMat = std(0xc49a6c, { t:true, o:0.55, r:0.9, side:THREE.DoubleSide });
-function cedarPanel(w,h,d,x,y,z){ const p = box(w,h,d,cedarMat); p.position.set(x,y,z); cedarGroup.add(p); }
+function cedarPanel(w,h,d,x,y,z){ const p = box(w,h,d,cedarMat); p.position.set(x,y,z); cedarGroup.add(p);
+  info(p, 'Spanish cedar lining', ['1/4 in veneer on walls', 'Buffers humidity, deters insects', 'Reduces internal W & D by ~1/2 in']); return p; }
 const vaultH = EXT_H - SHELF_TOP - WALL, vaultMidY = SHELF_TOP + vaultH/2;
 cedarPanel(0.25, vaultH, INT_D, -(INT_W/2)+0.12, vaultMidY, 0);      // left
 cedarPanel(0.25, vaultH, INT_D,  (INT_W/2)-0.12, vaultMidY, 0);      // right
@@ -213,6 +246,7 @@ door.position.set(0, vaultMidY, FRONT_Z+0.3);
 const doorFrame = new THREE.LineSegments(new THREE.EdgesGeometry(door.geometry),
   new THREE.LineBasicMaterial({ color: 0x88a0aa }));
 door.add(doorFrame);
+info(door, 'Glass vault door', [`~38 W × ~67 H in`, 'EPDM gasket + compression latches', 'Account for 1/4 in at closure']);
 cabinet.add(door);
 door.visible = false;
 
@@ -281,6 +315,12 @@ function makeInstrument(d) {
 
   g.rotation.y = Math.PI/2;          // turn edge-out: thickness -> world X, width -> world depth
   addLabel(g, d.name, 0, d.L + 3, 0, 'instr');
+  info(g, d.name, [
+    `Overall length: ${d.L} in`,
+    `Max body width: ${d.bodyWidth} in`,
+    `Body depth (profile): ${d.depth} in`,
+    `Width slot used: ${d.slot} in`,
+  ]);
   legendInstr.push({ name: d.name, color: d.color });
   return { group: g, neckLen, hsLen };
 }
@@ -313,21 +353,23 @@ const rail = box(rowW + 2, 4, 0.75, std(0x9c7b4f, { r:0.8 }));
 rail.position.set(0, 85, BACK_Z + 1.2);
 instrGroup.add(rail);
 addLabel(rail, 'Plywood hanger board → frame (not particleboard)', 0, 4, 2, 'gear');
+info(rail, 'Plywood hanger board', [`~${Math.round(rowW+2)} W × 4 H × 0.75 in`, 'Carries all 8 instruments', 'Bolt/French-cleat to frame — not particleboard']);
 
 //// ---- Climate & electrical gear ----
 const gearGroup = new THREE.Group(); scene.add(gearGroup);
 const legendGear = [];
-function gear(name, color, mesh, lx, ly, lz) {
+function gear(name, color, mesh, lx, ly, lz, dims) {
   mesh.castShadow = true; mesh.receiveShadow = true;
   gearGroup.add(mesh);
   if (name) { addLabel(mesh, name, lx||0, ly||0, lz||0, 'gear'); legendGear.push({ name, color }); }
+  if (dims) info(mesh, name, Array.isArray(dims) ? dims : [dims]);
   return mesh;
 }
 
 // Two Orange amps side by side in the open bottom zone.
 const ampMat = std(0xe67e22, { r:0.55 });
 const grilleMat = std(0x161616, { r:0.9 });
-function orangeAmp(w, h, d, x, label, color) {
+function orangeAmp(w, h, d, x, label, color, note) {
   const a = box(w, h, d, ampMat);
   a.position.set(x, WALL + h/2, -0.5);
   const gr = box(w*0.86, h*0.74, 0.4, grilleMat);
@@ -335,34 +377,34 @@ function orangeAmp(w, h, d, x, label, color) {
   // little top control panel strip
   const top = box(w*0.9, 0.5, d*0.7, std(0x121212, { r:0.7 }));
   top.position.set(0, h/2 + 0.26, -d*0.05); a.add(top);
-  gear(label, color, a, 0, h/2 + 2, 0);
+  gear(label, color, a, 0, h/2 + 2, 0, [`${w} W × ${h} H × ${d} D in`, note]);
   return a;
 }
 // Orange Rocker 15 — 15W TUBE guitar combo (runs hot); shorter, so it gets the most headroom
-orangeAmp(18.5, 16.14, 10.24, -9.0, 'Orange Rocker 15 (15W tube — runs HOT)', 0xe67e22);
+orangeAmp(18.5, 16.14, 10.24, -9.0, 'Orange Rocker 15 (15W tube — runs HOT)', 0xe67e22, '15W tube combo, 1×10 — keep top clear for heat');
 // Orange Crush Bass 50 — 50W solid-state bass combo (cooler); taller
-orangeAmp(16.92, 19.09, 10.83, 9.5, 'Orange Crush Bass 50 (50W solid-state)', 0xf39c12);
+orangeAmp(16.92, 19.09, 10.83, 9.5, 'Orange Crush Bass 50 (50W solid-state)', 0xf39c12, '50W solid-state, 1×12 — runs cool');
 legendGear.push({ name:'Orange amps ×2 (tube + solid-state)', color:0xe67e22 });
 
 // pedalboard lies flat on the floor in front of the amps
 const pedalboard = box(28, 1, 6, std(0x2b2b2b, { r:0.8 }));
 pedalboard.position.set(0, WALL + 0.6, 7.8);
 [0x27ae60,0x2980b9,0xc0392b,0xf1c40f,0x8e44ad].forEach((c,k)=>{ const p = box(2.4,1.6,2.6,std(c,{r:0.5})); p.position.set(-9+k*4.5,1.3,0); pedalboard.add(p); });
-gear('Pedalboard', 0x2b2b2b, pedalboard, 0, 3.5, 0);
+gear('Pedalboard', 0x2b2b2b, pedalboard, 0, 3.5, 0, ['~28 W × 6 D in on the floor', 'In front of the amps']);
 
 // humidifier + dehumidifier on the divider shelf (corner)
 const humid = box(4.5, 7, 6, std(0xecf0f1, { r:0.4 }));
 humid.position.set(-14.5, SHELF_TOP + 3.5, -6);
-gear('Ultrasonic humidifier (distilled)', 0xecf0f1, humid, 0, 5, 0);
+gear('Ultrasonic humidifier (distilled)', 0xecf0f1, humid, 0, 5, 0, ['~4.5 × 6 × 7 in', 'Distilled water; aim mist away from instruments']);
 const dehum = box(5.5, 7, 6, std(0x8a949a, { r:0.5, m:0.2 }));
 dehum.position.set(-9, SHELF_TOP + 3.5, -6);
-gear('Peltier dehumidifier', 0x8a949a, dehum, 0, 6.5, 0);
+gear('Peltier dehumidifier', 0x8a949a, dehum, 0, 6.5, 0, ['~5.5 × 6 × 7 in', 'External drain tube']);
 
 // dehumidifier drain tube → bottle in amp zone
 const drain = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, SHELF_TOP - 5, 8), std(0x3aa0c0, { r:0.4 }));
 drain.position.set(-9, (SHELF_TOP + 5)/2 + 1, -8); gearGroup.add(drain);
 const bottle = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 4, 16), std(0x4aa3c4, { t:true, o:0.5, r:0.2 }));
-bottle.position.set(-9, WALL + 2, -8); gear('Drain bottle', 0x4aa3c4, bottle, 0, 3, 0);
+bottle.position.set(-9, WALL + 2, -8); gear('Drain bottle', 0x4aa3c4, bottle, 0, 3, 0, ['Collects dehumidifier runoff', 'Empty or plumb to a drain']);
 
 // circulation fans (recirculate internal air)
 function fan(x, y, label) {
@@ -374,6 +416,7 @@ function fan(x, y, label) {
   f.position.set(x, y, 0); f.castShadow = true;
   gearGroup.add(f);
   addLabel(f, label, 0, 4, 0, 'gear');
+  info(f, label.replace(/[↑↓]/g,'').trim(), ['120 mm (4.7 × 4.7 × 1 in)', 'USB; recirculates internal air only']);
   return f;
 }
 fan(11, SHELF_TOP + 3, 'Lower fan ↑ (front)');
@@ -383,7 +426,7 @@ legendGear.push({ name:'120 mm circulation fans ×2', color:0x7f8c8d });
 // independent sensor puck inside vault
 const sensor = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 0.7, 18), std(0xffffff, { r:0.3 }));
 sensor.rotation.z = Math.PI/2; sensor.position.set(INT_W/2 - 1.2, 56, 4);
-gear('Logging sensor + alerts', 0xffffff, sensor, 0, 3, 0);
+gear('Logging sensor + alerts', 0xffffff, sensor, 0, 3, 0, ['Independent RH/temp logger', 'Salt-calibrate; set high/low alarms']);
 
 // external controllers mounted on the right wall, with probe wires routed in
 function controller(name, y, color) {
@@ -391,7 +434,7 @@ function controller(name, y, color) {
   c.position.set(EXT_W/2 + 0.7, y, 2);
   const screen = box(2.4, 1.4, 0.2, std(color, { r:0.2, m:0.1 }));
   screen.position.set(0, 0.7, 0.8); c.add(screen);
-  gear(name, color, c, 3.2, 0, 0);
+  gear(name, color, c, 3.2, 0, 0, ['Mounted outside the vault', 'Probe routed through sealed grommet']);
   // probe wire from controller into the vault toward the sensor
   const pts = [ new THREE.Vector3(EXT_W/2 + 0.7, y, 2), new THREE.Vector3(EXT_W/2 - 0.5, y, 2),
                 new THREE.Vector3(INT_W/2 - 1.2, 56, 4) ];
@@ -427,6 +470,47 @@ $('t-walls').onchange  = e => wallPanels.forEach(p => { p.material.opacity = e.t
 $('t-rotate').onchange = e => controls.autoRotate = e.target.checked;
 controls.autoRotateSpeed = 0.8;
 $('reset').onclick = () => { camera.position.copy(CAM0); controls.target.copy(TGT0); };
+
+//// ---- Hover tooltips + highlight (raycaster) ----
+const raycaster = new THREE.Raycaster();
+const ndc = new THREE.Vector2();
+const tip = document.getElementById('tip');
+const pickRoots = [cabinet, instrGroup, gearGroup];
+const boxHelper = new THREE.BoxHelper(new THREE.Object3D(), 0xe67e22);
+boxHelper.material.depthTest = false; boxHelper.material.transparent = true; boxHelper.visible = false;
+scene.add(boxHelper);
+
+function findInfo(o) { while (o) { if (o.userData && o.userData.info) return o; o = o.parent; } return null; }
+function isShown(o) { while (o) { if (o.visible === false) return false; o = o.parent; } return true; }  // raycaster ignores .visible
+function hideTip() { tip.style.display = 'none'; boxHelper.visible = false; }
+
+renderer.domElement.addEventListener('pointermove', e => {
+  const r = renderer.domElement.getBoundingClientRect();
+  ndc.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+  ndc.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+  raycaster.setFromCamera(ndc, camera);
+  let target = null;
+  for (const h of raycaster.intersectObjects(pickRoots, true)) {
+    if (!isShown(h.object)) continue;            // ignore hidden door/cedar
+    const t = findInfo(h.object);
+    if (t) { target = t; break; }
+  }
+  if (!target) { hideTip(); return; }
+  const meta = target.userData.info;
+  tip.replaceChildren();
+  const h3 = document.createElement('h3'); h3.textContent = meta.title; tip.appendChild(h3);
+  meta.lines.filter(Boolean).forEach(line => {
+    const d = document.createElement('div'); d.className = 'dim'; d.textContent = line; tip.appendChild(d);
+  });
+  tip.style.display = 'block';
+  const x = Math.min(e.clientX + 16, innerWidth - tip.offsetWidth - 10);
+  const y = Math.min(e.clientY + 16, innerHeight - tip.offsetHeight - 10);
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  boxHelper.setFromObject(target); boxHelper.visible = true;
+});
+renderer.domElement.addEventListener('pointerleave', hideTip);
+// keep the highlight box aligned if the hovered object's layer is toggled off
+controls.addEventListener('start', hideTip);
 
 //// ---- Resize + loop ----
 addEventListener('resize', () => {
