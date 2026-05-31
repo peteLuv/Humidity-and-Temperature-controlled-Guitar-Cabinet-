@@ -5,19 +5,27 @@ for 8 instruments, with an open amp section below.
 
 - **[`guitar-cabinet-plan.html`](guitar-cabinet-plan.html)** — the full measurement
   and climate plan (open it in a browser).
-- **[`cabinet-3d.html`](cabinet-3d.html)** — an interactive 3D walkthrough you can
-  orbit, zoom, and pan. Shows where each of the 8 instruments hangs (edge-out) plus
-  the two Orange amps, divider shelf, humidifier/dehumidifier, circulation fans,
-  controllers, sensor, the full **power &amp; cabling** layer (GFCI strip, sealed
-  grommet, back raceway, drip-looped cable runs, wall outlet), optional
-  Spanish-cedar lining, and glass vault door.
-  **Hover any part** to see its name and measurements (the cabinet frame reports the
-  full external/internal/zone dimensions). **Just double-click it** — Three.js is
-  embedded, so it works offline with no install.
+- **[`cabinet-3d.html`](cabinet-3d.html)** — interactive 3D walkthrough of the
+  **full PAX build**: all 8 instruments hung (edge-out), the two Orange amps,
+  divider shelf, humidifier/dehumidifier, circulation fans, controllers, sensor,
+  the full **power &amp; cabling** layer (GFCI strip, sealed grommet, back raceway,
+  drip-looped cable runs, wall outlet), optional Spanish-cedar lining, and glass
+  vault door.
+- **[`cabinet-3d-metod.html`](cabinet-3d-metod.html)** — alternate **IKEA METOD
+  60×60×220 cm** build: a narrower, pure sealed vault for just the 3
+  humidity-sensitive acoustics (Oud, Taylor GS Mini Bass, slim Martin), with a
+  vented lower equipment bay (controllers + power) and no amp zone. The 4 electrics
+  + Backpacker are assumed stored in hard cases (with Boveda) and aren't shown.
 
-### Rebuilding the 3D viewer
+Both viewers: **orbit / zoom / pan**, toggle layers, and **hover any part** to see
+its name and measurements (the cabinet frame reports the full
+external/internal/zone dimensions). **Just double-click** — Three.js is embedded,
+so they work offline with no install.
 
-`cabinet-3d.html` is generated. Edit the scene in `cabinet-3d.template.html`, then:
+### Rebuilding the 3D viewers
+
+The `*.html` viewers are generated from `*.template.html`. Edit a template, then
+run the build (it rebuilds every template):
 
 ```
 python3 build-3d.py
