@@ -9,6 +9,11 @@ for 8 instruments, with an open amp section below.
   scratch with Home Depot plywood** instead of an IKEA frame: target dimensions, a
   full cut list, shopping list, tools, and step-by-step assembly (including the
   all-important door seal). Pairs with the climate plan above.
+- **[`prebuilt-vault-plan.html`](prebuilt-vault-plan.html)** — the **buy-and-retrofit**
+  path: skip building the box, buy a solid-wood hinged-door cabinet (or a purpose-built
+  humidified guitar cabinet) and master just the **seal** and **electronics**. Sized for
+  all 8 instruments hung, no amps (~72″ tall). Includes a shortlist of real products and
+  a buyer's checklist.
 - **[`cabinet-3d.html`](cabinet-3d.html)** — interactive 3D walkthrough of the
   **full PAX build**: all 8 instruments hung (edge-out), the two Orange amps,
   divider shelf, humidifier/dehumidifier, circulation fans, controllers, sensor,
