@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Build Guide: Plywood Climate Cabinet (Home Depot Lumber)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            color: #d35400;
+            text-align: center;
+            border-bottom: 3px solid #d35400;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 35px;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #34495e;
+            margin-bottom: 4px;
+        }
+        .section-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: top;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fbfb;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #c0392b;
+        }
+        .note {
+            background-color: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        .warn {
+            background-color: #fdecea;
+            border-left: 4px solid #e74c3c;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        .warn strong { color: #c0392b; }
+        code {
+            background: #f0f3f4;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
+        ul li { margin-bottom: 6px; }
+        ol li { margin-bottom: 10px; }
+        .meta { text-align:center; color:#7f8c8d; font-size:0.9em; margin-top:-8px; }
+        .total td { font-weight: bold; background:#eef3f8; }
+    </style>
+</head>
+<body>
+
+    <h1>DIY Build Guide &mdash; Plywood Climate Cabinet</h1>
+    <p class="meta">Wide build, ~40&quot; W &times; 23&quot; D &times; 93&quot; H &middot; built from Home Depot sheet goods instead of an IKEA frame. Read alongside <code>guitar-cabinet-plan.html</code> (climate/electrical) and <code>cabinet-3d.html</code> (3D layout).</p>
+
+    <div class="section-card">
+        <h2>0. Why build it instead of buying a PAX</h2>
+        <p>A home-built plywood box is actually the <em>better</em> choice for a sealed climate vault. The reasons the original plan kept warning about the PAX &mdash; raw particleboard that swells and off-gasses in humidity, poor screw holding, a flimsy fiberboard back &mdash; all disappear when you build the carcass from &frac34;&quot; cabinet-grade plywood.</p>
+        <div class="note">
+            This guide reuses every dimension and zone from the existing 3D model: an <strong>open/vented amp zone</strong> on the bottom and a <strong>sealed vault</strong> above, split by a divider shelf. Only the <em>shell</em> changes from IKEA to plywood. All climate, electrical, sealing, and instrument-hanging guidance still lives in <code>guitar-cabinet-plan.html</code> &mdash; build the box here, then follow that plan for everything inside it.
+        </div>
+        <div class="warn">
+            <strong>The three things that make a vault, not just a cabinet:</strong> (1) air-tightness &mdash; glue + caulk every interior seam; (2) a real door <em>seal</em> &mdash; a continuous gasket plus compression latches, not a magnet; (3) sealing the plywood itself with poly or cedar so the wood doesn't trade moisture with your air. Get the door wrong and the controllers fight the room all day.
+        </div>
+    </div>
+
+    <div class="section-card">
+        <h2>1. Target dimensions &amp; construction method</h2>
+        <p>Built around &frac34;&quot; plywood for the carcass and a &frac12;&quot; plywood back. Joinery is butt joints with glue + pocket screws (Kreg) &mdash; no table saw or fancy joinery needed if you let Home Depot rip the sheets to size on their panel saw.</p>
+        <table>
+            <thead><tr><th>Measurement</th><th>Value</th><th>How it's derived</th></tr></thead>
+            <tbody>
+                <tr><td>External</td><td>40&quot; W &times; 23&quot; D &times; 93&quot; H</td><td>Matches the PAX-style model footprint.</td></tr>
+                <tr><td>Wall thickness</td><td>&frac34;&quot; (carcass), &frac12;&quot; (back)</td><td>Standard plywood; far stiffer than 18&nbsp;mm particleboard.</td></tr>
+                <tr><td>Internal width</td><td>38.5&quot;</td><td>40 &minus; (2 &times; &frac34;&quot; sides).</td></tr>
+                <tr><td>Internal depth</td><td>22&quot;</td><td>22.5&quot; carcass depth &minus; &frac12;&quot; back panel.</td></tr>
+                <tr><td>Amp zone (interior)</td><td>38.5 &times; 22 &times; 24&quot; H</td><td>Open/vented. Clears a 19&quot; bass combo + tube amp.</td></tr>
+                <tr><td>Vault (interior)</td><td>38.5 &times; 22 &times; ~66.75&quot; H</td><td>Sealed. 93 &minus; top &minus; bottom &minus; divider &minus; amp zone.</td></tr>
+            </tbody>
+        </table>
+        <div class="note">These are nominal. <strong>Plywood is rarely a true &frac34;&quot;</strong> (often 23/32&quot; &asymp; 0.72&quot;). Measure your actual sheet thickness and adjust the &quot;between the sides&quot; parts before cutting. Measure twice, cut once.</div>
+    </div>
+
+    <div class="section-card">
+        <h2>2. Cut list</h2>
+        <p>Construction: the two <strong>sides run full height (93&quot;)</strong>; the top, bottom, and divider are housed <strong>between</strong> the sides; the back overlays the rear. All carcass parts are &frac34;&quot; plywood unless noted.</p>
+        <table>
+            <thead><tr><th>#</th><th>Part</th><th>Qty</th><th>Dimensions (W &times; H/D)</th><th>Material</th><th>Notes</th></tr></thead>
+            <tbody>
+                <tr><td>A</td><td>Side panel</td><td>2</td><td>22.5&quot; D &times; 93&quot; H</td><td>&frac34;&quot; ply</td><td>Full height. Front edge gets the face frame.</td></tr>
+                <tr><td>B</td><td>Bottom panel</td><td>1</td><td>38.5&quot; W &times; 22.5&quot; D</td><td>&frac34;&quot; ply</td><td>Between sides, at the very bottom.</td></tr>
+                <tr><td>C</td><td>Top panel</td><td>1</td><td>38.5&quot; W &times; 22.5&quot; D</td><td>&frac34;&quot; ply</td><td>Between sides, at the very top.</td></tr>
+                <tr><td>D</td><td>Divider shelf</td><td>1</td><td>38.5&quot; W &times; 22.5&quot; D</td><td>&frac34;&quot; ply</td><td>Splits amp zone / vault. Its top face sits 25.5&quot; up from the floor (24&quot; amp clearance + thicknesses). <span class="highlight">Caulk airtight</span> &mdash; this is the vault floor.</td></tr>
+                <tr><td>E</td><td>Back panel</td><td>1</td><td>40&quot; W &times; 93&quot; H</td><td>&frac12;&quot; ply</td><td>Overlays the rear, glued + screwed + caulked.</td></tr>
+                <tr><td>F</td><td>Hanger board</td><td>1</td><td>36&quot; W &times; 6&quot; H</td><td>&frac34;&quot; ply</td><td>Carries all hung instruments. Screw through the back into this; never hang from a single panel.</td></tr>
+                <tr><td>G</td><td>Door stiles (verticals)</td><td>2</td><td>2.5&quot; &times; 67.75&quot;</td><td>Poplar 1&times;3</td><td>Vault door frame.</td></tr>
+                <tr><td>H</td><td>Door rails (horizontals)</td><td>2</td><td>2.5&quot; &times; ~34.5&quot;</td><td>Poplar 1&times;3</td><td>Length = door width &minus; 2 stiles; confirm after assembly.</td></tr>
+                <tr><td>I</td><td>Door glazing</td><td>1</td><td>~37&quot; &times; 64&quot;</td><td>Acrylic / polycarbonate / glass</td><td>Sits in a rabbet on the door frame. Acrylic is lighter &amp; safer than glass.</td></tr>
+                <tr><td>J</td><td>Face frame</td><td>~3 pcs</td><td>1.5&quot; wide stock</td><td>Poplar 1&times;2</td><td>Optional but recommended: frames the front opening, gives the door a flat surface to seal against.</td></tr>
+            </tbody>
+        </table>
+        <div class="note">Parts A&ndash;F (the plywood) nest onto <strong>two &frac34;&quot; sheets + one &frac12;&quot; sheet</strong>: both sides fit on one &frac34;&quot; sheet (45&quot; of the 48&quot; width); top/bottom/divider/hanger fit on the second; the back uses one &frac12;&quot; sheet. Hand Home Depot this list at the panel-saw counter.</div>
+    </div>
+
+    <div class="section-card">
+        <h2>3. Shopping list (Home Depot)</h2>
+        <table>
+            <thead><tr><th>Item</th><th>Qty</th><th>Approx. cost</th><th>Notes</th></tr></thead>
+            <tbody>
+                <tr><td>&frac34;&quot; cabinet-grade plywood (4&times;8)</td><td>2 sheets</td><td>$110&ndash;140</td><td>Birch/maple veneer for a clean interior, or sanded pine ply to save money. <span class="highlight">Avoid MDF &amp; raw particleboard</span> in a humid box.</td></tr>
+                <tr><td>&frac12;&quot; plywood (4&times;8)</td><td>1 sheet</td><td>$35&ndash;50</td><td>Back panel.</td></tr>
+                <tr><td>Poplar 1&times;3 &amp; 1&times;2 boards</td><td>~4 boards</td><td>$30&ndash;45</td><td>Door frame + face frame.</td></tr>
+                <tr><td>Aromatic cedar closet-lining planks</td><td>~35&ndash;40 sq ft</td><td>$60&ndash;90</td><td>Home Depot's stand-in for Spanish cedar. Lines the vault as a humidity buffer / insect deterrent. (Spanish cedar must be ordered online if you want the classic case smell.)</td></tr>
+                <tr><td>Acrylic / polycarbonate sheet (or glass)</td><td>1</td><td>$40&ndash;70</td><td>~37&times;64. Have it cut to size.</td></tr>
+                <tr><td>Wood glue + pocket-hole screws</td><td>1 ea</td><td>$25</td><td>Kreg screws if pocket-jointing.</td></tr>
+                <tr><td>Paintable silicone caulk</td><td>2 tubes</td><td>$12</td><td>Airtight seams &amp; grommet.</td></tr>
+                <tr><td>EPDM / closed-cell foam weatherstrip</td><td>1 roll</td><td>$12</td><td>The door gasket &mdash; the single most important seal.</td></tr>
+                <tr><td>Compression / draw latches</td><td>2&ndash;3</td><td>$20</td><td>Clamp the door against the gasket. <strong>Not magnetic catches.</strong></td></tr>
+                <tr><td>Hinges (piano hinge or 3&times; cabinet hinges)</td><td>1 set</td><td>$15&ndash;25</td><td>For the vault door.</td></tr>
+                <tr><td>Water-based polyurethane + brush</td><td>1 qt</td><td>$25</td><td>Seal interior plywood faces that aren't cedar-lined.</td></tr>
+                <tr><td>Cable grommet (1.5&ndash;2&quot;)</td><td>1</td><td>$8</td><td>Sealed pass-through in the divider.</td></tr>
+                <tr><td>Anti-tip wall brackets + screws</td><td>1 set</td><td>$10</td><td>Anchor to studs. A 93&quot; cabinet full of instruments <span class="highlight">must</span> be tipped-proofed.</td></tr>
+            </tbody>
+            <tr class="total"><td>Shell materials subtotal</td><td></td><td>~$300&ndash;400</td><td>Climate &amp; electrical gear (fans, humidifier, dehumidifier, controllers, GFCI strip, sensor) are separate &mdash; see the master plan.</td></tr>
+        </table>
+    </div>
+
+    <div class="section-card">
+        <h2>4. Tools</h2>
+        <ul>
+            <li><strong>Drill / driver</strong> &mdash; the one essential power tool.</li>
+            <li><strong>Pocket-hole jig (Kreg)</strong> &mdash; easiest strong joinery for a beginner; no exposed end screws.</li>
+            <li><strong>Clamps</strong> (4+) &mdash; hold panels square while screwing.</li>
+            <li><strong>Caulk gun</strong>, tape measure, speed square, pencil.</li>
+            <li><strong>Jigsaw</strong> &mdash; grommet hole, optional amp-zone vents.</li>
+            <li><strong>Hole saw</strong> sized to your grommet (~1.5&ndash;2&quot;).</li>
+            <li><strong>Circular saw + straightedge</strong> &mdash; only if you trim parts yourself. If Home Depot rips every panel, you may not need it.</li>
+            <li>Sandpaper / sanding block (120 then 220 grit).</li>
+        </ul>
+        <div class="note">Home Depot's panel saw makes straight, square cuts you can't easily do with a handheld saw. Bring the cut list, get the big rips done in-store, and you're left with assembly only.</div>
+    </div>
+
+    <div class="section-card">
+        <h2>5. Build steps</h2>
+        <ol>
+            <li><strong>Confirm &amp; cut.</strong> Measure your real plywood thickness, finalize the cut list, and have Home Depot rip parts A&ndash;F. Label each panel in pencil.</li>
+            <li><strong>Sand &amp; pre-finish the vault interior.</strong> It's far easier to sand and apply 2 coats of water-based poly to the inner faces <em>before</em> assembly (skip faces you'll cedar-line). Let it cure fully &mdash; poly off-gasses, so don't rush instruments in.</li>
+            <li><strong>Drill pocket holes.</strong> Put pockets on the underside of the bottom, both faces of the divider, and the top, so screws drive into the side panels. Keep pockets on hidden faces.</li>
+            <li><strong>Dry-fit.</strong> Stand the two sides up, set the bottom, divider, and top between them. Check everything is square (measure both diagonals &mdash; equal = square) before any glue.</li>
+            <li><strong>Glue &amp; screw the carcass.</strong> Bottom first, then divider at the 25.5&quot; line, then top. Glue every joint and drive pocket screws. Re-check square as you go and clamp.</li>
+            <li><strong>Attach the back (E).</strong> Bead of glue on all rear edges (including the divider's rear edge), set the &frac12;&quot; back on, screw every ~8&quot;. The back stiffens the whole box and squares it.</li>
+            <li><strong>Mount the hanger board (F)</strong> inside the vault, screwed through the back into the panel and into the side panels at the ends, near the top. This is what the instruments hang from.</li>
+            <li><strong>Make the airtight pass-through.</strong> Hole-saw a grommet hole through the divider toward the back, install the grommet, and run a bead of caulk around it. All vault cabling routes here with a drip loop.</li>
+            <li><strong>Caulk every interior vault seam airtight.</strong> Sides-to-top, sides-to-divider, back-to-everything. Tool the bead smooth. The amp zone below the divider stays open/vented &mdash; don't seal it.</li>
+            <li><strong>Line the vault with cedar.</strong> Cut the aromatic cedar planks to fit the vault walls + back; attach with brad nails or construction adhesive. Leave the door opening clear.</li>
+            <li><strong>Build &amp; hang the vault door.</strong> Assemble the poplar frame (G/H) with a rabbet on the inside back edge; drop in the acrylic (I) and retain it with thin stops. Hang on the hinge(s). Add the foam/EPDM gasket around the opening (or the door's back face) and fit 2&ndash;3 compression latches so closing the door <em>squeezes</em> the gasket.</li>
+            <li><strong>Vent the amp zone.</strong> Leave it open, or fit a louvered/grilled door so the tube amp's heat escapes to the room. Never seal the amp zone.</li>
+            <li><strong>Anchor it.</strong> Stand the cabinet, level it, and screw the anti-tip brackets into wall studs before loading anything.</li>
+            <li><strong>Install climate &amp; electrical gear.</strong> Now follow <code>guitar-cabinet-plan.html</code>: fans, humidifier/dehumidifier on the divider, Inkbird controllers in the amp zone, sensor in the vault, GFCI strip, drip loops. Use <code>cabinet-3d.html</code> as the visual map for where each part goes.</li>
+            <li><strong>Leak-check &amp; calibrate.</strong> Run the system empty for a few days. Salt-calibrate the sensor, set a dead-band between the humidify/dehumidify setpoints so they don't fight, and confirm the vault holds 45&ndash;50% RH before the instruments move in.</li>
+        </ol>
+    </div>
+
+    <div class="section-card">
+        <h2>6. Where this leaves the IKEA plan</h2>
+        <p>Everything in the master plan still applies <em>except</em> Sections about the PAX frame itself:</p>
+        <ul>
+            <li><strong>Replaces:</strong> the IKEA frame, its particleboard screw-holding warnings, and the fiberboard back. Plywood holds screws well and the back is structural &mdash; though you should still hang instruments from the dedicated hanger board (F), not a lone panel.</li>
+            <li><strong>Unchanged:</strong> the open-amp-zone / sealed-vault architecture, the divider, sealing approach, door gasketing, thermal isolation of the tube amp, the humidifier/dehumidifier dead-band, fans, sensor, GFCI power, and all instrument dimensions. Build the box here, run the plan there.</li>
+        </ul>
+        <div class="warn"><strong>One honest trade-off:</strong> a DIY build is more work and more skill than assembling flat-pack furniture &mdash; the door seal in particular takes patience to get airtight. The payoff is a box that's structurally and dimensionally far better for holding a stable climate, at a comparable material cost.</div>
+    </div>
+
+</body>
+</html>

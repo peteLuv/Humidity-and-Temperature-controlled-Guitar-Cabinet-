@@ -5,6 +5,10 @@ for 8 instruments, with an open amp section below.
 
 - **[`guitar-cabinet-plan.html`](guitar-cabinet-plan.html)** — the full measurement
   and climate plan (open it in a browser).
+- **[`diy-build-guide.html`](diy-build-guide.html)** — build the **wide cabinet from
+  scratch with Home Depot plywood** instead of an IKEA frame: target dimensions, a
+  full cut list, shopping list, tools, and step-by-step assembly (including the
+  all-important door seal). Pairs with the climate plan above.
 - **[`cabinet-3d.html`](cabinet-3d.html)** — interactive 3D walkthrough of the
   **full PAX build**: all 8 instruments hung (edge-out), the two Orange amps,
   divider shelf, humidifier/dehumidifier, circulation fans, controllers, sensor,
