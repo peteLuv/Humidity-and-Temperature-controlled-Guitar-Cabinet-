@@ -22,7 +22,7 @@
   </style>
 
   <text x="490" y="30" text-anchor="middle" class="h1">Climate Cabinet — Cut &amp; Layout Diagram</text>
-  <text x="490" y="48" text-anchor="middle" class="dlbl">External 40&quot; W × 23&quot; D × 93&quot; H · all parts keyed to the cut list (bottom)</text>
+  <text x="490" y="48" text-anchor="middle" class="dlbl">External 40&quot; W × 23&quot; D × 93&quot; H · Baltic birch plywood carcass · all parts keyed to the cut list (bottom)</text>
 
   <!-- ============ FRONT ELEVATION ============ -->
   <text x="200" y="74" text-anchor="middle" class="ttl">FRONT</text>
@@ -132,16 +132,16 @@
   <text x="56" y="563" class="legh">PARTS LIST  (dimensions in inches; W × H for uprights, W × D for shelves)</text>
 
   <!-- left column: plywood -->
-  <text x="56" y="588" class="legh">Plywood — ¾″ &amp; ½″ PureBond hardwood</text>
-  <text x="56" y="610" class="leg">A · Side panel ×2 — 22.5 D × 93 H — ¾″</text>
-  <text x="56" y="630" class="leg">B · Bottom ×1 — 38.5 W × 22.5 D — ¾″</text>
-  <text x="56" y="650" class="leg">C · Top ×1 — 38.5 W × 22.5 D — ¾″</text>
-  <text x="56" y="670" class="leg">D · Divider / middle shelf ×1 — 38.5 W × 22.5 D — ¾″</text>
-  <text x="56" y="690" class="leg">E · Back ×1 — 40 W × 93 H — ½″</text>
-  <text x="56" y="710" class="leg">F · Hanger board ×1 — 36 W × 6 H — ¾″</text>
+  <text x="56" y="588" class="legh">Baltic birch plywood — ¾″ (carcass) &amp; ½″ (back)</text>
+  <text x="56" y="610" class="leg">A · Side panel ×2 — 22.5 D × 93 H — ¾″ Baltic birch</text>
+  <text x="56" y="630" class="leg">B · Bottom ×1 — 38.5 W × 22.5 D — ¾″ Baltic birch</text>
+  <text x="56" y="650" class="leg">C · Top ×1 — 38.5 W × 22.5 D — ¾″ Baltic birch</text>
+  <text x="56" y="670" class="leg">D · Divider / middle shelf ×1 — 38.5 W × 22.5 D — ¾″ Baltic birch</text>
+  <text x="56" y="690" class="leg">E · Back ×1 — 40 W × 93 H — ½″ Baltic birch</text>
+  <text x="56" y="710" class="leg">F · Hanger board ×1 — 36 W × 6 H — ¾″ Baltic birch</text>
 
   <!-- right column: solid hardwood + holes -->
-  <text x="510" y="588" class="legh">Solid hardwood — maple / cherry (door + face frame)</text>
+  <text x="510" y="588" class="legh">Solid hardwood — cherry / maple / mahogany (door + face frame)</text>
   <text x="510" y="610" class="leg">G · Door stile ×2 — 2.5 W × 67.75 L</text>
   <text x="510" y="630" class="leg">H · Door rail ×2 — 2.5 W × 35 L (trim to fit)</text>
   <text x="510" y="650" class="leg">J1 · Face-frame stile ×2 — 1.5 W × 93 L</text>
