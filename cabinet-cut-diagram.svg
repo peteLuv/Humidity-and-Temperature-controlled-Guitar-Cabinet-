@@ -22,129 +22,108 @@
   </style>
 
   <text x="490" y="30" text-anchor="middle" class="h1">Climate Cabinet — Cut &amp; Layout Diagram</text>
-  <text x="490" y="48" text-anchor="middle" class="dlbl">External 40&quot; W × 23&quot; D × 93&quot; H · Baltic birch plywood carcass · all parts keyed to the cut list (bottom)</text>
+  <text x="490" y="48" text-anchor="middle" class="dlbl">External 40&quot; W × 23&quot; D × 72&quot; H (183 cm — fits under 220 cm) · Baltic birch carcass · all 8 hung, no amps</text>
 
-  <!-- ============ FRONT ELEVATION ============ -->
+  <!-- ============ FRONT ELEVATION ============  scale 4.5 px/in; cabinet x110..290, y90..414 (72in) -->
   <text x="200" y="74" text-anchor="middle" class="ttl">FRONT</text>
-
-  <!-- overall width dim -->
   <line x1="110" y1="84" x2="290" y2="84" class="dim" marker-start="url(#arr)" marker-end="url(#arr)"/>
   <text x="200" y="80" text-anchor="middle" class="dlbl">40&quot;</text>
-  <!-- overall height dim -->
-  <line x1="98" y1="90" x2="98" y2="508.5" class="dim" marker-start="url(#arr)" marker-end="url(#arr)"/>
-  <text x="92" y="300" text-anchor="middle" class="dlbl" transform="rotate(-90 92 300)">93&quot;</text>
+  <line x1="98" y1="90" x2="98" y2="414" class="dim" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="92" y="252" text-anchor="middle" class="dlbl" transform="rotate(-90 92 252)">72&quot; (183 cm)</text>
 
-  <!-- carcass outer -->
-  <rect x="110" y="90" width="180" height="418.5" class="ply"/>
-  <!-- top C -->
+  <rect x="110" y="90" width="180" height="324" class="ply"/>
   <rect x="110" y="90" width="180" height="3.375" class="ply"/>
   <text x="296" y="95" class="part">C</text>
-  <!-- bottom B -->
-  <rect x="110" y="505.125" width="180" height="3.375" class="ply"/>
-  <text x="296" y="510" class="part">B</text>
-  <!-- left/right sides A -->
-  <rect x="110" y="90" width="3.375" height="418.5" class="ply"/>
-  <rect x="286.625" y="90" width="3.375" height="418.5" class="ply"/>
+  <rect x="110" y="410.625" width="180" height="3.375" class="ply"/>
+  <text x="296" y="414" class="part">B</text>
+  <rect x="110" y="90" width="3.375" height="324" class="ply"/>
+  <rect x="286.625" y="90" width="3.375" height="324" class="ply"/>
   <text x="100" y="200" class="part" text-anchor="end">A</text>
-  <text x="300" y="300" class="part">A</text>
-  <!-- divider D -->
-  <rect x="113.375" y="393.75" width="173.25" height="3.375" class="div"/>
-  <text x="296" y="398" class="part">D</text>
-  <!-- hanger F -->
-  <rect x="119" y="105" width="162" height="27" class="frame"/>
-  <text x="200" y="122" text-anchor="middle" class="dlbl">F · hanger board</text>
-  <!-- grommet location (hidden) -->
-  <circle cx="200" cy="395.4" r="6" class="hole"/>
-  <line x1="206" y1="395.4" x2="250" y2="430" class="lead"/>
-  <text x="252" y="434" class="dlbl" fill="#c0392b">Ø2&quot; cable hole (in D)</text>
+  <text x="300" y="240" class="part">A</text>
+  <!-- divider D : top face f=13.5 -> y353.25, thickness 3.375 -->
+  <rect x="113.375" y="353.25" width="173.25" height="3.375" class="div"/>
+  <text x="296" y="358" class="part">D</text>
+  <!-- hanger F near vault top -->
+  <rect x="119" y="100" width="162" height="27" class="frame"/>
+  <text x="200" y="117" text-anchor="middle" class="dlbl">F · hanger board</text>
+  <!-- grommet (hidden) in divider -->
+  <circle cx="200" cy="354.9" r="6" class="hole"/>
+  <line x1="206" y1="354.9" x2="246" y2="335" class="lead"/>
+  <text x="248" y="332" class="dlbl" fill="#c0392b">Ø2&quot; cable hole (in D)</text>
   <!-- zone labels -->
-  <text x="200" y="265" text-anchor="middle" class="zone">SEALED VAULT</text>
-  <text x="200" y="280" text-anchor="middle" class="dlbl">(instruments hang)</text>
-  <text x="200" y="455" text-anchor="middle" class="zone">EQUIPMENT BAY</text>
-  <text x="200" y="470" text-anchor="middle" class="dlbl">(open / vented)</text>
+  <text x="200" y="223" text-anchor="middle" class="zone">SEALED VAULT</text>
+  <text x="200" y="238" text-anchor="middle" class="dlbl">(8 instruments hang, ~58&quot; clear)</text>
+  <text x="200" y="386" text-anchor="middle" class="zone">EQUIPMENT BAY</text>
+  <text x="200" y="400" text-anchor="middle" class="dlbl">(open / vented · 12&quot;)</text>
   <!-- bay height dim -->
-  <line x1="125" y1="397.125" x2="125" y2="505.125" class="dim" marker-start="url(#arr)" marker-end="url(#arr)"/>
-  <text x="130" y="455" class="dlbl">24&quot;</text>
+  <line x1="125" y1="356.625" x2="125" y2="410.625" class="dim" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="130" y="386" class="dlbl">12&quot;</text>
   <!-- divider position note -->
-  <line x1="113.375" y1="395.4" x2="60" y2="395.4" class="dim"/>
-  <text x="58" y="392" text-anchor="end" class="dlbl">divider top</text>
-  <text x="58" y="406" text-anchor="end" class="dlbl">25.5&quot; up</text>
+  <line x1="113.375" y1="354.9" x2="60" y2="354.9" class="dim"/>
+  <text x="58" y="351" text-anchor="end" class="dlbl">divider top</text>
+  <text x="58" y="365" text-anchor="end" class="dlbl">13.5&quot; up</text>
 
-  <!-- ============ SIDE SECTION ============ -->
+  <!-- ============ SIDE SECTION ============ x380..483.5 -->
   <text x="431" y="74" text-anchor="middle" class="ttl">SIDE (section)</text>
-  <!-- depth dim -->
   <line x1="380" y1="84" x2="483.5" y2="84" class="dim" marker-start="url(#arr)" marker-end="url(#arr)"/>
   <text x="431" y="80" text-anchor="middle" class="dlbl">23&quot;</text>
 
-  <rect x="380" y="90" width="103.5" height="418.5" fill="#f4ecda" stroke="#5a4632" stroke-width="1.2"/>
-  <!-- top / bottom -->
+  <rect x="380" y="90" width="103.5" height="324" fill="#f4ecda" stroke="#5a4632" stroke-width="1.2"/>
   <rect x="380" y="90" width="103.5" height="3.375" class="ply"/>
-  <rect x="380" y="505.125" width="103.5" height="3.375" class="ply"/>
-  <!-- back E (right = rear) -->
-  <rect x="481.25" y="90" width="2.25" height="418.5" class="ply"/>
-  <text x="489" y="300" class="part">E</text>
-  <text x="489" y="314" class="dlbl">back ½&quot;</text>
-  <!-- divider D -->
-  <rect x="380" y="393.75" width="101.25" height="3.375" class="div"/>
-  <text x="372" y="392" text-anchor="end" class="part">D</text>
+  <rect x="380" y="410.625" width="103.5" height="3.375" class="ply"/>
+  <rect x="481.25" y="90" width="2.25" height="324" class="ply"/>
+  <text x="489" y="250" class="part">E</text>
+  <text x="489" y="264" class="dlbl">back ½&quot;</text>
+  <rect x="380" y="353.25" width="101.25" height="3.375" class="div"/>
+  <text x="372" y="358" text-anchor="end" class="part">D</text>
   <!-- grommet hole 2.5" from rear -->
-  <circle cx="470" cy="395.4" r="4.5" class="hole"/>
-  <line x1="470" y1="395.4" x2="470" y2="350" class="lead"/>
-  <text x="470" y="346" text-anchor="middle" class="dlbl" fill="#c0392b">Ø2&quot; hole,</text>
-  <text x="470" y="360" text-anchor="middle" class="dlbl" fill="#c0392b">2.5&quot; from rear</text>
-  <!-- front/back labels -->
-  <text x="386" y="500" class="dlbl">front (door)</text>
-  <text x="431" y="265" text-anchor="middle" class="zone">VAULT</text>
-  <text x="431" y="455" text-anchor="middle" class="zone">BAY</text>
+  <circle cx="470" cy="354.9" r="4.5" class="hole"/>
+  <line x1="470" y1="354.9" x2="470" y2="318" class="lead"/>
+  <text x="470" y="314" text-anchor="middle" class="dlbl" fill="#c0392b">Ø2&quot; hole,</text>
+  <text x="470" y="328" text-anchor="middle" class="dlbl" fill="#c0392b">2.5&quot; from rear</text>
+  <text x="386" y="406" class="dlbl">front (door)</text>
+  <text x="431" y="223" text-anchor="middle" class="zone">VAULT</text>
+  <text x="431" y="386" text-anchor="middle" class="zone">BAY</text>
 
-  <!-- ============ DOOR & FACE FRAME ============ -->
+  <!-- ============ DOOR & FACE FRAME ============ x590..770 -->
   <text x="680" y="74" text-anchor="middle" class="ttl">DOOR &amp; FACE FRAME</text>
-
-  <!-- face frame stiles J1 -->
-  <rect x="590" y="90" width="6.75" height="418.5" class="frame"/>
-  <rect x="763.25" y="90" width="6.75" height="418.5" class="frame"/>
-  <text x="578" y="250" text-anchor="end" class="part">J1</text>
-  <!-- face frame rails J2 -->
+  <rect x="590" y="90" width="6.75" height="324" class="frame"/>
+  <rect x="763.25" y="90" width="6.75" height="324" class="frame"/>
+  <text x="578" y="220" text-anchor="end" class="part">J1</text>
   <rect x="596.75" y="90" width="166.5" height="6.75" class="frame"/>
-  <rect x="596.75" y="393.75" width="166.5" height="6.75" class="frame"/>
-  <rect x="596.75" y="501.75" width="166.5" height="6.75" class="frame"/>
+  <rect x="596.75" y="353.25" width="166.5" height="6.75" class="frame"/>
+  <rect x="596.75" y="407.25" width="166.5" height="6.75" class="frame"/>
   <text x="778" y="98" class="part">J2</text>
-  <text x="778" y="400" class="part">J2</text>
-  <text x="778" y="509" class="part">J2</text>
-
-  <!-- vault door: frame G/H + glazing -->
-  <rect x="596.75" y="96.75" width="166.5" height="297" class="frame"/>
-  <rect x="608" y="108" width="144" height="274.5" class="glass"/>
-  <text x="680" y="240" text-anchor="middle" class="dlbl" fill="#1f6b8c">UV glazing</text>
-  <text x="680" y="255" text-anchor="middle" class="dlbl" fill="#1f6b8c">(order separately)</text>
-  <!-- G stile label -->
+  <text x="778" y="360" class="part">J2</text>
+  <text x="778" y="414" class="part">J2</text>
+  <!-- vault door: frame G/H + glazing (vault opening y96.75..353.25) -->
+  <rect x="596.75" y="96.75" width="166.5" height="256.5" class="frame"/>
+  <rect x="608" y="108" width="144" height="234" class="glass"/>
+  <text x="680" y="220" text-anchor="middle" class="dlbl" fill="#1f6b8c">UV glazing</text>
+  <text x="680" y="235" text-anchor="middle" class="dlbl" fill="#1f6b8c">(order separately)</text>
   <line x1="602" y1="200" x2="640" y2="200" class="dim"/>
   <text x="644" y="204" class="part">G</text>
-  <!-- H rail label -->
   <line x1="680" y1="102" x2="680" y2="130" class="dim"/>
   <text x="686" y="120" class="part">H</text>
-  <!-- bay below -->
-  <text x="680" y="455" text-anchor="middle" class="dlbl">equipment bay —</text>
-  <text x="680" y="470" text-anchor="middle" class="dlbl">open / vented (no door)</text>
+  <text x="680" y="386" text-anchor="middle" class="dlbl">equipment bay —</text>
+  <text x="680" y="400" text-anchor="middle" class="dlbl">open / vented (no door)</text>
 
   <!-- ============ LEGEND ============ -->
-  <rect x="40" y="540" width="900" height="218" rx="8" fill="#f9fbfb" stroke="#bdc3c7"/>
+  <rect x="40" y="540" width="900" height="220" rx="8" fill="#f9fbfb" stroke="#bdc3c7"/>
   <text x="56" y="563" class="legh">PARTS LIST  (dimensions in inches; W × H for uprights, W × D for shelves)</text>
 
-  <!-- left column: plywood -->
   <text x="56" y="588" class="legh">Baltic birch plywood — ¾″ (carcass) &amp; ½″ (back)</text>
-  <text x="56" y="610" class="leg">A · Side panel ×2 — 22.5 D × 93 H — ¾″ Baltic birch</text>
+  <text x="56" y="610" class="leg">A · Side panel ×2 — 22.5 D × 72 H — ¾″ Baltic birch</text>
   <text x="56" y="630" class="leg">B · Bottom ×1 — 38.5 W × 22.5 D — ¾″ Baltic birch</text>
   <text x="56" y="650" class="leg">C · Top ×1 — 38.5 W × 22.5 D — ¾″ Baltic birch</text>
   <text x="56" y="670" class="leg">D · Divider / middle shelf ×1 — 38.5 W × 22.5 D — ¾″ Baltic birch</text>
-  <text x="56" y="690" class="leg">E · Back ×1 — 40 W × 93 H — ½″ Baltic birch</text>
+  <text x="56" y="690" class="leg">E · Back ×1 — 40 W × 72 H — ½″ Baltic birch</text>
   <text x="56" y="710" class="leg">F · Hanger board ×1 — 36 W × 6 H — ¾″ Baltic birch</text>
 
-  <!-- right column: solid hardwood + holes -->
   <text x="510" y="588" class="legh">Solid hardwood — cherry / maple / mahogany (door + face frame)</text>
-  <text x="510" y="610" class="leg">G · Door stile ×2 — 2.5 W × 67.75 L</text>
+  <text x="510" y="610" class="leg">G · Door stile ×2 — 2.5 W × 56 L (trim to fit)</text>
   <text x="510" y="630" class="leg">H · Door rail ×2 — 2.5 W × 35 L (trim to fit)</text>
-  <text x="510" y="650" class="leg">J1 · Face-frame stile ×2 — 1.5 W × 93 L</text>
+  <text x="510" y="650" class="leg">J1 · Face-frame stile ×2 — 1.5 W × 72 L</text>
   <text x="510" y="670" class="leg">J2 · Face-frame rail ×3 — 1.5 W × 37 L</text>
   <text x="510" y="698" class="legh" fill="#c0392b">Pre-cut hole</text>
   <text x="510" y="718" class="leg" fill="#c0392b">Ø2″ in Divider D — centered, 2.5″ from rear edge</text>
