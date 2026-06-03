@@ -15,13 +15,13 @@ for 8 instruments, with an open amp section below.
   all 8 instruments hung, no amps (~72″ tall). Includes a shortlist of real products and
   a buyer's checklist.
 - **[`cabinet-3d.html`](cabinet-3d.html)** — interactive 3D walkthrough of the
-  **from-scratch Baltic-birch build** (40 × 23 × 72 in / 183 cm — fits under 220 cm):
-  all 8 instruments hung (edge-out), a sealed vault over a vented 12-in equipment
-  bay (**no amps**), divider shelf, humidifier/dehumidifier, circulation fans,
-  controllers, sensor, the full **power &amp; cabling** layer (GFCI strip, sealed
-  grommet, back raceway, drip-looped cable runs, wall outlet), optional
-  Spanish-cedar lining, and glass vault door. Pairs with the cut diagram
-  (`cabinet-cut-diagram.svg`).
+  **from-scratch Baltic-birch build** (40 × 23 × 85 in / 216 cm — fits under
+  86.3 in / 220 cm): all 8 instruments hung (edge-out) in a sealed vault over an
+  open, vented **24-in amp zone** with the two Orange combos, divider shelf,
+  humidifier/dehumidifier, circulation fans, controllers, sensor, the full
+  **power &amp; cabling** layer (GFCI strip, sealed grommet, back raceway,
+  drip-looped cable runs, wall outlet), optional Spanish-cedar lining, and glass
+  vault door. Pairs with the cut diagram (`cabinet-cut-diagram.svg`).
 - **[`cabinet-3d-metod.html`](cabinet-3d-metod.html)** — alternate **IKEA METOD
   60×60×220 cm** build: a narrower, pure sealed vault for just the 3
   humidity-sensitive acoustics (Oud, Taylor GS Mini Bass, slim Martin), with a

@@ -91,13 +91,13 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 
 try {
-//// ---- Cabinet constants (inches) ----  Baltic birch carcass, all 8 hung, no amps
-const EXT_W = 40, EXT_D = 23, EXT_H = 72, WALL = 0.75;   // ¾" Baltic birch (½" back); 72" = 183 cm, fits under 220 cm
+//// ---- Cabinet constants (inches) ----  Baltic birch carcass, 8 hung + 2 combo amps
+const EXT_W = 40, EXT_D = 23, EXT_H = 85, WALL = 0.75;   // ¾" Baltic birch (½" back); 85" = 216 cm, fits under 86.3"/220 cm
 const INT_W = EXT_W - 2*WALL;            // 38.5
 const INT_D = EXT_D - 2*WALL;            // 21.5
-const BAY_H = 12;                        // vented equipment-bay interior height (controllers + power, no amps)
+const AMP_H = 24;                        // open amp-zone interior height (two combo amps)
 const SHELF_T = 0.75;
-const SHELF_TOP = BAY_H + SHELF_T;       // 12.75 — vault floor (top face of divider)
+const SHELF_TOP = AMP_H + SHELF_T;       // 24.75 — vault floor (top face of divider)
 const FRONT_Z = EXT_D/2 - WALL;          // interior front face z
 const BACK_Z  = -(EXT_D/2 - WALL);
 
@@ -120,7 +120,7 @@ scene.background = new THREE.Color(0x11171b);
 scene.fog = new THREE.Fog(0x11171b, 220, 420);
 
 const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 1, 2000);
-const CAM0 = new THREE.Vector3(54, 46, 68), TGT0 = new THREE.Vector3(0, 34, 0);
+const CAM0 = new THREE.Vector3(58, 54, 74), TGT0 = new THREE.Vector3(0, 40, 0);
 camera.position.copy(CAM0);
 
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -182,13 +182,13 @@ function info(obj, title, lines) { obj.userData.info = { title, lines }; return 
 
 // shared summary shown when hovering any part of the cabinet frame
 const CABINET_INFO = [
-  'External: 40 × 23 × 72 in  (W × D × H)',
-  'External (mm): 1016 × 584 × 1829  (fits under 220 cm)',
+  'External: 40 × 23 × 85 in  (W × D × H)',
+  'External (mm): 1016 × 584 × 2159  (fits under 86.3 in / 220 cm)',
   'Internal: 38.5 W × 21.5 D in',
   'Carcass: ¾ in Baltic birch · ½ in back',
-  'Equipment bay: 38.5 × 21.5 × 12 in (open / vented)',
-  'Vault: 38.5 × 21.5 × ~58.5 in (sealed)',
-  'All 8 instruments hung · no amps',
+  'Amp zone: 38.5 × 21.5 × 24 in (open / vented)',
+  'Vault: 38.5 × 21.5 × ~58.75 in (sealed)',
+  '8 instruments hung + 2 combo amps',
 ];
 
 //// ---- Cabinet shell ----
@@ -205,17 +205,17 @@ wallPanels.push(panel(WALL, EXT_H, EXT_D,  (EXT_W/2-WALL/2), EXT_H/2, 0, wallMat
 wallPanels.push(panel(EXT_W, EXT_H, WALL, 0, EXT_H/2, -(EXT_D/2-WALL/2), wallMat)); // back
 const botP = panel(EXT_W, WALL, EXT_D, 0, WALL/2, 0, solidMat);                 // bottom
 const topP = panel(EXT_W, WALL, EXT_D, 0, EXT_H-WALL/2, 0, solidMat);           // top
-const shelf = panel(EXT_W-0.2, SHELF_T, EXT_D-0.2, 0, BAY_H+SHELF_T/2, 0, solidMat); // divider
+const shelf = panel(EXT_W-0.2, SHELF_T, EXT_D-0.2, 0, AMP_H+SHELF_T/2, 0, solidMat); // divider
 addLabel(shelf, 'Sealed divider shelf (vault floor)', 0, 2, FRONT_Z-2, 'gear');
 
 // hover info for the cabinet frame (the priority part)
 wallPanels.forEach(p => info(p, 'Baltic birch carcass', CABINET_INFO));
 info(topP, 'Top panel', ['38.5 W × 22.5 D × ¾ in Baltic birch', ...CABINET_INFO]);
 info(botP, 'Bottom panel', ['38.5 W × 22.5 D × ¾ in Baltic birch', ...CABINET_INFO]);
-info(shelf, 'Divider shelf (bay ↔ vault)', [
+info(shelf, 'Divider shelf (amp ↔ vault)', [
   '38.5 W × 22.5 D × ¾ in Baltic birch',
-  'Caulk all joints airtight',
-  'Ø2 in sealed cable grommet, 2.5 in from rear',
+  'Caulk airtight; Ø2 in grommet, 2.5 in from rear',
+  'Optional foil/foam thermal break underneath',
 ]);
 
 // crisp outer outline
@@ -227,7 +227,7 @@ cabinet.add(edges);
 
 // zone labels
 addLabel(cabinet, 'GUITAR VAULT  (45–50% RH, 68–75°F)', 0, EXT_H-5, FRONT_Z, 'gear');
-addLabel(cabinet, 'EQUIPMENT BAY (vented — controllers + power)', 0, 6, FRONT_Z, 'gear');
+addLabel(cabinet, 'OPEN AMP ZONE (two combo amps · vents heat)', 0, 11, FRONT_Z, 'gear');
 
 //// ---- Spanish cedar lining (toggle) ----
 const cedarGroup = new THREE.Group(); cabinet.add(cedarGroup);
@@ -340,7 +340,7 @@ const instruments = [
 // place along width; row centered. small 2-level stagger for easy access + clear view
 const rowW = instruments.reduce((s,i)=>s+i.slot, 0);   // 36.5
 let cur = -rowW/2;
-const levels = [68, 64];   // hang near vault top; longest (45") clears the divider with airflow below
+const levels = [80, 76];   // hang near vault top; longest (45") clears the divider with airflow below
 instruments.forEach((d, i) => {
   const made = makeInstrument(d);
   const xc = cur + d.slot/2; cur += d.slot;
@@ -351,7 +351,7 @@ instruments.forEach((d, i) => {
 
 // back mounting board the hangers screw into
 const rail = box(rowW + 2, 4, 0.75, std(0x9c7b4f, { r:0.8 }));
-rail.position.set(0, 69, BACK_Z + 1.2);
+rail.position.set(0, 81, BACK_Z + 1.2);
 instrGroup.add(rail);
 addLabel(rail, 'Plywood hanger board → frame (not particleboard)', 0, 4, 2, 'gear');
 info(rail, 'Plywood hanger board', [`~${Math.round(rowW+2)} W × 4 H × 0.75 in`, 'Carries all 8 instruments', 'Bolt/French-cleat to frame — not particleboard']);
@@ -375,7 +375,31 @@ function cable(pts, radius = 0.18, mat = cableMat) {
   m.castShadow = true; cableGroup.add(m); return m;
 }
 
-// No amps in this build — the lower zone is a vented equipment bay only.
+// Two Orange amps side by side in the open bottom zone.
+const ampMat = std(0xe67e22, { r:0.55 });
+const grilleMat = std(0x161616, { r:0.9 });
+function orangeAmp(w, h, d, x, label, color, note) {
+  const a = box(w, h, d, ampMat);
+  a.position.set(x, WALL + h/2, -0.5);
+  const gr = box(w*0.86, h*0.74, 0.4, grilleMat);
+  gr.position.set(0, -h*0.06, d/2 + 0.1); a.add(gr);
+  // little top control panel strip
+  const top = box(w*0.9, 0.5, d*0.7, std(0x121212, { r:0.7 }));
+  top.position.set(0, h/2 + 0.26, -d*0.05); a.add(top);
+  gear(label, color, a, 0, h/2 + 2, 0, [`${w} W × ${h} H × ${d} D in`, note]);
+  return a;
+}
+// Orange Rocker 15 — 15W TUBE guitar combo (runs hot, but only on briefly here)
+orangeAmp(18.5, 16.14, 10.24, -9.0, 'Orange Rocker 15 (15W tube)', 0xe67e22, '15W tube combo, 1×10 — heats up, but used only briefly');
+// Orange Crush Bass 50 — 50W solid-state bass combo (cooler); taller
+orangeAmp(16.92, 19.09, 10.83, 9.5, 'Orange Crush Bass 50 (50W solid-state)', 0xf39c12, '50W solid-state, 1×12 — runs cool');
+legendGear.push({ name:'Orange amps ×2 (tube + solid-state)', color:0xe67e22 });
+
+// pedalboard lies flat on the floor in front of the amps
+const pedalboard = box(28, 1, 6, std(0x2b2b2b, { r:0.8 }));
+pedalboard.position.set(0, WALL + 0.6, 7.8);
+[0x27ae60,0x2980b9,0xc0392b,0xf1c40f,0x8e44ad].forEach((c,k)=>{ const p = box(2.4,1.6,2.6,std(c,{r:0.5})); p.position.set(-9+k*4.5,1.3,0); pedalboard.add(p); });
+gear('Pedalboard', 0x2b2b2b, pedalboard, 0, 3.5, 0, ['~28 W × 6 D in on the floor', 'In front of the amps']);
 
 // humidifier + dehumidifier on the divider shelf (corner)
 const humid = box(4.5, 7, 6, std(0xecf0f1, { r:0.4 }));
@@ -385,9 +409,9 @@ const dehum = box(5.5, 7, 6, std(0x8a949a, { r:0.5, m:0.2 }));
 dehum.position.set(-9, SHELF_TOP + 3.5, -6);
 gear('Peltier dehumidifier', 0x8a949a, dehum, 0, 6.5, 0, ['~5.5 × 6 × 7 in', 'External drain tube']);
 
-// dehumidifier drain tube → bottle in the equipment bay (passes through the divider)
-const drain = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 12, 8), std(0x3aa0c0, { r:0.4 }));
-drain.position.set(-9, 10, -8); gearGroup.add(drain);
+// dehumidifier drain tube → bottle in the amp zone (passes through the divider)
+const drain = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, SHELF_TOP - 5, 8), std(0x3aa0c0, { r:0.4 }));
+drain.position.set(-9, (SHELF_TOP + 5)/2 + 1, -8); gearGroup.add(drain);
 const bottle = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 4, 16), std(0x4aa3c4, { t:true, o:0.5, r:0.2 }));
 bottle.position.set(-9, WALL + 2, -8); gear('Drain bottle', 0x4aa3c4, bottle, 0, 3, 0, ['Collects dehumidifier runoff', 'Empty or plumb to a drain']);
 
@@ -410,24 +434,24 @@ legendGear.push({ name:'120 mm circulation fans ×2', color:0x7f8c8d });
 
 // independent sensor puck inside vault
 const sensor = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 0.7, 18), std(0xffffff, { r:0.3 }));
-sensor.rotation.z = Math.PI/2; sensor.position.set(INT_W/2 - 1.2, 44, 4);
+sensor.rotation.z = Math.PI/2; sensor.position.set(INT_W/2 - 1.2, 54, 4);
 gear('Logging sensor + alerts', 0xffffff, sensor, 0, 3, 0, ['Independent RH/temp logger', 'Salt-calibrate; set high/low alarms']);
 
-// Controllers live in the vented equipment bay (outside the sealed vault): displays
+// Controllers live in the OPEN amp zone (outside the sealed vault): displays
 // face front, short probe runs go up through the divider grommet, devices plug into them.
-const GROM = [-2, 12.375, -7];                 // sealed cable pass-through in the divider
+const GROM = [-2, 24.375, -7];                 // sealed cable pass-through in the divider
 function controller(name, x, color, probeTo) {
   const c = box(3.4, 4.6, 1.4, std(0x16191c, { r:0.6 }));
-  c.position.set(x, 7, BACK_Z + 1.0);
+  c.position.set(x, 15, BACK_Z + 1.0);
   const screen = box(2.4, 1.5, 0.2, std(color, { r:0.2, m:0.1 }));
   screen.position.set(0, 0.8, 0.8); c.add(screen);
-  gear(name, color, c, 0, 3.2, 0, ['In the vented equipment bay (outside the vault)', 'Switched outlet powers its device', 'Probe up through sealed grommet']);
+  gear(name, color, c, 0, 3.2, 0, ['In the open amp zone (outside the vault)', 'Switched outlet powers its device', 'Probe up through sealed grommet']);
   // sensing probe: controller → up through grommet → into the vault
-  cable([[x, 9.3, BACK_Z + 1.0], [x, 11.5, -8], GROM, [GROM[0], 15, -7], probeTo], 0.12);
+  cable([[x, 17, BACK_Z + 1.0], [x, 21, -8], GROM, [GROM[0], 26, -7], probeTo], 0.12);
   return c;
 }
-controller('Inkbird IHC-200 (humidity)',     8.5, 0x27ae60, [-1, 44, -6]);
-controller('Inkbird ITC-308 (temp / alarm)', 13,  0xe67e22, [3, 38, -6]);
+controller('Inkbird IHC-200 (humidity)',     8.5, 0x27ae60, [-1, 54, -6]);
+controller('Inkbird ITC-308 (temp / alarm)', 13,  0xe67e22, [3, 48, -6]);
 
 //// ---- Power & cable management (toggle layer) ----
 // sealed cable pass-through grommet in the divider
@@ -459,18 +483,20 @@ info(usb, 'USB power adapter', ['Powers both 120 mm fans', 'Plugs into the strip
 
 // GFCI wall outlet behind the cabinet
 const outlet = box(5, 5, 0.4, std(0xeaeef0, { r:0.6 }));
-outlet.position.set(-7, 9, BACK_Z - 3.2); cableGroup.add(outlet);
+outlet.position.set(-7, 16, BACK_Z - 3.2); cableGroup.add(outlet);
 addLabel(outlet, 'To GFCI wall outlet', 0, 4, 0, 'gear');
 info(outlet, 'GFCI wall outlet', ['Cabinet plugs into a GFCI receptacle', 'One cord leaves the cabinet — at the back']);
 
 // --- cable runs ---
-cable([[-7,7,BACK_Z+0.6],[-7,8,BACK_Z-1.0],[-7,9,BACK_Z-2.8]], 0.22);                                 // mains → wall
-cable([[-14.5,16,-6],[-7,14,-7],GROM,[GROM[0],11,-8],[8.5,9.3,BACK_Z+1.0]]);                           // humidifier → IHC-200
-cable([[-9,16,-6],[-5,14,-7.2],GROM,[GROM[0],11,-8.2],[8.2,9.2,BACK_Z+1.0]]);                          // dehumidifier → IHC-200
-cable([[11,17,0],[3,15,-8.5],[GROM[0],14,-9],GROM,[GROM[0],10,-8],[3,7,BACK_Z+1.1]]);                  // lower fan → USB
-cable([[-11,68,0],[-3,66,-9.2],[GROM[0],40,-9.4],[GROM[0],14,-9.4],GROM,[GROM[0],10,-8.4],[3,7.2,BACK_Z+1.1]]);  // upper fan → USB
-cable([[8.5,5,BACK_Z+1.0],[2,5.5,BACK_Z+1.1],[-1,6,BACK_Z+1.2]], 0.14);                               // IHC-200 power
-cable([[13,5,BACK_Z+1.0],[5,5.5,BACK_Z+1.1],[-0.5,6,BACK_Z+1.2]], 0.14);                               // ITC-308 power
+cable([[-7,7,BACK_Z+0.6],[-7,10,BACK_Z-1.0],[-7,14,BACK_Z-2.8]], 0.22);                               // mains → wall
+cable([[-14.5,28,-6],[-7,28,-7],GROM,[GROM[0],22.4,-7.2],[GROM[0],23.6,-9],[8.5,17.5,BACK_Z+1.0]]);   // humidifier → IHC-200
+cable([[-9,28,-6],[-5,28,-7.2],GROM,[GROM[0],22.5,-6.8],[GROM[0],23.5,-9.2],[8.2,17.2,BACK_Z+1.0]]);  // dehumidifier → IHC-200
+cable([[11,27.75,0],[3,29,-8.5],[GROM[0],30,-9.4],[GROM[0],26,-7.6],GROM,[GROM[0],22.6,-8],[3,8.2,BACK_Z+1.1]]);  // lower fan → USB
+cable([[-11,81,0],[-3,79,-9.2],[GROM[0],70,-9.4],[GROM[0],28,-9.4],GROM,[GROM[0],22.7,-8.4],[3,8.6,BACK_Z+1.1]]); // upper fan → USB
+cable([[8.5,12.4,BACK_Z+1.0],[2,9,BACK_Z+1.1],[-1,7.6,BACK_Z+1.2]], 0.14);                            // IHC-200 power
+cable([[13,12.4,BACK_Z+1.0],[5,9.2,BACK_Z+1.1],[-0.5,7.7,BACK_Z+1.2]], 0.14);                          // ITC-308 power
+cable([[-9,2,-5],[-9,4,BACK_Z+2],[-7.5,7,BACK_Z+1.1]], 0.2);                                          // Rocker 15 → strip
+cable([[9.5,2,-5.2],[2,4,BACK_Z+2],[-5,7,BACK_Z+1.1]], 0.2);                                          // Crush Bass → strip
 legendGear.push({ name:'GFCI strip, raceway & cabling', color:0x1c1c1c });
 
 //// ---- Legend DOM ----
