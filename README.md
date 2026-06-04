@@ -1,7 +1,9 @@
 # Humidity- and Temperature-Controlled Guitar Cabinet
 
-A DIY plan to convert the tallest IKEA PAX frame into a climate-controlled "vault"
-for 8 instruments, with an open amp section below.
+A DIY plan for a climate-controlled "vault" that holds 8 instruments in a sealed
+upper compartment over an open amp section below — built from scratch in Baltic
+birch with a cherry frame and a tempered-glass door (40 × 23 × 85 in / 216 cm,
+fits under an 86.3 in / 220 cm ceiling).
 
 - **[`guitar-cabinet-plan.html`](guitar-cabinet-plan.html)** — the full measurement
   and climate plan (open it in a browser).
@@ -44,6 +46,24 @@ python3 build-3d.py
 
 This inlines the `vendor/` Three.js modules as data-URL imports so the output
 stays a single self-contained file that opens over `file://` without CORS errors.
+
+## Current build decisions (latest)
+
+The from-scratch Baltic-birch build is the chosen path. Locked-in choices:
+
+- **Size:** 40 × 23 × **85 in** (216 cm) external — clears an 86.3 in / 220 cm
+  ceiling by ~1.3 in. ¾ in Baltic-birch carcass, ½ in back.
+- **Layout:** sealed vault (~58.75 in clear) on top over an **open, vented 24 in
+  amp zone** holding the two Orange combos + pedalboard.
+- **Frame:** solid **cherry** — 1×2 face frame, 1×3 vault door frame.
+- **Glazing:** ~37 × 52 in **clear tempered glass, pencil-polished edges**
+  (~$384), set on foam glazing tape. UV-filtering only if it sits in direct sun.
+- **Controls:** one **AC Infinity Controller 79** (the outlet model) runs the
+  circulation fans *and* switches the humidifier + dehumidifier from a single
+  unit — it replaces the two Inkbird boxes. (The 69 Pro can't: no AC outlets.)
+- **Lumber order:** Baltic birch + cherry are cut to the `diy-build-guide.html`
+  §3 list by a hardwood dealer, including the Ø2 in divider grommet hole.
+- **Thermal break** under the divider is **optional** (amps only run briefly).
 
 ## What changed in Revision 2
 
