@@ -5,6 +5,13 @@ upper compartment over an open amp section below — built from scratch in Balti
 birch with a cherry frame and a tempered-glass door (40 × 23 × 85 in / 216 cm,
 fits under an 86.3 in / 220 cm ceiling).
 
+- **[`guitar-cabinet-PRD.pdf`](guitar-cabinet-PRD.pdf)** — the **full Product
+  Requirements Document** (also `guitar-cabinet-PRD.html`): finalized "ultimate"
+  setup with pros/cons, specifications, system architecture, a complete
+  **bill of materials** (frame, glass, hinges, latches, hangers, cedar, climate
+  gear, cabling) with cost estimates, cut list, build sequence, control logic,
+  and acceptance criteria — with rendered build and parts images.
+
 - **[`guitar-cabinet-plan.html`](guitar-cabinet-plan.html)** — the full measurement
   and climate plan (open it in a browser).
 - **[`diy-build-guide.html`](diy-build-guide.html)** — build the **wide cabinet from

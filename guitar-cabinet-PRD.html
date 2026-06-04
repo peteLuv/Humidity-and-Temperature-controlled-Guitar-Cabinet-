@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Climate Guitar Cabinet — Product Requirements Document</title>
+<style>
+  @page { size: Letter; margin: 14mm 14mm 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; color: #25323d; font-size: 11px; line-height: 1.5; margin: 0; }
+  h1 { font-size: 30px; margin: 0 0 4px; color: #1f2d3a; letter-spacing: -0.5px; }
+  h2 { font-size: 18px; color: #fff; background: #d35400; padding: 7px 12px; border-radius: 5px; margin: 0 0 12px; }
+  h3 { font-size: 13.5px; color: #b1450a; margin: 16px 0 6px; }
+  p { margin: 0 0 8px; }
+  .section { page-break-before: always; padding-top: 2px; }
+  .muted { color: #6b7a87; }
+  .lead { font-size: 12px; color: #41525f; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 12px; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid #e3e9ed; vertical-align: top; }
+  th { background: #f3f6f8; color: #34495e; font-size: 10px; text-transform: uppercase; letter-spacing: 0.4px; }
+  td.r, th.r { text-align: right; white-space: nowrap; }
+  tr.sub td { background: #faf6f2; font-weight: bold; color: #8a3d08; }
+  tr.tot td { background: #fdeee2; font-weight: bold; font-size: 12px; }
+  .grid2 { display: flex; gap: 14px; }
+  .grid2 > div { flex: 1; }
+  .box { border: 1px solid #e3e9ed; border-radius: 7px; padding: 10px 12px; margin: 0 0 10px; background: #fbfcfd; }
+  .pro { border-left: 4px solid #27ae60; }
+  .con { border-left: 4px solid #e67e22; }
+  .warn { border-left: 4px solid #c0392b; background: #fdf3f2; }
+  ul { margin: 4px 0 8px; padding-left: 18px; }
+  li { margin: 2px 0; }
+  img { max-width: 100%; border-radius: 6px; border: 1px solid #e3e9ed; }
+  .cap { font-size: 9.5px; color: #6b7a87; margin: 3px 0 12px; text-align: center; }
+  .spec { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; }
+  .spec div { border-bottom: 1px dotted #d7dee3; padding: 3px 0; font-size: 11px; }
+  .spec b { color: #1f2d3a; }
+  .kpi { display: flex; gap: 10px; margin: 14px 0; }
+  .kpi div { flex: 1; background: #1f2d3a; color: #fff; border-radius: 7px; padding: 10px 12px; }
+  .kpi .n { font-size: 19px; font-weight: bold; color: #ffb37a; }
+  .kpi .l { font-size: 9.5px; color: #c7d2db; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tag { display: inline-block; background: #eef3f6; color: #41525f; border-radius: 4px; padding: 1px 7px; font-size: 9.5px; margin-right: 4px; }
+  .cover { height: 247mm; display: flex; flex-direction: column; }
+  .coverhero { flex: 1; display: flex; gap: 16px; align-items: stretch; margin-top: 10px; }
+  .coverhero img { object-fit: contain; }
+  footer { position: fixed; bottom: 4mm; left: 14mm; right: 14mm; font-size: 8.5px; color: #9aa7b1; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<!-- ============================= COVER ============================= -->
+<div class="cover">
+  <div style="border-bottom:3px solid #d35400; padding-bottom:10px;">
+    <div class="tag">PRODUCT REQUIREMENTS DOCUMENT</div>
+    <div class="tag">Rev 3</div>
+    <div class="tag">2026-06-04</div>
+    <h1 style="margin-top:10px;">Climate-Controlled Guitar Cabinet</h1>
+    <div class="lead">A sealed, humidity-regulated display vault for 8 instruments over an open, vented amp zone — built from scratch in Baltic birch with a cherry frame and a tempered-glass door.</div>
+  </div>
+
+  <div class="kpi">
+    <div><div class="n">40 × 23 × 85″</div><div class="l">External (216 cm · fits &lt; 220)</div></div>
+    <div><div class="n">45–50%</div><div class="l">Target vault RH</div></div>
+    <div><div class="n">8 + 2</div><div class="l">Instruments hung + combo amps</div></div>
+    <div><div class="n">~$2,100</div><div class="l">+ $384 glass · est. materials</div></div>
+  </div>
+
+  <div class="coverhero">
+    <div style="flex:1.15; display:flex; align-items:center;"><img src="cabinet-render-cutaway.png" alt="cutaway render"></div>
+    <div style="flex:1; display:flex; flex-direction:column;">
+      <img src="cabinet-render-finished.png" alt="finished render" style="flex:1; object-fit:contain;">
+    </div>
+  </div>
+  <div class="cap">Left: cutaway showing the sealed vault (8 hung instruments, climate gear on the divider) over the open amp zone (two Orange combos + pedalboard). Right: finished cabinet, guitars behind the tempered-glass vault door.</div>
+
+  <div class="muted" style="font-size:9.5px; border-top:1px solid #e3e9ed; padding-top:6px;">
+    Companion files: <b>cabinet-3d.html</b> (interactive 3D) · <b>cabinet-cut-diagram.svg</b> (cut sheet) · <b>diy-build-guide.html</b> (step-by-step) · <b>guitar-cabinet-plan.html</b> (climate/electrical master plan).
+  </div>
+</div>
+
+<!-- ============================= 1. OVERVIEW ============================= -->
+<div class="section">
+  <h2>1 · Overview &amp; Goals</h2>
+  <p class="lead">Store and display a collection of 8 instruments in a stable, controlled micro-climate while keeping two combo amps and a pedalboard close at hand — in a single floor-standing cabinet that fits a normal room.</p>
+
+  <h3>Problem</h3>
+  <p>Instruments — especially acoustics with nitrocellulose finishes — are damaged by low humidity (cracking, fret sprout), high humidity (swelling, glue failure, finish hazing), and rapid swings. A normal cabinet does nothing to regulate this. The amps generate heat and must <em>not</em> share sealed air with the instruments.</p>
+
+  <h3>Solution</h3>
+  <p>A two-zone cabinet: a <b>sealed, cedar-lined upper vault</b> holding all 8 instruments at 45–50% RH, sitting above an <b>open, vented lower amp zone</b> that lets amp heat escape to the room. A single smart controller manages humidity and air circulation and raises alarms; temperature is left to the room (which already sits in range) and watched, not actively driven.</p>
+
+  <h3>Goals &amp; non-goals</h3>
+  <div class="grid2">
+    <div class="box pro"><b>Goals</b>
+      <ul>
+        <li>Hold vault at <b>45–50% RH</b>, ±5%, year-round.</li>
+        <li>Damp temperature swings; keep within a safe band.</li>
+        <li>Display all 8 instruments, visible behind glass.</li>
+        <li>Instrument-safe materials and air (low off-gassing).</li>
+        <li>Remote visibility + alerts when out of band.</li>
+        <li>Fit under an 86.3″ / 220 cm ceiling; be tip-safe.</li>
+      </ul>
+    </div>
+    <div class="box con"><b>Non-goals</b>
+      <ul>
+        <li><b>Active cooling</b> — impractical in a sealed wooden box; relies on room ambient.</li>
+        <li>Climate control of the <b>amp zone</b> — deliberately open/vented.</li>
+        <li>Storing the 4 electrics' cases inside — hard cases live elsewhere.</li>
+        <li>A furniture-grade finish spec — covered separately.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= 2. RECOMMENDED SETUP ============================= -->
+<div class="section">
+  <h2>2 · Recommended (“Ultimate”) Setup</h2>
+  <p class="lead">The configuration below is the recommendation after weighing cost, reliability, instrument safety, and control quality.</p>
+
+  <table>
+    <tr><th style="width:26%">Subsystem</th><th>Decision</th><th style="width:32%">Why this over the alternative</th></tr>
+    <tr><td><b>Shell</b></td><td>From-scratch <b>Baltic-birch</b> carcass (¾″ sides/shelves, ½″ back), <b>85″</b> tall</td><td>Plywood is more dimensionally stable than solid wood and far better than a PAX/particleboard frame; 85″ clears the ceiling with margin.</td></tr>
+    <tr><td><b>Frame &amp; door</b></td><td>Solid <b>cherry</b> face + door frame; <b>clear tempered, pencil-polished</b> glass (~37×52)</td><td>Tempered breaks safe and resists the seamed-edge weakness; pencil-polished edge has no defects. Clear over UV since it sits out of direct sun.</td></tr>
+    <tr><td><b>Seal</b></td><td><b>EPDM gasket + 3 draw latches</b> + piano hinge; airtight caulked seams; cedar lining</td><td>A compression seal + cedar buffering is what makes a <em>vault</em>; magnetic catches can't hold an air seal.</td></tr>
+    <tr><td><b>Humidity</b></td><td><b>Cool-mist humidifier</b> + <b>mini dehumidifier</b>, both on controller outlets</td><td>Cool-mist keeps humidity and temperature decoupled (warm-mist would add heat). Two-way control covers dry winters and humid summers.</td></tr>
+    <tr><td><b>Control</b></td><td><b>AC Infinity Controller 79</b> (outlet model) + independent remote monitor</td><td>One unit runs fans (variable speed) + switches humidifier/dehumidifier + logs + alarms. The 69 Pro has no AC outlets; two Inkbirds can't vary fan speed or log.</td></tr>
+    <tr><td><b>Temperature</b></td><td><b>No active control</b> — alarm only</td><td>Room sits at 15–25 °C, already in range; the box's thermal mass damps swings. Heating/cooling adds complexity and condensation risk for no benefit.</td></tr>
+    <tr><td><b>Air</b></td><td>Two <b>120 mm variable fans</b> (upper + lower vault)</td><td>Even RH/temp, no stratification; variable speed is gentle and quiet vs. on/off.</td></tr>
+  </table>
+
+  <div class="grid2">
+    <div class="box pro"><b>Why this is the right call (pros)</b>
+      <ul>
+        <li>Controls the variable that actually matters — <b>humidity</b> — accurately, with a single-brain deadband (no fighting).</li>
+        <li><b>Remote alarms + logging</b>: you're told before damage happens.</li>
+        <li><b>Instrument-safe</b> throughout: Baltic birch, Spanish cedar, low-VOC finish, neutral-cure silicone, distilled-water mist.</li>
+        <li><b>Display-grade</b> and <b>safe</b>: tempered glass, anchored anti-tip, GFCI power.</li>
+        <li>Consolidated wiring; fewer boxes than a multi-Inkbird rig.</li>
+      </ul>
+    </div>
+    <div class="box con"><b>Trade-offs (cons) &amp; mitigations</b>
+      <ul>
+        <li><b>DIY effort/skill</b>, esp. the airtight door → patient gasket fit + leak check.</li>
+        <li><b>Up-front cost</b> (~$2,100 + glass) → most is the shell + glass, both one-time.</li>
+        <li><b>App/firmware dependency</b> for logging → independent SensorPush-type monitor as a second, separate alarm; cedar buffers passively if power drops.</li>
+        <li><b>No active cooling</b> → acceptable indoors; high-temp alarm + room AC cover the hot edge.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box warn"><b>Critical requirement:</b> the door <b>seal</b> is the make-or-break. If it leaks, the controllers chase the room all day and never hold setpoint. Budget time for gasket fit, latch tension, and an empty leak/burn-in test before any instrument goes in.</div>
+</div>
+
+<!-- ============================= 3. SPECIFICATIONS ============================= -->
+<div class="section">
+  <h2>3 · Specifications</h2>
+  <h3>Dimensions &amp; zones</h3>
+  <div class="spec">
+    <div><b>External</b> 40 W × 23 D × 85 H in (1016 × 584 × 2159 mm)</div>
+    <div><b>Ceiling clearance</b> fits under 86.3″ / 220 cm (~1.3″ spare)</div>
+    <div><b>Internal</b> 38.5 W × 22 D in</div>
+    <div><b>Carcass</b> ¾″ Baltic birch · ½″ back</div>
+    <div><b>Amp zone (open/vented)</b> 38.5 × 22 × 24 in</div>
+    <div><b>Vault (sealed)</b> 38.5 × 22 × ~58.75 in</div>
+    <div><b>Divider top</b> 25.5″ from floor</div>
+    <div><b>Cable pass-through</b> Ø2″ grommet in divider, 2.5″ from rear</div>
+  </div>
+
+  <h3>Environment targets</h3>
+  <div class="spec">
+    <div><b>Vault RH setpoint</b> 45–50% (±5% control band)</div>
+    <div><b>Temperature</b> 15–25 °C ambient — in range, alarm-only</div>
+    <div><b>Humidify trigger</b> RH below band → humidifier outlet</div>
+    <div><b>Dehumidify trigger</b> RH above band → dehumidifier outlet</div>
+    <div><b>Deadband</b> setpoints separated so devices never fight</div>
+    <div><b>Alarms</b> RH or temp out-of-band → app + independent monitor</div>
+  </div>
+
+  <h3>Contents (8 instruments + amps)</h3>
+  <p class="muted">Hung edge-out in the vault: Egyptian Oud, Taylor GS Mini Bass, slim Martin acoustic, Fender Stratocaster, Schecter C-1 Platinum, Music Man Bass, 1980 Rickenbacker 4003, Martin Backpacker. Amp zone: Orange Rocker 15 (15 W tube) + Orange Crush Bass 50 (50 W solid-state) + pedalboard.</p>
+  <div class="box warn" style="font-size:10px;"><b>Verify before cutting wood:</b> all instrument dimensions are estimates — measure your own (especially headstock widths and the longest instrument) to confirm the hanging layout and vault clearance.</div>
+</div>
+
+<!-- ============================= 4. ARCHITECTURE ============================= -->
+<div class="section">
+  <h2>4 · System Architecture</h2>
+  <img src="cabinet-render-systemmap.png" alt="system map">
+  <div class="cap">Labeled system map (from the interactive 3D model). Sealed vault on top; open amp zone below; all climate &amp; electrical gear lives in the vented amp zone, outside the sealed air, with sensing probes passing up through a single sealed grommet.</div>
+
+  <h3>Operating principle</h3>
+  <ul>
+    <li><b>Two thermally/▒air-separated zones.</b> The ¾″ divider is caulked airtight — it is the vault floor. Everything below it is open to the room.</li>
+    <li><b>Gear stays out of the sealed air.</b> Controller, humidifier, dehumidifier, power strip all sit in the amp zone; only thin probes and mist/air routes cross the divider through the sealed grommet (with a drip loop).</li>
+    <li><b>Closed-loop humidity.</b> The controller reads vault RH and switches the humidifier or dehumidifier outlet to hold the band, while the two fans keep the vault air mixed.</li>
+    <li><b>Temperature is observed, not driven.</b> A high/low alarm is the only temperature action.</li>
+    <li><b>Independent watchdog.</b> A separate battery monitor logs RH/temp and alarms even if the main controller fails.</li>
+  </ul>
+</div>
+
+<!-- ============================= 5. BOM ============================= -->
+<div class="section">
+  <h2>5 · Bill of Materials</h2>
+  <img src="cabinet-parts-bom.png" alt="visual parts list">
+  <div class="cap">Visual parts list. Detailed quantities, specs, and estimated costs below.</div>
+
+  <table>
+    <tr><th style="width:30%">Item</th><th>Spec / notes</th><th class="r">Qty</th><th class="r">Est. cost</th></tr>
+
+    <tr class="sub"><td colspan="4">Shell &amp; frame — cut to size by a hardwood dealer</td></tr>
+    <tr><td>¾″ Baltic birch plywood</td><td>Sides A×2 (22.5×85), top/bottom/divider B/C/D, hanger F</td><td class="r">2 sheets</td><td class="r">incl.</td></tr>
+    <tr><td>½″ Baltic birch plywood</td><td>Back panel E (40×85)</td><td class="r">1 sheet</td><td class="r">incl.</td></tr>
+    <tr><td>Cherry 1×2 + 1×3</td><td>Face frame (1×2) + vault door frame (1×3), 8′ boards</td><td class="r">~4</td><td class="r">incl.</td></tr>
+    <tr><td>Ø2″ grommet hole</td><td>Bored in divider, 2.5″ from rear</td><td class="r">1</td><td class="r">incl.</td></tr>
+    <tr><td class="muted" colspan="3"><i>Dealer quote (cut Baltic birch + cherry)</i></td><td class="r"><b>~$885</b></td></tr>
+
+    <tr class="sub"><td colspan="4">Door, glazing &amp; seal</td></tr>
+    <tr><td>Tempered glass, clear</td><td>~37×52, pencil-polished edges, cut to size</td><td class="r">1</td><td class="r">$384</td></tr>
+    <tr><td>Foam glazing tape</td><td>Beds glass in the rabbet</td><td class="r">1 roll</td><td class="r">$8</td></tr>
+    <tr><td>Piano hinge</td><td>Continuous, 48–60″ (or 3 cabinet hinges)</td><td class="r">1</td><td class="r">$25</td></tr>
+    <tr><td>Draw / compression latches</td><td>Clamp door onto gasket — not magnetic</td><td class="r">3</td><td class="r">$20</td></tr>
+    <tr><td>Door pull</td><td>Bar or knob</td><td class="r">1</td><td class="r">$12</td></tr>
+    <tr><td>EPDM / silicone weatherstrip</td><td>Door gasket — the key seal</td><td class="r">1 roll</td><td class="r">$15</td></tr>
+
+    <tr class="sub"><td colspan="4">Interior &amp; hanging</td></tr>
+    <tr><td>Spanish cedar lining</td><td>¼″, vault walls + back + floor (~35–40 sq ft)</td><td class="r">1</td><td class="r">$150</td></tr>
+    <tr><td>Brad nails / construction adhesive</td><td>Attach cedar</td><td class="r">1</td><td class="r">$15</td></tr>
+    <tr><td>Guitar hangers</td><td>Wood wall-mount (String Swing-type)</td><td class="r">8</td><td class="r">$145</td></tr>
+
+    <tr class="sub"><td colspan="4">Climate &amp; control</td></tr>
+    <tr><td>AC Infinity Controller 79</td><td>Outlet controller: fans + RH outlets + app + alarms</td><td class="r">1</td><td class="r">$110</td></tr>
+    <tr><td>Circulation fans (UIS)</td><td>120 mm variable, upper + lower vault</td><td class="r">2</td><td class="r">$70</td></tr>
+    <tr><td>Cool-mist humidifier</td><td>Ultrasonic/evaporative, run on distilled water</td><td class="r">1</td><td class="r">$40</td></tr>
+    <tr><td>Mini dehumidifier</td><td>Peltier or renewable desiccant</td><td class="r">1</td><td class="r">$45</td></tr>
+    <tr><td>Remote monitor</td><td>SensorPush-type independent RH/temp alarm</td><td class="r">1</td><td class="r">$50</td></tr>
+    <tr><td class="muted">Optional: Inkbird ITC-308</td><td class="muted">Independent temperature alarm / future heat switch</td><td class="r muted">1</td><td class="r muted">+$35</td></tr>
+
+    <tr class="sub"><td colspan="4">Power, sealing &amp; safety</td></tr>
+    <tr><td>GFCI power strip</td><td>Resettable breaker, surge</td><td class="r">1</td><td class="r">$25</td></tr>
+    <tr><td>Cable grommet (2″) + duct-seal</td><td>Sealed pass-through; re-workable putty around cables</td><td class="r">1</td><td class="r">$13</td></tr>
+    <tr><td>Cable management</td><td>Raceway, ties, drip loops</td><td class="r">1</td><td class="r">$15</td></tr>
+    <tr><td>Acrylic-latex caulk</td><td>Airtight vault seams (low-odor)</td><td class="r">3</td><td class="r">$15</td></tr>
+    <tr><td>Neutral-cure silicone</td><td>Beds glass — not acetoxy (corrodes strings)</td><td class="r">1</td><td class="r">$8</td></tr>
+    <tr><td>Low-VOC water-based poly + brush</td><td>Seal interior faces not cedar-lined</td><td class="r">1 qt</td><td class="r">$30</td></tr>
+    <tr><td>Anti-tip wall brackets</td><td>Anchor to studs — safety-critical</td><td class="r">1 set</td><td class="r">$12</td></tr>
+    <tr><td>Wood glue + pocket screws</td><td>Carcass assembly (if self-building)</td><td class="r">1</td><td class="r">$25</td></tr>
+
+    <tr class="tot"><td colspan="3">Estimated materials total (excl. optional Inkbird &amp; tools)</td><td class="r">~$2,100</td></tr>
+  </table>
+  <p class="muted" style="font-size:9.5px;">Costs are typical USD estimates and exclude shipping, tools, and the amps/instruments (already owned). The dealer line consolidates all cut plywood + cherry into the single ~$885 quote.</p>
+</div>
+
+<!-- ============================= 6. CUT LIST ============================= -->
+<div class="section">
+  <h2>6 · Cut List &amp; Layout</h2>
+  <img src="cabinet-cut-diagram.png" alt="cut diagram">
+  <div class="cap">Cut &amp; layout diagram — front elevation, side section, and door/face-frame, with the full parts legend. Hand this to the hardwood dealer.</div>
+
+  <table>
+    <tr><th>#</th><th>Part</th><th class="r">Qty</th><th>Dimensions</th><th>Material</th></tr>
+    <tr><td>A</td><td>Side panel</td><td class="r">2</td><td>22.5 D × 85 H</td><td>¾″ Baltic birch</td></tr>
+    <tr><td>B</td><td>Bottom</td><td class="r">1</td><td>38.5 W × 22.5 D</td><td>¾″ Baltic birch</td></tr>
+    <tr><td>C</td><td>Top</td><td class="r">1</td><td>38.5 W × 22.5 D</td><td>¾″ Baltic birch</td></tr>
+    <tr><td>D</td><td>Divider shelf (vault floor)</td><td class="r">1</td><td>38.5 W × 22.5 D · Ø2″ hole</td><td>¾″ Baltic birch</td></tr>
+    <tr><td>E</td><td>Back</td><td class="r">1</td><td>40 W × 85 H</td><td>½″ Baltic birch</td></tr>
+    <tr><td>F</td><td>Hanger board</td><td class="r">1</td><td>36 W × 6 H</td><td>¾″ Baltic birch</td></tr>
+    <tr><td>G</td><td>Door stiles</td><td class="r">2</td><td>2.5 × ~57</td><td>Cherry 1×3</td></tr>
+    <tr><td>H</td><td>Door rails</td><td class="r">2</td><td>2.5 × ~35</td><td>Cherry 1×3</td></tr>
+    <tr><td>I</td><td>Door glazing</td><td class="r">1</td><td>~37 × 52</td><td>Tempered glass</td></tr>
+    <tr><td>J</td><td>Face frame</td><td class="r">2+3</td><td>1.5 × 85 (stiles) · 1.5 × 37 (rails)</td><td>Cherry 1×2</td></tr>
+  </table>
+  <p class="muted">Plywood nests onto two ¾″ sheets + one ½″ sheet; cherry from ~4 8′ boards. The two sides fit on one ¾″ sheet (45″ of 48″ width); top/bottom/divider/hanger on the second.</p>
+</div>
+
+<!-- ============================= 7. BUILD SEQUENCE ============================= -->
+<div class="section">
+  <h2>7 · Build Sequence</h2>
+  <ol>
+    <li><b>Confirm &amp; order.</b> Measure real plywood thickness; hand the cut list to the dealer (incl. the Ø2″ divider hole). Order cherry. Hold the glass order until the door is built.</li>
+    <li><b>Pre-finish vault interior.</b> Sand and apply 2 coats low-VOC water-based poly to inner faces you won't cedar-line; let cure fully (it off-gasses).</li>
+    <li><b>Assemble carcass.</b> Bottom, then divider at the 25.5″ line, then top, housed between the full-height sides; glue + pocket screws; check square; glue + screw the back.</li>
+    <li><b>Sealed pass-through.</b> Fit the grommet in the divider hole; bead caulk around it; this is the only route into the vault.</li>
+    <li><b>Caulk the vault airtight.</b> Every interior seam above the divider. Leave the amp zone open — never seal it.</li>
+    <li><b>Line the vault with cedar.</b> Walls + back + floor; brad nails / adhesive; leave the door opening clear.</li>
+    <li><b>Hanger board + hangers.</b> Mount F to the back; fit the 8 hangers to the measured layout (edge-out, height-staggered).</li>
+    <li><b>Build &amp; hang the door.</b> Cherry frame with a rabbet; set glass on glazing tape + a neutral-cure silicone bead; hang on the piano hinge; add the EPDM gasket and 3 draw latches so closing <em>compresses</em> the seal.</li>
+    <li><b>Install gear.</b> Controller, humidifier, dehumidifier, GFCI strip in the amp zone; fans + sensor in the vault; route probes through the grommet with drip loops.</li>
+    <li><b>Anchor anti-tip</b> to wall studs.</li>
+    <li><b>Burn-in &amp; calibrate.</b> Run empty 2–3 days; salt-calibrate the sensor; set the RH band + deadband; leak-check the door; confirm it holds 45–50% RH before instruments go in.</li>
+  </ol>
+</div>
+
+<!-- ============================= 8. CONTROL LOGIC ============================= -->
+<div class="section">
+  <h2>8 · Climate &amp; Control Logic</h2>
+  <table>
+    <tr><th>Condition</th><th>Action</th><th>Device</th></tr>
+    <tr><td>Vault RH &lt; 45% (low edge)</td><td>Energize humidifier outlet; run fans</td><td>Humidifier (cool-mist) + fans</td></tr>
+    <tr><td>Vault RH &gt; 50% (high edge)</td><td>Energize dehumidifier outlet; run fans</td><td>Mini dehumidifier + fans</td></tr>
+    <tr><td>RH inside band</td><td>Both moisture devices off; fans cycle for mixing</td><td>Fans only</td></tr>
+    <tr><td>Temp &lt; 15 °C or &gt; 25 °C</td><td>Alarm (app + monitor). No active heat/cool.</td><td>Controller + remote monitor</td></tr>
+    <tr><td>RH out of band &gt; set time</td><td>Push alarm; log event</td><td>Controller + remote monitor</td></tr>
+    <tr><td>Power loss</td><td>Cedar buffers passively; monitor (battery) keeps logging/alarming</td><td>Cedar + independent monitor</td></tr>
+  </table>
+  <div class="box"><b>Why cool-mist:</b> warm-mist humidifiers are essentially small heaters (~200–400 W) and would couple humidity to temperature in this small box. Cool-mist keeps the two independent — humidity from the humidifier, temperature left to the room. Use <b>distilled water</b> to avoid mineral dust on finishes.</div>
+  <div class="box warn"><b>Deadband rule:</b> separate the humidify and dehumidify setpoints (e.g. on at 44% / off at 47% for humidify; on at 51% / off at 48% for dehumidify) so the two devices can never run against each other.</div>
+</div>
+
+<!-- ============================= 9. REQUIREMENTS & ACCEPTANCE ============================= -->
+<div class="section">
+  <h2>9 · Requirements &amp; Acceptance Criteria</h2>
+  <table>
+    <tr><th style="width:8%">ID</th><th>Requirement</th><th style="width:34%">Acceptance test</th></tr>
+    <tr><td>R1</td><td>Vault holds 45–50% RH</td><td>Empty 48 h burn-in stays in band ±5% with no manual intervention.</td></tr>
+    <tr><td>R2</td><td>Air seal is effective</td><td>With humidifier off, vault RH decays toward room only slowly (hours, not minutes); no obvious leak path at the door perimeter.</td></tr>
+    <tr><td>R3</td><td>Temperature stays in band</td><td>Logged vault temp remains 15–25 °C across a normal day; high/low alarm fires when forced out.</td></tr>
+    <tr><td>R4</td><td>Devices never fight</td><td>Logs show humidifier and dehumidifier never energized within the same deadband cycle.</td></tr>
+    <tr><td>R5</td><td>Amp heat is exhausted</td><td>With both amps on, amp-zone heat vents to the room; vault temp unaffected (sealed divider).</td></tr>
+    <tr><td>R6</td><td>Independent alarm path</td><td>Remote monitor alerts on out-of-band RH/temp with the main controller unplugged.</td></tr>
+    <tr><td>R7</td><td>Structural safety</td><td>Cabinet anchored to studs; does not tip when the door is opened fully and loaded.</td></tr>
+    <tr><td>R8</td><td>Material safety</td><td>All finishes/sealants fully cured before loading; no acetoxy silicone; distilled water only.</td></tr>
+    <tr><td>R9</td><td>Fits the room</td><td>Stands upright under the 86.3″ / 220 cm ceiling and walks into final position.</td></tr>
+  </table>
+</div>
+
+<!-- ============================= 10. DECISIONS LOG ============================= -->
+<div class="section">
+  <h2>10 · Decisions Log &amp; Open Items</h2>
+  <h3>Locked decisions</h3>
+  <table>
+    <tr><th style="width:30%">Decision</th><th>Resolution</th></tr>
+    <tr><td>Build vs. retrofit</td><td>Build from scratch (Baltic birch) — better seal &amp; stability than a PAX/retrofit.</td></tr>
+    <tr><td>Height</td><td>85″ (216 cm) — extra room into the vault while clearing the ceiling.</td></tr>
+    <tr><td>Amps inside?</td><td>Yes — open, vented 24″ amp zone below the vault.</td></tr>
+    <tr><td>Glazing</td><td>Clear tempered, pencil-polished edges (all edgework free; chose the strongest/safest).</td></tr>
+    <tr><td>Humidifier type</td><td>Cool-mist (keeps temperature independent).</td></tr>
+    <tr><td>Controller</td><td>AC Infinity Controller 79 (outlet model) over 69 Pro / dual Inkbird.</td></tr>
+    <tr><td>Active temperature control</td><td>Dropped — 15–25 °C is in range; alarm only.</td></tr>
+    <tr><td>Thermal break under divider</td><td>Optional — amps run only briefly.</td></tr>
+  </table>
+  <h3>Open items</h3>
+  <ul>
+    <li><b>Confirm ceiling height</b> is a true 86.3″ after molding/baseboard, leaving room to tilt the cabinet upright.</li>
+    <li><b>Measure instruments</b> (headstock widths, longest body) to finalize the 8-up hanging layout before cutting.</li>
+    <li><b>Combo humidify/dehumidify unit?</b> If a single self-regulating combo is chosen, it manages RH itself and the 79 reduces to fans + monitoring — confirm it does both automatically with an accurate humidistat.</li>
+    <li><b>Order glass last</b> — only after the cherry door is built and the opening measured (tempered can't be trimmed).</li>
+    <li><b>Confirm Controller 79 outlet count</b> (≥2 switchable) and that it has a humidity trigger.</li>
+  </ul>
+</div>
+
+<footer>
+  <span>Climate-Controlled Guitar Cabinet — PRD Rev 3</span>
+  <span>2026-06-04</span>
+</footer>
+
+</body>
+</html>
