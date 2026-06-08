@@ -61,7 +61,7 @@
   <label><input type="checkbox" id="t-instr" checked> Instruments</label>
   <label><input type="checkbox" id="t-gear" checked> Climate / electrical gear</label>
   <label><input type="checkbox" id="t-power" checked> Power &amp; cabling</label>
-  <label><input type="checkbox" id="t-cedar"> Spanish cedar lining</label>
+  <label><input type="checkbox" id="t-cedar" checked> Spanish cedar lining</label>
   <label><input type="checkbox" id="t-door"> Glass vault door</label>
   <label><input type="checkbox" id="t-walls" checked> Translucent walls</label>
   <label><input type="checkbox" id="t-rotate"> Auto-rotate</label>
@@ -229,16 +229,35 @@ cabinet.add(edges);
 addLabel(cabinet, 'GUITAR VAULT  (45–50% RH, 68–75°F)', 0, EXT_H-5, FRONT_Z, 'gear');
 addLabel(cabinet, 'OPEN AMP ZONE (two combo amps · vents heat)', 0, 11, FRONT_Z, 'gear');
 
-//// ---- Spanish cedar lining (toggle) ----
+//// ---- Spanish cedar lining (stacked plank courses, toggle) ----
 const cedarGroup = new THREE.Group(); cabinet.add(cedarGroup);
-const cedarMat = std(0xc49a6c, { t:true, o:0.55, r:0.9, side:THREE.DoubleSide });
-function cedarPanel(w,h,d,x,y,z){ const p = box(w,h,d,cedarMat); p.position.set(x,y,z); cedarGroup.add(p);
-  info(p, 'Spanish cedar lining', ['1/4 in veneer on walls', 'Buffers humidity, deters insects', 'Reduces internal W & D by ~1/2 in']); return p; }
+const cedarMat = std(0xc6905a, { r:0.85 });          // opaque, warm Spanish cedar
 const vaultH = EXT_H - SHELF_TOP - WALL, vaultMidY = SHELF_TOP + vaultH/2;
-cedarPanel(0.25, vaultH, INT_D, -(INT_W/2)+0.12, vaultMidY, 0);      // left
-cedarPanel(0.25, vaultH, INT_D,  (INT_W/2)-0.12, vaultMidY, 0);      // right
-cedarPanel(INT_W, vaultH, 0.25, 0, vaultMidY, BACK_Z+0.12);          // back
-cedarGroup.visible = false;
+const C_T = 0.25, COURSE = 5, REVEAL = 0.08;         // 1/4" lining · ~5" planks · thin reveal
+const vBot = SHELF_TOP + C_T, vTop = EXT_H - WALL;    // courses sit on the cedar floor
+function cedarInfo(p){ info(p, 'Spanish cedar lining', ['1/4 in solid Spanish cedar', 'Stacked in staggered horizontal courses (left bare)', 'Buffers humidity, mild aroma, deters insects']); return p; }
+function cedarWall(kind, xPos){                       // horizontal plank courses up a wall
+  for(let yb = vBot; yb < vTop - 0.4; yb += COURSE){
+    const h = Math.min(COURSE - REVEAL, vTop - yb);
+    const p = (kind==='back') ? box(INT_W, h, C_T, cedarMat) : box(C_T, h, INT_D, cedarMat);
+    if(kind==='back') p.position.set(0, yb + h/2, BACK_Z + C_T/2);
+    else              p.position.set(xPos, yb + h/2, 0);
+    cedarGroup.add(cedarInfo(p));
+  }
+}
+cedarWall('back');
+cedarWall('side', -(INT_W/2) + C_T/2);
+cedarWall('side',  (INT_W/2) - C_T/2);
+function cedarDeck(yPos){                             // floor + ceiling: boards run front-to-back
+  for(let xb = -(INT_W/2); xb < (INT_W/2) - 0.4; xb += COURSE){
+    const w = Math.min(COURSE - REVEAL, (INT_W/2) - xb);
+    const p = box(w, C_T, INT_D, cedarMat); p.position.set(xb + w/2, yPos, 0);
+    cedarGroup.add(cedarInfo(p));
+  }
+}
+cedarDeck(SHELF_TOP + C_T/2);     // floor
+cedarDeck(vTop - C_T/2);          // ceiling
+cedarGroup.visible = true;
 
 //// ---- Glass vault door (toggle) ----
 const doorMat = std(0x9fd4e3, { t:true, o:0.16, m:0.1, r:0.05, side:THREE.DoubleSide, dw:false });
