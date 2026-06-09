@@ -65,6 +65,7 @@
   <label><input type="checkbox" id="t-door"> Glass vault door</label>
   <label><input type="checkbox" id="t-walls" checked> Translucent walls</label>
   <label><input type="checkbox" id="t-rotate"> Auto-rotate</label>
+  <label><input type="checkbox" id="t-room" checked> Room &amp; scale (person)</label>
   <button id="reset">Reset view</button>
 </div>
 
@@ -100,6 +101,7 @@ const SHELF_T = 0.75;
 const SHELF_TOP = AMP_H + SHELF_T;       // 24.75 — vault floor (top face of divider)
 const FRONT_Z = EXT_D/2 - WALL;          // interior front face z
 const BACK_Z  = -(EXT_D/2 - WALL);
+const PLINTH_H = 5.5, FLOOR_Y = -PLINTH_H;   // ~14 cm base under the cabinet; room floor sits here
 
 //// ---- Renderer / scene / camera ----
 const app = document.getElementById('app');
@@ -151,10 +153,11 @@ const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(600, 600),
   new THREE.MeshStandardMaterial({ color: 0x171f24, roughness: 1 }));
 ground.rotation.x = -Math.PI/2;
+ground.position.y = FLOOR_Y - 0.6;
 ground.receiveShadow = true;
 scene.add(ground);
 const grid = new THREE.GridHelper(600, 100, 0x2c3a42, 0x222d33);
-grid.position.y = 0.01;
+grid.position.y = FLOOR_Y - 0.58;
 scene.add(grid);
 
 //// ---- helpers ----
@@ -258,6 +261,39 @@ function cedarDeck(yPos){                             // floor + ceiling: boards
 cedarDeck(SHELF_TOP + C_T/2);     // floor
 cedarDeck(vTop - C_T/2);          // ceiling
 cedarGroup.visible = true;
+
+//// ---- Base / plinth (permanent) ----
+// the built cabinet sits on a ~14 cm base; rear is set in to clear the wall baseboard
+const baseMat = std(0x5e4a32, { r:0.55 });
+const plinthBackZ = -(EXT_D/2) + 0.9;             // set in ~0.9 in from the back (clears the ~2 cm baseboard)
+const plinthFrontZ = (EXT_D/2) - 2.0;             // toe-kick recess at the front
+const plinth = box(EXT_W - 3, PLINTH_H, plinthFrontZ - plinthBackZ, baseMat);
+plinth.position.set(0, FLOOR_Y + PLINTH_H/2, (plinthFrontZ + plinthBackZ)/2);
+cabinet.add(info(plinth, 'Base / plinth (~14 cm / 5.5 in)', ['Lifts the cabinet over the 13 cm baseboard', 'Rear set in ~2–3 cm so the back sits flush to the wall', 'On adjustable levelers; anti-tip strapped']));
+
+//// ---- Room context & scale (toggle) ----
+const roomGroup = new THREE.Group(); scene.add(roomGroup);
+const roomWall  = std(0xece7dc, { r:0.97 });
+const roomBase  = std(0xf5f2ec, { r:0.9 });
+const roomFloor = std(0xc69a5e, { r:0.85 });
+const wallZ = -(EXT_D/2) - 0.2;                   // wall face just behind the cabinet back
+const rFloor = box(220, 1, 180, roomFloor); rFloor.position.set(12, FLOOR_Y - 0.5, -12); roomGroup.add(rFloor);        // parquet floor
+const rBack  = box(220, 130, 4, roomWall);  rBack.position.set(12, FLOOR_Y + 65, wallZ - 2); roomGroup.add(rBack);    // back wall
+const rLeft  = box(4, 130, 180, roomWall);  rLeft.position.set(-(EXT_W/2) - 12, FLOOR_Y + 65, -12); roomGroup.add(rLeft); // left wall (corner)
+const baseboard = box(220, 5.1, 0.8, roomBase);   // ~13 cm tall × ~2 cm proud
+baseboard.position.set(12, FLOOR_Y + 2.55, wallZ + 0.4);
+roomGroup.add(info(baseboard, 'Wall baseboard', ['~13 cm tall × ~2 cm proud of the wall', 'The base is set in to clear it', 'so the cabinet body sits flush above']));
+// person for scale (~5 ft 9 in = 69 in)
+const skin = std(0x9aa0a8, { r:0.85 });
+const person = new THREE.Group(); person.position.set(EXT_W/2 + 16, 0, 6);
+const torso = box(13, 23, 7, skin); torso.position.y = FLOOR_Y + 44.5; person.add(torso);
+const hips  = box(13, 10, 7, skin); hips.position.y  = FLOOR_Y + 31;  person.add(hips);
+const legL = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.4, 26, 12), skin); legL.position.set(-3.2, FLOOR_Y + 13, 0); person.add(legL);
+const legR = legL.clone(); legR.position.x = 3.2; person.add(legR);
+const head = new THREE.Mesh(new THREE.SphereGeometry(4.3, 16, 16), skin); head.position.y = FLOOR_Y + 62; person.add(head);
+roomGroup.add(person);
+addLabel(person, '≈ 5 ft 9 in (1.75 m) — scale', 0, FLOOR_Y + 70, 0, 'gear');
+roomGroup.visible = true;
 
 //// ---- Glass vault door (toggle) ----
 const doorMat = std(0x9fd4e3, { t:true, o:0.16, m:0.1, r:0.05, side:THREE.DoubleSide, dw:false });
@@ -539,6 +575,7 @@ $('t-instr').onchange  = e => instrGroup.visible = e.target.checked;
 $('t-gear').onchange   = e => gearGroup.visible = e.target.checked;
 $('t-power').onchange  = e => { cableGroup.visible = e.target.checked; hideTip(); };
 $('t-cedar').onchange  = e => cedarGroup.visible = e.target.checked;
+$('t-room').onchange   = e => roomGroup.visible = e.target.checked;
 $('t-door').onchange   = e => door.visible = e.target.checked;
 $('t-walls').onchange  = e => wallPanels.forEach(p => { p.material.opacity = e.target.checked ? 0.30 : 0.95; });
 $('t-rotate').onchange = e => controls.autoRotate = e.target.checked;
