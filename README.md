@@ -42,11 +42,15 @@ its name and measurements (the cabinet frame reports the full
 external/internal/zone dimensions). **Just double-click** — Three.js is embedded,
 so they work offline with no install.
 
-- **[`apartment-3d.html`](apartment-3d.html)** — a **dollhouse 3D of the whole
-  apartment** (L-Line layout) with the climate cabinet placed on the Living
-  Room's solid east wall and a person for scale. The Living Room is to scale
-  (13'-3" × 21'-4"); other rooms are an approximate reconstruction of the floor
-  plan. Toggle walls / labels / furniture / windows.
+- **[`apartment-3d.html`](apartment-3d.html)** — a full **interactive 3D
+  planner for the apartment** (L-Line layout): drag furniture to rearrange,
+  click to select, **R** to rotate, type **exact custom measurements** per
+  piece, add/duplicate/delete from a furniture library (sofa, TV + console,
+  coffee table, rug, dining set, upright piano, queen bed, bookshelf, plant,
+  person, and the climate cabinet), camera presets (dollhouse / top / living
+  room), **low-walls** dollhouse mode, and auto-saved layouts (localStorage).
+  Living Room is to scale (13'-3" × 21'-4"); other rooms approximate. Covered
+  by an automated 21-test Playwright suite.
 
 ### Rebuilding the 3D viewers
 
