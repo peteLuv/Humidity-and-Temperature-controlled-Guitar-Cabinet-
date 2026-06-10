@@ -29,14 +29,13 @@
 <div id="app"></div>
 <div id="title" class="ui">
   <h1>L-Line apartment — 3D</h1>
-  <p><b>Drag</b> orbit · <b>scroll</b> zoom · <b>right-drag</b> pan. The climate cabinet sits on the Living Room's solid east wall. Layout reconstructed from the floor plan — Living Room is to scale (13'-3" × 21'-4"); other rooms are approximate.</p>
+  <p><b>Drag the cabinet</b> to move it across the floor. <b>Drag empty space</b> to orbit · <b>scroll</b> zoom · <b>right-drag</b> pan. Living Room is to scale (13'-3" × 21'-4"); other rooms approximate.</p>
 </div>
 <div id="panel" class="ui">
   <h2>Show</h2>
   <label><input type="checkbox" id="t-walls" checked> Walls</label>
   <label><input type="checkbox" id="t-labels" checked> Room labels</label>
   <label><input type="checkbox" id="t-furn" checked> Cabinet &amp; person</label>
-  <label><input type="checkbox" id="t-win" checked> Windows</label>
   <button id="reset">Reset view</button>
 </div>
 <div id="err" class="ui"><div><h2>Could not start the 3D view</h2><p>Your browser must allow ES modules from local files.</p></div></div>
@@ -88,7 +87,7 @@ scene.add(sun);
 const std = (c, o={}) => new THREE.MeshStandardMaterial({ color: c, roughness: o.r ?? 0.85, metalness: 0, transparent: o.t ?? false, opacity: o.o ?? 1, side: o.side ?? THREE.FrontSide });
 function box(w,h,d,mat){ const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat); m.castShadow = true; m.receiveShadow = true; return m; }
 const labels = [];
-function label(text, x, y, z, cls){ const e=document.createElement('div'); e.className='lbl '+cls; e.textContent=text; const o=new CSS2DObject(e); o.position.set(x,y,z); o.userData.cls=cls; labels.push(o); return o; }
+function label(text, x, y, z, cls, parent){ const e=document.createElement('div'); e.className='lbl '+cls; e.textContent=text; const o=new CSS2DObject(e); o.position.set(x,y,z); labels.push(o); (parent||scene).add(o); return o; }
 
 // ---- materials ----
 const floorMat = std(0xb98c5a, { r:0.8 });
@@ -110,7 +109,6 @@ const rooms = [
 ];
 
 const wallGroup = new THREE.Group(); scene.add(wallGroup);
-const winGroup  = new THREE.Group(); scene.add(winGroup);
 const floorGroup = new THREE.Group(); scene.add(floorGroup);
 
 function wallSeg(cx, cz, w, d){ const m = box(w, CH, d, wallMat); m.position.set(cx, CH/2, cz); wallGroup.add(m); }
@@ -124,8 +122,6 @@ for (const r of rooms){
   wallSeg(cx, r.z1, w+T, T);     // south
   wallSeg(r.x0, cz, T, d+T);     // west
   wallSeg(r.x1, cz, T, d+T);     // east
-  // north window for street-facing rooms
-  if (r.win){ const g = box(w*0.66, 42, T+0.6, winMat); g.position.set(cx, 48, r.z0); winGroup.add(g); }
   // room label (floats in the room)
   if (r.n) label(r.n, cx, 16, cz, 'room');
   if (r.entry) label('ENTRY', cx, 16, r.z1-10, 'room');
@@ -143,7 +139,7 @@ const glass = box(0.6, 58, 37, std(0xa9d8ea, { t:true, o:0.45, r:0.1 })); glass.
 // a few guitar hints behind the glass
 for (let i=0;i<5;i++){ const g = box(2, 34, 7, std([0x7a4a22,0x2c3e50,0xc0392b,0x274050,0xd9c9a3][i], {r:0.6})); g.position.set(-CD/2+5, BASE+50, -14 + i*7); cab.add(g); }
 furnGroup.add(cab);
-label('Climate cabinet · 40×23×90.5"', cab.position.x - 10, BASE + CHC + 8, cab.position.z, 'cab');
+label('Climate cabinet — drag to move', 0, BASE + CHC + 8, 0, 'cab', cab);
 
 // person for scale (~5'9")
 const skin = std(0x9aa0a8, { r:0.85 });
@@ -162,12 +158,34 @@ ground.rotation.x = -Math.PI/2; ground.position.y = -1.2; ground.receiveShadow =
 // ---- toggles ----
 const $ = id => document.getElementById(id);
 $('t-walls').onchange  = e => wallGroup.visible = e.target.checked;
-$('t-win').onchange    = e => winGroup.visible  = e.target.checked;
 $('t-furn').onchange   = e => furnGroup.visible = e.target.checked;
 $('t-labels').onchange = e => labels.forEach(l => l.element.style.display = e.target.checked ? '' : 'none');
 $('reset').onclick = () => { camera.position.copy(CAM0); controls.target.copy(TGT0); };
-// attach labels after build
-labels.forEach(l => scene.add(l));
+
+// ---- drag the cabinet across the floor ----
+const dragRay = new THREE.Raycaster();
+const dragPlane = new THREE.Plane(new THREE.Vector3(0,1,0), 0);   // floor (y=0)
+const ndc = new THREE.Vector2(); const hit = new THREE.Vector3();
+let dragging = false, grabDX = 0, grabDZ = 0;
+function setNdc(e){ const r = renderer.domElement.getBoundingClientRect(); ndc.set(((e.clientX-r.left)/r.width)*2-1, -((e.clientY-r.top)/r.height)*2+1); }
+renderer.domElement.addEventListener('pointerdown', e => {
+  if (!furnGroup.visible) return;
+  setNdc(e); dragRay.setFromCamera(ndc, camera);
+  if (dragRay.intersectObjects(cab.children, true).length) {
+    dragging = true; controls.enabled = false;
+    if (dragRay.ray.intersectPlane(dragPlane, hit)) { grabDX = cab.position.x - hit.x; grabDZ = cab.position.z - hit.z; }
+    renderer.domElement.style.cursor = 'grabbing';
+  }
+});
+renderer.domElement.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  setNdc(e); dragRay.setFromCamera(ndc, camera);
+  if (dragRay.ray.intersectPlane(dragPlane, hit)) {
+    cab.position.x = THREE.MathUtils.clamp(hit.x + grabDX, CD/2 + 4, 521 - CD/2 - 4);
+    cab.position.z = THREE.MathUtils.clamp(hit.z + grabDZ, CW/2 + 4, 375 - CW/2 - 4);
+  }
+});
+addEventListener('pointerup', () => { if (dragging) { dragging = false; controls.enabled = true; renderer.domElement.style.cursor = ''; } });
 
 addEventListener('resize', () => {
   camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
