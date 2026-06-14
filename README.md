@@ -31,6 +31,10 @@ fits under an 86.3 in / 220 cm ceiling).
   **power &amp; cabling** layer (GFCI strip, sealed grommet, back raceway,
   drip-looped cable runs, wall outlet), optional Spanish-cedar lining, and glass
   vault door. Pairs with the cut diagram (`cabinet-cut-diagram.svg`).
+- **[`cabinet-3d-v2.html`](cabinet-3d-v2.html)** — **V2 compact** variant of the
+  same cabinet, **shorter and shallower** to fit a ≤ 114 × 47 × 200 cm envelope
+  (40 × 18.5 × 78.5 in). Same two-zone design; ~52.25-in vault. Specs and cut
+  list in [`cabinet-v2-spec.md`](cabinet-v2-spec.md).
 - **[`cabinet-3d-metod.html`](cabinet-3d-metod.html)** — alternate **IKEA METOD
   60×60×220 cm** build: a narrower, pure sealed vault for just the 3
   humidity-sensitive acoustics (Oud, Taylor GS Mini Bass, slim Martin), with a
