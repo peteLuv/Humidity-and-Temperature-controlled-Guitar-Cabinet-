@@ -4,29 +4,28 @@ Same two-zone design as V1/V2 (sealed cedar vault over an open, vented amp zone;
 cherry frame; tempered-glass door), **sized to the interior dimensions Asaf
 measured on 2026-06-15** rather than to an external envelope.
 
-## Measured interior targets (the inputs)
-- **Inner depth:** 45 cm (~17.7 in)
-- **Vault inner height:** 130 cm (~51.2 in)
-- **Amp-zone height:** 55 cm (~21.6 in)  ← assumed to be the *compartment* height (see "Watch" #4)
+## Measured cabinet — the real box (measured 2026-06-16)
+- **Outer:** 100.8 × 47.3 × 195 cm  (39.7 × 18.6 × 76.8 in)
+- **Inner clear cavity:** 97 × 46 × 191.2 cm  (38.2 × 18.1 × 75.3 in)
 
-> Width was not re-measured; kept at V2's 40 in / 101.6 cm (≈38.5 in / 97.8 cm interior).
+V3 is a **retrofit of this prebuilt box** (not a from-scratch build): add an internal sealed divider to split the 191.2 cm cavity into an open, vented amp zone (bottom) and a sealed vault (top). Split: **amp 55 cm + divider ~2 cm + vault ~134 cm.**
 
 ## External dimensions
 
 | | **V3 (measured)** | V2 | V1 |
 |---|---|---|---|
-| Width | 40 in / 101.6 cm | 40 in / 101.6 cm | 40 in / 101.6 cm |
-| Depth | **~18.2 in / 46.3 cm** | 18.5 in / 47.0 cm | 23 in / 58.4 cm |
-| Height | **~75.1 in / 190.7 cm** | 78.5 in / 199.4 cm | 85 in / 215.9 cm |
-| Vault (sealed, interior) | **38.5 × 17.7 × 51.2 in / 97.8 × 45 × 130 cm** | 38.5 × 18 × ~52.25 in | 38.5 × 21.5 × ~58.75 in |
-| Amp zone (open, interior) | **38.5 × 17.7 × 21.6 in / 97.8 × 45 × 55 cm** | 38.5 × 18 × 24 in | 38.5 × 21.5 × 24 in |
+| Width | **39.7 in / 100.8 cm** | 40 in / 101.6 cm | 40 in / 101.6 cm |
+| Depth | **18.6 in / 47.3 cm** | 18.5 in / 47.0 cm | 23 in / 58.4 cm |
+| Height | **76.8 in / 195 cm** | 78.5 in / 199.4 cm | 85 in / 215.9 cm |
+| Vault (sealed, interior) | **38.2 × 18.1 × ~52.8 in / 97 × 46 × ~134 cm** | 38.5 × 18 × ~52.25 in | 38.5 × 21.5 × ~58.75 in |
+| Amp zone (open, interior) | **38.2 × 18.1 × 21.6 in / 97 × 46 × 55 cm** | 38.5 × 18 × 24 in | 38.5 × 21.5 × 24 in |
 | Divider top (from floor) | ~22.4 in / 56.9 cm | 25.5 in | 25.5 in |
 
-Zone stack (floor → top): ¾″ bottom + **55 cm amp zone** + ¾″ divider + **130 cm vault** + ¾″ top = **~190.7 cm / 75.1 in**. Comfortably under the 200 cm / 220 cm ceiling limits.
+Cavity split (floor → ceiling of the 191.2 cm inner box): **55 cm amp zone** + ~2 cm divider + **~134 cm vault**. (Retrofit — the box walls already exist; only the divider + seal + climate gear are added.)
 
 ## Does it work? (fit check vs the real loadout)
-- **Depth 45 cm — ✅ works.** Essentially identical to V2's 18 in. Clears the Orange combos (~26 cm / 10.2 in deep) and edge-out hanging; pedalboard/cabling sit behind.
-- **Vault 130 cm — ✅ but TIGHT.** The longest item, the ~45 in bass, needs ~50 in / 127 cm of hung drop (instrument + hanger). 130 cm leaves only **~3 cm / ~1.5 in** of headroom. It fits, but confirm the actual hung drop (bass + chosen hanger) is ≤ 130 cm before cutting. If it's close, drop the hanger board or shave the divider.
+- **Depth 46 cm — ✅ works.** Clears the Orange combos (~26 cm / 10.2 in deep) and edge-out hanging, with margin.
+- **Vault ~134 cm — ✅.** The ~45 in bass (114 cm) + hanger (~12 cm) ≈ 126 cm fits with **~8 cm spare** — the real box is taller than the earlier 130 cm estimate, so no longer tight. Width 97 cm holds 8 edge-out (~88 cm needed).
 - **Amp zone 55 cm — ✅ works** (as a compartment). Orange **Rocker 15** combo ≈ 45 cm tall and the **Crush Bass** combo ≈ 41 cm tall, so 55 cm clears the taller amp with ~10 cm above for heat venting. Confirm exact amp heights; keep the top vent gap.
 
 ## Cut list — V3
@@ -64,3 +63,8 @@ Same sheet/board count (**2× ¾″ + 1× ½″ Baltic birch, ~4 cherry boards**
 4. **Confirm what "amp height 55 cm" means.** This spec assumes it's the *compartment* height. If 55 cm is the *amp's own* height, grow the amp zone to ~62 cm → total height ~197 cm (still under 200).
 
 3D model + cut diagram: to be derived from `cabinet-3d-v2.html` / `cabinet-cut-diagram.svg` once V3 dims are confirmed.
+
+## Hangers (neck-hung, edge-out)
+- **7× Hercules GSP38WB PLUS** (auto-grip yoke, wood base, short arm): locks the neck, range 40–52 mm covers the Strat, Schecter C-1, Slim Martin, GS Mini Bass, Music Man Bass, Rickenbacker 4003; the included **N.I.N.A.** adapter (down to ~1.1 in) handles the narrow **Martin Backpacker**.
+- **Egyptian Oud — TBD.** Round back + bent-back pegbox often won't seat in a standard yoke. Verify neck-width/pegbox; if it won't hang, use a horizontal wall cradle for the oud.
+- 8 hangers across the 97 cm inner width ≈ 12 cm pitch — fits edge-out (~11 cm body-depth each).

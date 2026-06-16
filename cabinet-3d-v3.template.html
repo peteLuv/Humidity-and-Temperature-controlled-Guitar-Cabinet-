@@ -93,7 +93,7 @@ import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer
 
 try {
 //// ---- Cabinet constants (inches) ----  Baltic birch carcass, 8 hung + 2 combo amps
-const EXT_W = 40, EXT_D = 18.2, EXT_H = 74.3, WALL = 0.75;   // V3 measured interior: vault 130cm, amp 55cm, depth 45cm
+const EXT_W = 39.7, EXT_D = 18.6, EXT_H = 76.8, WALL = 0.75;  // measured box: outer 100.8×47.3×195cm · inner 97×46×191.2cm
 const INT_W = EXT_W - 2*WALL;            // 38.5
 const INT_D = EXT_D - 2*WALL;            // 21.5
 const AMP_H = 21.6;                      // V3 amp-zone interior height = 55 cm (two combo amps)
@@ -185,12 +185,12 @@ function info(obj, title, lines) { obj.userData.info = { title, lines }; return 
 
 // shared summary shown when hovering any part of the cabinet frame
 const CABINET_INFO = [
-  'External: 40 × 18.2 × 74.3 in  (W × D × H)  — V3 measured',
-  'External (mm): 1016 × 462 × 1887  (~190 cm tall)',
+  'External: 39.7 × 18.6 × 76.8 in  (W × D × H)  — measured box',
+  'External (mm): 1008 × 473 × 1950  ·  inner 970 × 460 × 1912',
   'Internal: 38.5 W × 18 D in',
   'Carcass: ¾ in Baltic birch · ½ in back',
-  'Amp zone: 38.5 × 17.7 × 21.6 in / 55 cm (open / vented)',
-  'Vault: 38.5 × 17.7 × ~51.2 in / 130 cm (sealed)',
+  'Amp zone: 38.2 × 18.1 × 21.6 in / 55 cm (open / vented)',
+  'Vault: 38.2 × 18.1 × ~52.8 in / 134 cm (sealed)',
   '8 instruments hung + 2 combo amps',
 ];
 
@@ -395,7 +395,7 @@ const instruments = [
 // place along width; row centered. small 2-level stagger for easy access + clear view
 const rowW = instruments.reduce((s,i)=>s+i.slot, 0);   // 36.5
 let cur = -rowW/2;
-const levels = [71, 67];   // V3: hang near vault top (73.55"); longest (45") clears the divider by ~4 in
+const levels = [74, 70];   // measured box: vault top ~76.05"; longest (45") clears divider by ~8 in
 instruments.forEach((d, i) => {
   const made = makeInstrument(d);
   const xc = cur + d.slot/2; cur += d.slot;
