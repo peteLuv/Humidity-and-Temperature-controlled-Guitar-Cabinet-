@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Guitar Cabinet (V3 measured) Walkthrough</title>
+<style>
+  :root { --panel: rgba(20,28,33,0.86); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #11171b; font-family: 'Segoe UI', Tahoma, sans-serif; color: #ecf0f1; }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; }
+
+  .ui { position: absolute; background: var(--panel); border-radius: 10px; padding: 14px 16px; backdrop-filter: blur(4px); box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+  #title { top: 14px; left: 14px; max-width: 320px; }
+  #title h1 { margin: 0 0 4px; font-size: 16px; color: #e67e22; }
+  #title p { margin: 0; font-size: 12px; line-height: 1.45; color: #bdc7cc; }
+
+  #panel { top: 14px; right: 14px; width: 210px; }
+  #panel h2 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #1abc9c; }
+  #panel label { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 4px 0; cursor: pointer; }
+  #panel input { accent-color: #e67e22; width: 15px; height: 15px; }
+  #panel button { margin-top: 10px; width: 100%; padding: 7px; border: 0; border-radius: 6px; background: #e67e22; color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; }
+  #panel button:hover { background: #d35400; }
+
+  #legend { bottom: 14px; left: 14px; max-width: 340px; font-size: 12px; }
+  #legend h2 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #1abc9c; }
+  .lg-row { display: flex; align-items: center; gap: 8px; padding: 2px 0; }
+  .sw { width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; border: 1px solid rgba(255,255,255,.25); }
+  #legend .grp { margin-top: 8px; color: #95a5a6; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+
+  /* 3D floating labels */
+  .lbl { font-size: 11px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; pointer-events: none;
+         background: rgba(15,22,26,.82); border: 1px solid rgba(255,255,255,.12); }
+  .lbl.instr { color: #fff; }
+  .lbl.gear  { color: #ffe9c7; border-color: rgba(230,126,34,.6); }
+  .lbl-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+  #tip { position: absolute; pointer-events: none; display: none; z-index: 20; max-width: 270px;
+         background: rgba(15,22,26,.96); border: 1px solid #e67e22; border-radius: 8px; padding: 8px 11px;
+         box-shadow: 0 6px 18px rgba(0,0,0,.55); }
+  #tip h3 { margin: 0 0 5px; font-size: 13px; color: #e67e22; }
+  #tip .dim { font-size: 12px; line-height: 1.45; color: #d7dee2; font-variant-numeric: tabular-nums; }
+  #tip .dim:first-of-type { color: #fff; font-weight: 600; }
+
+  #err { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; text-align: center; padding: 40px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="tip"></div>
+
+<div id="title" class="ui">
+  <h1>Climate Cabinet V3 (measured interior) &mdash; 3D</h1>
+  <p><b>Drag</b> to orbit &middot; <b>scroll</b> to zoom &middot; <b>right-drag</b> to pan &middot; <b>hover any part</b> for its dimensions (try the frame). Units are inches; instruments hang edge-out (profile toward you) so each takes only its body-<i>depth</i> of width.</p>
+</div>
+
+<div id="panel" class="ui">
+  <h2>Layers</h2>
+  <label><input type="checkbox" id="t-labels" checked> Labels</label>
+  <label><input type="checkbox" id="t-instr" checked> Instruments</label>
+  <label><input type="checkbox" id="t-gear" checked> Climate / electrical gear</label>
+  <label><input type="checkbox" id="t-power" checked> Power &amp; cabling</label>
+  <label><input type="checkbox" id="t-cedar" checked> Spanish cedar lining</label>
+  <label><input type="checkbox" id="t-door"> Glass vault door</label>
+  <label><input type="checkbox" id="t-walls" checked> Translucent walls</label>
+  <label><input type="checkbox" id="t-rotate"> Auto-rotate</label>
+  <label><input type="checkbox" id="t-room" checked> Room &amp; scale (person)</label>
+  <button id="reset">Reset view</button>
+</div>
+
+<div id="legend" class="ui">
+  <h2>Legend</h2>
+  <div id="legend-instr"></div>
+  <div class="grp">Climate &amp; electrical</div>
+  <div id="legend-gear"></div>
+</div>
+
+<div id="err" class="ui"><div><h2>Could not start the 3D view</h2><p>Your browser must allow ES modules from local files. Open via a local web server if you opened with file:// and it failed.</p></div></div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three.module.js",
+  "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js",
+  "three/addons/renderers/CSS2DRenderer.js": "./vendor/CSS2DRenderer.js"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+try {
+//// ---- Cabinet constants (inches) ----  Baltic birch carcass, 8 hung + 2 combo amps
+const EXT_W = 40, EXT_D = 18.2, EXT_H = 74.3, WALL = 0.75;   // V3 measured interior: vault 130cm, amp 55cm, depth 45cm
+const INT_W = EXT_W - 2*WALL;            // 38.5
+const INT_D = EXT_D - 2*WALL;            // 21.5
+const AMP_H = 21.6;                      // V3 amp-zone interior height = 55 cm (two combo amps)
+const SHELF_T = 0.75;
+const SHELF_TOP = AMP_H + SHELF_T;       // 24.75 — vault floor (top face of divider)
+const FRONT_Z = EXT_D/2 - WALL;          // interior front face z
+const BACK_Z  = -(EXT_D/2 - WALL);
+const PLINTH_H = 5.5, FLOOR_Y = -PLINTH_H;   // ~14 cm base under the cabinet; room floor sits here
+
+//// ---- Renderer / scene / camera ----
+const app = document.getElementById('app');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+app.appendChild(renderer.domElement);
+
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.setSize(innerWidth, innerHeight);
+labelRenderer.domElement.className = 'lbl-layer';
+app.appendChild(labelRenderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x11171b);
+scene.fog = new THREE.Fog(0x11171b, 220, 420);
+
+const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 1, 2000);
+const CAM0 = new THREE.Vector3(58, 54, 74), TGT0 = new THREE.Vector3(0, 40, 0);
+camera.position.copy(CAM0);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.target.copy(TGT0);
+controls.minDistance = 18;
+controls.maxDistance = 320;
+controls.maxPolarAngle = Math.PI * 0.92;
+
+//// ---- Lights ----
+scene.add(new THREE.HemisphereLight(0xffffff, 0x33373b, 0.85));
+scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+const sun = new THREE.DirectionalLight(0xfff3e0, 1.15);
+sun.position.set(55, 120, 70);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.near = 10; sun.shadow.camera.far = 320;
+sun.shadow.camera.left = -90; sun.shadow.camera.right = 90;
+sun.shadow.camera.top = 150; sun.shadow.camera.bottom = -10;
+sun.shadow.bias = -0.0004;
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0xbcd4ff, 0.35);
+fill.position.set(-60, 50, -40);
+scene.add(fill);
+
+//// ---- Ground ----
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(600, 600),
+  new THREE.MeshStandardMaterial({ color: 0x171f24, roughness: 1 }));
+ground.rotation.x = -Math.PI/2;
+ground.position.y = FLOOR_Y - 0.6;
+ground.receiveShadow = true;
+scene.add(ground);
+const grid = new THREE.GridHelper(600, 100, 0x2c3a42, 0x222d33);
+grid.position.y = FLOOR_Y - 0.58;
+scene.add(grid);
+
+//// ---- helpers ----
+const labels = [];
+function addLabel(parent, text, x, y, z, cls='instr') {
+  const d = document.createElement('div');
+  d.className = 'lbl ' + cls;
+  d.textContent = text;
+  const o = new CSS2DObject(d);
+  o.position.set(x, y, z);
+  parent.add(o);
+  labels.push(o);
+  return o;
+}
+function box(w, h, d, mat) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+  m.castShadow = true; m.receiveShadow = true;
+  return m;
+}
+const std = (c, o={}) => new THREE.MeshStandardMaterial({ color: c, roughness: o.r ?? 0.7, metalness: o.m ?? 0.0,
+  transparent: o.t ?? false, opacity: o.o ?? 1, side: o.side ?? THREE.FrontSide, depthWrite: o.dw ?? true });
+
+// attach hover metadata (title + dimension lines) used by the tooltip raycaster
+function info(obj, title, lines) { obj.userData.info = { title, lines }; return obj; }
+
+// shared summary shown when hovering any part of the cabinet frame
+const CABINET_INFO = [
+  'External: 40 × 18.2 × 74.3 in  (W × D × H)  — V3 measured',
+  'External (mm): 1016 × 462 × 1887  (~190 cm tall)',
+  'Internal: 38.5 W × 18 D in',
+  'Carcass: ¾ in Baltic birch · ½ in back',
+  'Amp zone: 38.5 × 17.7 × 21.6 in / 55 cm (open / vented)',
+  'Vault: 38.5 × 17.7 × ~51.2 in / 130 cm (sealed)',
+  '8 instruments hung + 2 combo amps',
+];
+
+//// ---- Cabinet shell ----
+const cabinet = new THREE.Group();
+scene.add(cabinet);
+
+const wallMat  = std(0xd8c5a0, { t:true, o:0.30, dw:false, side:THREE.DoubleSide, r:0.85 });
+const solidMat = std(0xc9a96f, { r:0.75 });         // shelf / top / bottom (¾" Baltic birch)
+function panel(w,h,d,x,y,z,mat){ const p = box(w,h,d,mat); p.position.set(x,y,z); cabinet.add(p); return p; }
+
+const wallPanels = [];
+wallPanels.push(panel(WALL, EXT_H, EXT_D, -(EXT_W/2-WALL/2), EXT_H/2, 0, wallMat)); // left
+wallPanels.push(panel(WALL, EXT_H, EXT_D,  (EXT_W/2-WALL/2), EXT_H/2, 0, wallMat)); // right
+wallPanels.push(panel(EXT_W, EXT_H, WALL, 0, EXT_H/2, -(EXT_D/2-WALL/2), wallMat)); // back
+const botP = panel(EXT_W, WALL, EXT_D, 0, WALL/2, 0, solidMat);                 // bottom
+const topP = panel(EXT_W, WALL, EXT_D, 0, EXT_H-WALL/2, 0, solidMat);           // top
+const shelf = panel(EXT_W-0.2, SHELF_T, EXT_D-0.2, 0, AMP_H+SHELF_T/2, 0, solidMat); // divider
+addLabel(shelf, 'Sealed divider shelf (vault floor)', 0, 2, FRONT_Z-2, 'gear');
+
+// hover info for the cabinet frame (the priority part)
+wallPanels.forEach(p => info(p, 'Baltic birch carcass', CABINET_INFO));
+info(topP, 'Top panel', ['38.5 W × 22.5 D × ¾ in Baltic birch', ...CABINET_INFO]);
+info(botP, 'Bottom panel', ['38.5 W × 22.5 D × ¾ in Baltic birch', ...CABINET_INFO]);
+info(shelf, 'Divider shelf (amp ↔ vault)', [
+  '38.5 W × 22.5 D × ¾ in Baltic birch',
+  'Caulk airtight; Ø2 in grommet, 2.5 in from rear',
+  'Optional foil/foam thermal break underneath',
+]);
+
+// crisp outer outline
+const edges = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(EXT_W, EXT_H, EXT_D)),
+  new THREE.LineBasicMaterial({ color: 0x6d5640 }));
+edges.position.y = EXT_H/2;
+cabinet.add(edges);
+
+// zone labels
+addLabel(cabinet, 'GUITAR VAULT  (45–50% RH, 68–75°F)', 0, EXT_H-5, FRONT_Z, 'gear');
+addLabel(cabinet, 'OPEN AMP ZONE (two combo amps · vents heat)', 0, 11, FRONT_Z, 'gear');
+
+//// ---- Spanish cedar lining (stacked plank courses, toggle) ----
+const cedarGroup = new THREE.Group(); cabinet.add(cedarGroup);
+const cedarMat = std(0xc6905a, { r:0.85 });          // opaque, warm Spanish cedar
+const vaultH = EXT_H - SHELF_TOP - WALL, vaultMidY = SHELF_TOP + vaultH/2;
+const C_T = 0.25, COURSE = 5, REVEAL = 0.08;         // 1/4" lining · ~5" planks · thin reveal
+const vBot = SHELF_TOP + C_T, vTop = EXT_H - WALL;    // courses sit on the cedar floor
+function cedarInfo(p){ info(p, 'Spanish cedar lining', ['1/4 in solid Spanish cedar', 'Stacked in staggered horizontal courses (left bare)', 'Buffers humidity, mild aroma, deters insects']); return p; }
+function cedarWall(kind, xPos){                       // horizontal plank courses up a wall
+  for(let yb = vBot; yb < vTop - 0.4; yb += COURSE){
+    const h = Math.min(COURSE - REVEAL, vTop - yb);
+    const p = (kind==='back') ? box(INT_W, h, C_T, cedarMat) : box(C_T, h, INT_D, cedarMat);
+    if(kind==='back') p.position.set(0, yb + h/2, BACK_Z + C_T/2);
+    else              p.position.set(xPos, yb + h/2, 0);
+    cedarGroup.add(cedarInfo(p));
+  }
+}
+cedarWall('back');
+cedarWall('side', -(INT_W/2) + C_T/2);
+cedarWall('side',  (INT_W/2) - C_T/2);
+function cedarDeck(yPos){                             // floor + ceiling: boards run front-to-back
+  for(let xb = -(INT_W/2); xb < (INT_W/2) - 0.4; xb += COURSE){
+    const w = Math.min(COURSE - REVEAL, (INT_W/2) - xb);
+    const p = box(w, C_T, INT_D, cedarMat); p.position.set(xb + w/2, yPos, 0);
+    cedarGroup.add(cedarInfo(p));
+  }
+}
+cedarDeck(SHELF_TOP + C_T/2);     // floor
+cedarDeck(vTop - C_T/2);          // ceiling
+cedarGroup.visible = true;
+
+//// ---- Base / plinth (permanent) ----
+// the built cabinet sits on a ~14 cm base; rear is set in to clear the wall baseboard
+const baseMat = std(0x5e4a32, { r:0.55 });
+const plinthBackZ = -(EXT_D/2) + 0.9;             // set in ~0.9 in from the back (clears the ~2 cm baseboard)
+const plinthFrontZ = (EXT_D/2) - 2.0;             // toe-kick recess at the front
+const plinth = box(EXT_W - 3, PLINTH_H, plinthFrontZ - plinthBackZ, baseMat);
+plinth.position.set(0, FLOOR_Y + PLINTH_H/2, (plinthFrontZ + plinthBackZ)/2);
+cabinet.add(info(plinth, 'Base / plinth (~14 cm / 5.5 in)', ['Lifts the cabinet over the 13 cm baseboard', 'Rear set in ~2–3 cm so the back sits flush to the wall', 'On adjustable levelers; anti-tip strapped']));
+
+//// ---- Room context & scale (toggle) ----
+const roomGroup = new THREE.Group(); scene.add(roomGroup);
+const roomWall  = std(0xece7dc, { r:0.97 });
+const roomBase  = std(0xf5f2ec, { r:0.9 });
+const roomFloor = std(0xc69a5e, { r:0.85 });
+const wallZ = -(EXT_D/2) - 0.2;                   // wall face just behind the cabinet back
+const rFloor = box(220, 1, 180, roomFloor); rFloor.position.set(12, FLOOR_Y - 0.5, -12); roomGroup.add(rFloor);        // parquet floor
+const rBack  = box(220, 130, 4, roomWall);  rBack.position.set(12, FLOOR_Y + 65, wallZ - 2); roomGroup.add(rBack);    // back wall
+const rLeft  = box(4, 130, 180, roomWall);  rLeft.position.set(-(EXT_W/2) - 12, FLOOR_Y + 65, -12); roomGroup.add(rLeft); // left wall (corner)
+const baseboard = box(220, 5.1, 0.8, roomBase);   // ~13 cm tall × ~2 cm proud
+baseboard.position.set(12, FLOOR_Y + 2.55, wallZ + 0.4);
+roomGroup.add(info(baseboard, 'Wall baseboard', ['~13 cm tall × ~2 cm proud of the wall', 'The base is set in to clear it', 'so the cabinet body sits flush above']));
+// person for scale (~5 ft 9 in = 69 in)
+const skin = std(0x9aa0a8, { r:0.85 });
+const person = new THREE.Group(); person.position.set(EXT_W/2 + 16, 0, 6);
+const torso = box(13, 23, 7, skin); torso.position.y = FLOOR_Y + 44.5; person.add(torso);
+const hips  = box(13, 10, 7, skin); hips.position.y  = FLOOR_Y + 31;  person.add(hips);
+const legL = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.4, 26, 12), skin); legL.position.set(-3.2, FLOOR_Y + 13, 0); person.add(legL);
+const legR = legL.clone(); legR.position.x = 3.2; person.add(legR);
+const head = new THREE.Mesh(new THREE.SphereGeometry(4.3, 16, 16), skin); head.position.y = FLOOR_Y + 62; person.add(head);
+roomGroup.add(person);
+addLabel(person, '≈ 5 ft 9 in (1.75 m) — scale', 0, FLOOR_Y + 70, 0, 'gear');
+roomGroup.visible = true;
+
+//// ---- Glass vault door (toggle) ----
+const doorMat = std(0x9fd4e3, { t:true, o:0.16, m:0.1, r:0.05, side:THREE.DoubleSide, dw:false });
+const door = box(EXT_W-1.4, vaultH, 0.4, doorMat);
+door.position.set(0, vaultMidY, FRONT_Z+0.3);
+const doorFrame = new THREE.LineSegments(new THREE.EdgesGeometry(door.geometry),
+  new THREE.LineBasicMaterial({ color: 0x88a0aa }));
+door.add(doorFrame);
+info(door, 'Glass vault door', [`~38 W × ~58 H in`, 'EPDM gasket + compression latches', 'Account for 1/4 in at closure']);
+cabinet.add(door);
+door.visible = false;
+
+//// ---- Instruments ----
+const instrGroup = new THREE.Group(); scene.add(instrGroup);
+const legendInstr = [];
+
+function bodyShape(w, l, type) {
+  const s = new THREE.Shape(); const hw = w/2;
+  s.moveTo(0, 0);
+  if (type === 'oud') {                                   // deep pear/teardrop bowl
+    s.bezierCurveTo(hw*1.02, 0.04*l, hw*1.06, 0.5*l, hw*0.55, 0.82*l);
+    s.bezierCurveTo(hw*0.30, 0.95*l, hw*0.12, l, 0, l);
+    s.bezierCurveTo(-hw*0.12, l, -hw*0.30, 0.95*l, -hw*0.55, 0.82*l);
+    s.bezierCurveTo(-hw*1.06, 0.5*l, -hw*1.02, 0.04*l, 0, 0);
+  } else {                                                // classic double-bout guitar
+    s.bezierCurveTo(hw*0.92, 0.0, hw*1.0, 0.16*l, hw*1.0, 0.30*l);
+    s.bezierCurveTo(hw*1.0, 0.43*l, hw*0.60, 0.50*l, hw*0.60, 0.58*l);
+    s.bezierCurveTo(hw*0.60, 0.67*l, hw*0.93, 0.73*l, hw*0.90, 0.86*l);
+    s.bezierCurveTo(hw*0.87, 0.96*l, hw*0.22, l, 0, l);
+    s.bezierCurveTo(-hw*0.22, l, -hw*0.87, 0.96*l, -hw*0.90, 0.86*l);
+    s.bezierCurveTo(-hw*0.93, 0.73*l, -hw*0.60, 0.67*l, -hw*0.60, 0.58*l);
+    s.bezierCurveTo(-hw*0.60, 0.50*l, -hw*1.0, 0.43*l, -hw*1.0, 0.30*l);
+    s.bezierCurveTo(-hw*1.0, 0.16*l, -hw*0.92, 0.0, 0, 0);
+  }
+  return s;
+}
+
+function makeInstrument(d) {
+  const g = new THREE.Group();
+  const hsLen = 6.5;
+  const neckLen = Math.max(8, d.L - d.bodyLen - hsLen);
+  const th = d.depth;
+
+  // body (extruded along local Z = thickness, centered)
+  const geo = new THREE.ExtrudeGeometry(bodyShape(d.bodyWidth, d.bodyLen, d.type),
+    { depth: th, bevelEnabled: d.type !== 'electric', bevelThickness: 0.4, bevelSize: 0.4, bevelSegments: 2, steps: 1 });
+  geo.translate(0, 0, -th/2);
+  const body = new THREE.Mesh(geo, std(d.color, { r: d.type === 'electric' ? 0.45 : 0.6, m: d.type === 'electric' ? 0.25 : 0 }));
+  body.castShadow = true; body.receiveShadow = true;
+  g.add(body);
+
+  // soundhole for acoustic instruments
+  if (d.type === 'acoustic' || d.type === 'oud') {
+    const hole = new THREE.Mesh(new THREE.CircleGeometry(d.bodyWidth*0.12, 24), std(0x140d07, { r:1 }));
+    hole.position.set(0, d.bodyLen*0.5, th/2 + 0.02);
+    g.add(hole);
+  }
+  // pickups + bridge for electrics
+  if (d.type === 'electric') {
+    const blk = std(0x0d0d0d, { r:0.5, m:0.3 });
+    [0.34, 0.5].forEach(f => { const p = box(d.bodyWidth*0.46, 1.4, 0.5, blk); p.position.set(0, d.bodyLen*f, th/2+0.05); g.add(p); });
+  }
+
+  // neck + fretboard + headstock, sitting on the front face
+  const zf = th/2 - 0.5;
+  const neck = box(2.3, neckLen, 1.0, std(0x6b4a2b, { r:0.6 }));
+  neck.position.set(0, d.bodyLen + neckLen/2, zf);
+  g.add(neck);
+  const fb = box(2.1, neckLen, 0.25, std(0x2a1a10, { r:0.7 }));
+  fb.position.set(0, d.bodyLen + neckLen/2, zf + 0.6);
+  g.add(fb);
+  const hs = box(3.0, hsLen, 0.9, std(d.type === 'electric' ? d.color : 0x4a3219, { r:0.5 }));
+  hs.position.set(0, d.bodyLen + neckLen + hsLen/2, zf);
+  g.add(hs);
+
+  g.rotation.y = Math.PI/2;          // turn edge-out: thickness -> world X, width -> world depth
+  addLabel(g, d.name, 0, d.L + 3, 0, 'instr');
+  info(g, d.name, [
+    `Overall length: ${d.L} in`,
+    `Max body width: ${d.bodyWidth} in`,
+    `Body depth (profile): ${d.depth} in`,
+    `Width slot used: ${d.slot} in`,
+  ]);
+  legendInstr.push({ name: d.name, color: d.color });
+  return { group: g, neckLen, hsLen };
+}
+
+const instruments = [
+  { name:'Egyptian Oud',          L:32,   bodyLen:20, bodyWidth:13.5, depth:7.25, color:0x8a5a2b, type:'oud',      slot:8.0 },
+  { name:'Taylor GS Mini Bass',   L:38.25,bodyLen:18, bodyWidth:14.3, depth:4.4,  color:0xc8a063, type:'acoustic', slot:6.0 },
+  { name:'Slim Martin Acoustic',  L:40,   bodyLen:20, bodyWidth:15.0, depth:4.0,  color:0xdcb478, type:'acoustic', slot:5.5 },
+  { name:'Fender Stratocaster',   L:39,   bodyLen:16, bodyWidth:12.5, depth:1.75, color:0x2a72b8, type:'electric', slot:3.5 },
+  { name:'Schecter C-1 Platinum', L:39,   bodyLen:16.5,bodyWidth:12.5,depth:1.75, color:0x222831, type:'electric', slot:3.5 },
+  { name:'Music Man Bass',        L:45,   bodyLen:17, bodyWidth:13.5, depth:1.75, color:0xb02a2a, type:'electric', slot:3.5 },
+  { name:'1980 Rickenbacker 4003',L:44.8, bodyLen:18, bodyWidth:13.5, depth:1.25, color:0xe9e2cf, type:'electric', slot:3.5 },
+  { name:'Martin Backpacker',     L:35,   bodyLen:15, bodyWidth:8.5,  depth:2.0,  color:0xcaa46a, type:'backpacker',slot:3.0 },
+];
+
+// place along width; row centered. small 2-level stagger for easy access + clear view
+const rowW = instruments.reduce((s,i)=>s+i.slot, 0);   // 36.5
+let cur = -rowW/2;
+const levels = [71, 67];   // V3: hang near vault top (73.55"); longest (45") clears the divider by ~4 in
+instruments.forEach((d, i) => {
+  const made = makeInstrument(d);
+  const xc = cur + d.slot/2; cur += d.slot;
+  const topY = levels[i % 2];
+  made.group.position.set(xc, topY - d.L, 0.5);
+  instrGroup.add(made.group);
+});
+
+// back mounting board the hangers screw into
+const rail = box(rowW + 2, 4, 0.75, std(0x9c7b4f, { r:0.8 }));
+rail.position.set(0, 73, BACK_Z + 1.2);
+instrGroup.add(rail);
+addLabel(rail, 'Plywood hanger board → frame (not particleboard)', 0, 4, 2, 'gear');
+info(rail, 'Plywood hanger board', [`~${Math.round(rowW+2)} W × 4 H × 0.75 in`, 'Carries all 8 instruments', 'Bolt/French-cleat to frame — not particleboard']);
+
+//// ---- Climate & electrical gear ----
+const gearGroup = new THREE.Group(); scene.add(gearGroup);
+const cableGroup = new THREE.Group(); scene.add(cableGroup);   // power + cabling (toggle)
+const legendGear = [];
+function gear(name, color, mesh, lx, ly, lz, dims) {
+  mesh.castShadow = true; mesh.receiveShadow = true;
+  gearGroup.add(mesh);
+  if (name) { addLabel(mesh, name, lx||0, ly||0, lz||0, 'gear'); legendGear.push({ name, color }); }
+  if (dims) info(mesh, name, Array.isArray(dims) ? dims : [dims]);
+  return mesh;
+}
+// flexible cable as a tube following a few waypoints (each [x,y,z])
+const cableMat = std(0x141414, { r:0.5 });
+function cable(pts, radius = 0.18, mat = cableMat) {
+  const curve = new THREE.CatmullRomCurve3(pts.map(p => new THREE.Vector3(p[0], p[1], p[2])));
+  const m = new THREE.Mesh(new THREE.TubeGeometry(curve, Math.max(16, pts.length * 6), radius, 6, false), mat);
+  m.castShadow = true; cableGroup.add(m); return m;
+}
+
+// Two Orange amps side by side in the open bottom zone.
+const ampMat = std(0xe67e22, { r:0.55 });
+const grilleMat = std(0x161616, { r:0.9 });
+function orangeAmp(w, h, d, x, label, color, note) {
+  const a = box(w, h, d, ampMat);
+  a.position.set(x, WALL + h/2, -0.5);
+  const gr = box(w*0.86, h*0.74, 0.4, grilleMat);
+  gr.position.set(0, -h*0.06, d/2 + 0.1); a.add(gr);
+  // little top control panel strip
+  const top = box(w*0.9, 0.5, d*0.7, std(0x121212, { r:0.7 }));
+  top.position.set(0, h/2 + 0.26, -d*0.05); a.add(top);
+  gear(label, color, a, 0, h/2 + 2, 0, [`${w} W × ${h} H × ${d} D in`, note]);
+  return a;
+}
+// Orange Rocker 15 — 15W TUBE guitar combo (runs hot, but only on briefly here)
+orangeAmp(18.5, 16.14, 10.24, -9.0, 'Orange Rocker 15 (15W tube)', 0xe67e22, '15W tube combo, 1×10 — heats up, but used only briefly');
+// Orange Crush Bass 50 — 50W solid-state bass combo (cooler); taller
+orangeAmp(16.92, 19.09, 10.83, 9.5, 'Orange Crush Bass 50 (50W solid-state)', 0xf39c12, '50W solid-state, 1×12 — runs cool');
+legendGear.push({ name:'Orange amps ×2 (tube + solid-state)', color:0xe67e22 });
+
+// pedalboard lies flat on the floor in front of the amps
+const pedalboard = box(28, 1, 6, std(0x2b2b2b, { r:0.8 }));
+pedalboard.position.set(0, WALL + 0.6, 4.5);
+[0x27ae60,0x2980b9,0xc0392b,0xf1c40f,0x8e44ad].forEach((c,k)=>{ const p = box(2.4,1.6,2.6,std(c,{r:0.5})); p.position.set(-9+k*4.5,1.3,0); pedalboard.add(p); });
+gear('Pedalboard', 0x2b2b2b, pedalboard, 0, 3.5, 0, ['~28 W × 6 D in on the floor', 'In front of the amps']);
+
+// humidifier + dehumidifier on the divider shelf (corner)
+const humid = box(4.5, 7, 6, std(0xecf0f1, { r:0.4 }));
+humid.position.set(-14.5, SHELF_TOP + 3.5, -6);
+gear('Ultrasonic humidifier (distilled)', 0xecf0f1, humid, 0, 5, 0, ['~4.5 × 6 × 7 in', 'Distilled water; aim mist away from instruments']);
+const dehum = box(5.5, 7, 6, std(0x8a949a, { r:0.5, m:0.2 }));
+dehum.position.set(-9, SHELF_TOP + 3.5, -6);
+gear('Peltier dehumidifier', 0x8a949a, dehum, 0, 6.5, 0, ['~5.5 × 6 × 7 in', 'External drain tube']);
+
+// dehumidifier drain tube → bottle in the amp zone (passes through the divider)
+const drain = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, SHELF_TOP - 5, 8), std(0x3aa0c0, { r:0.4 }));
+drain.position.set(-9, (SHELF_TOP + 5)/2 + 1, -8); gearGroup.add(drain);
+const bottle = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 4, 16), std(0x4aa3c4, { t:true, o:0.5, r:0.2 }));
+bottle.position.set(-9, WALL + 2, -8); gear('Drain bottle', 0x4aa3c4, bottle, 0, 3, 0, ['Collects dehumidifier runoff', 'Empty or plumb to a drain']);
+
+// circulation fans (recirculate internal air)
+function fan(x, y, label) {
+  const f = new THREE.Group();
+  const frame = box(4.7, 4.7, 1.0, std(0x2c3e50, { r:0.6 })); f.add(frame);
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(1.9, 1.9, 0.6, 20), std(0x7f8c8d, { m:0.3, r:0.5 }));
+  hub.rotation.x = Math.PI/2; f.add(hub);
+  for (let i=0;i<5;i++){ const bl = box(1.7,0.15,0.5,std(0x95a5a6,{r:0.5})); bl.position.set(Math.cos(i/5*6.283)*1.0,Math.sin(i/5*6.283)*1.0,0); bl.rotation.z=i/5*6.283; f.add(bl); }
+  f.position.set(x, y, 0); f.castShadow = true;
+  gearGroup.add(f);
+  addLabel(f, label, 0, 4, 0, 'gear');
+  info(f, label.replace(/[↑↓]/g,'').trim(), ['120 mm (4.7 × 4.7 × 1 in)', 'USB; recirculates internal air only']);
+  return f;
+}
+fan(11, SHELF_TOP + 3, 'Lower fan ↑ (front)');
+fan(-11, EXT_H - WALL - 3, 'Upper fan ↓ (rear)');
+legendGear.push({ name:'120 mm circulation fans ×2', color:0x7f8c8d });
+
+// independent sensor puck inside vault
+const sensor = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 0.7, 18), std(0xffffff, { r:0.3 }));
+sensor.rotation.z = Math.PI/2; sensor.position.set(INT_W/2 - 1.2, 48, 3);
+gear('Logging sensor + alerts', 0xffffff, sensor, 0, 3, 0, ['Independent RH/temp logger', 'Salt-calibrate; set high/low alarms']);
+
+// Controllers live in the OPEN amp zone (outside the sealed vault): displays
+// face front, short probe runs go up through the divider grommet, devices plug into them.
+const GROM = [-2, 24.375, -7];                 // sealed cable pass-through in the divider
+function controller(name, x, color, probeTo) {
+  const c = box(3.4, 4.6, 1.4, std(0x16191c, { r:0.6 }));
+  c.position.set(x, 15, BACK_Z + 1.0);
+  const screen = box(2.4, 1.5, 0.2, std(color, { r:0.2, m:0.1 }));
+  screen.position.set(0, 0.8, 0.8); c.add(screen);
+  gear(name, color, c, 0, 3.2, 0, ['In the open amp zone (outside the vault)', 'Switched outlet powers its device', 'Probe up through sealed grommet']);
+  // sensing probe: controller → up through grommet → into the vault
+  cable([[x, 17, BACK_Z + 1.0], [x, 21, -8], GROM, [GROM[0], 26, -7], probeTo], 0.12);
+  return c;
+}
+controller('Inkbird IHC-200 (humidity)',     8.5, 0x27ae60, [-1, 48, -6]);
+controller('Inkbird ITC-308 (temp / alarm)', 13,  0xe67e22, [3, 42, -6]);
+
+//// ---- Power & cable management (toggle layer) ----
+// sealed cable pass-through grommet in the divider
+const grommet = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, SHELF_T + 0.3, 18), std(0x0c0c0c, { r:0.5 }));
+grommet.position.set(GROM[0], GROM[1], GROM[2]); grommet.castShadow = true; cableGroup.add(grommet);
+addLabel(grommet, 'Sealed grommet + drip loops', 0, 2.5, 2, 'gear');
+info(grommet, 'Sealed cable pass-through', ['All vault cabling routes here', 'Caulk around it airtight', 'Drip loop on every cord']);
+
+// vertical cable raceway up the back wall of the vault (keeps cords off instruments)
+const raceTop = EXT_H - WALL - 2, raceBot = SHELF_TOP + 1;
+const raceway = box(2.4, raceTop - raceBot, 1.2, std(0x383d42, { r:0.7 }));
+raceway.position.set(GROM[0], (raceTop + raceBot) / 2, BACK_Z + 1.0); cableGroup.add(raceway);
+addLabel(raceway, 'Back cable raceway', GROM[0] > 0 ? 3 : -3, 12, 0, 'gear');
+info(raceway, 'Cable raceway (D-line)', ['Adhesive channel up the back wall', 'Corrals cords away from instruments']);
+
+// GFCI surge-protected power strip — the single mains hub, mounted off the floor
+const strip = box(14, 1.8, 1.6, std(0x1c1c1c, { r:0.6 }));
+strip.position.set(-7, 7, BACK_Z + 1.2); cableGroup.add(strip);
+for (let i=0;i<6;i++){ const o=box(1.1,1.1,0.2,std(0x2b2b2b,{r:0.4})); o.position.set(-5.5+i*2.2,0,0.9); strip.add(o); }
+const brk = box(1.1,1.1,0.3,std(0xc0392b,{m:0.2,r:0.3})); brk.position.set(6.2,0,0.9); strip.add(brk);
+addLabel(strip, 'GFCI surge strip (resettable breaker)', 0, 2.5, 0, 'gear');
+info(strip, 'GFCI surge-protected power strip', ['Single mains hub for everything', 'Resettable breaker; mounted off the floor', 'Amps + controllers + USB plug in here']);
+
+// USB power adapter for the fans
+const usb = box(3, 2.2, 1.6, std(0x222222, { r:0.5 }));
+usb.position.set(3, 6, BACK_Z + 1.2); cableGroup.add(usb);
+addLabel(usb, 'USB power (fans)', 0, 2.5, 0, 'gear');
+info(usb, 'USB power adapter', ['Powers both 120 mm fans', 'Plugs into the strip']);
+
+// GFCI wall outlet behind the cabinet
+const outlet = box(5, 5, 0.4, std(0xeaeef0, { r:0.6 }));
+outlet.position.set(-7, 16, BACK_Z - 3.2); cableGroup.add(outlet);
+addLabel(outlet, 'To GFCI wall outlet', 0, 4, 0, 'gear');
+info(outlet, 'GFCI wall outlet', ['Cabinet plugs into a GFCI receptacle', 'One cord leaves the cabinet — at the back']);
+
+// --- cable runs ---
+cable([[-7,7,BACK_Z+0.6],[-7,10,BACK_Z-1.0],[-7,14,BACK_Z-2.8]], 0.22);                               // mains → wall
+cable([[-14.5,28,-6],[-7,28,-7],GROM,[GROM[0],22.4,-7.2],[GROM[0],23.6,-9],[8.5,17.5,BACK_Z+1.0]]);   // humidifier → IHC-200
+cable([[-9,28,-6],[-5,28,-7.2],GROM,[GROM[0],22.5,-6.8],[GROM[0],23.5,-9.2],[8.2,17.2,BACK_Z+1.0]]);  // dehumidifier → IHC-200
+cable([[11,27.75,0],[3,29,-8.5],[GROM[0],30,-9.4],[GROM[0],26,-7.6],GROM,[GROM[0],22.6,-8],[3,8.2,BACK_Z+1.1]]);  // lower fan → USB
+cable([[-11,73,0],[-3,71,-7.0],[GROM[0],62,-7.2],[GROM[0],28,-7.2],GROM,[GROM[0],22.7,-6.6],[3,8.6,BACK_Z+1.1]]); // upper fan → USB
+cable([[8.5,12.4,BACK_Z+1.0],[2,9,BACK_Z+1.1],[-1,7.6,BACK_Z+1.2]], 0.14);                            // IHC-200 power
+cable([[13,12.4,BACK_Z+1.0],[5,9.2,BACK_Z+1.1],[-0.5,7.7,BACK_Z+1.2]], 0.14);                          // ITC-308 power
+cable([[-9,2,-5],[-9,4,BACK_Z+2],[-7.5,7,BACK_Z+1.1]], 0.2);                                          // Rocker 15 → strip
+cable([[9.5,2,-5.2],[2,4,BACK_Z+2],[-5,7,BACK_Z+1.1]], 0.2);                                          // Crush Bass → strip
+legendGear.push({ name:'GFCI strip, raceway & cabling', color:0x1c1c1c });
+
+//// ---- Legend DOM ----
+function fillLegend(elId, arr) {
+  const el = document.getElementById(elId);
+  arr.forEach(r => {
+    const row = document.createElement('div'); row.className = 'lg-row';
+    const sw = document.createElement('span'); sw.className = 'sw';
+    sw.style.background = '#' + r.color.toString(16).padStart(6,'0');
+    const t = document.createElement('span'); t.textContent = r.name;
+    row.append(sw, t); el.appendChild(row);
+  });
+}
+fillLegend('legend-instr', legendInstr);
+fillLegend('legend-gear', legendGear);
+
+//// ---- UI toggles ----
+const $ = id => document.getElementById(id);
+$('t-labels').onchange = e => labels.forEach(l => l.visible = e.target.checked);
+$('t-instr').onchange  = e => instrGroup.visible = e.target.checked;
+$('t-gear').onchange   = e => gearGroup.visible = e.target.checked;
+$('t-power').onchange  = e => { cableGroup.visible = e.target.checked; hideTip(); };
+$('t-cedar').onchange  = e => cedarGroup.visible = e.target.checked;
+$('t-room').onchange   = e => roomGroup.visible = e.target.checked;
+$('t-door').onchange   = e => door.visible = e.target.checked;
+$('t-walls').onchange  = e => wallPanels.forEach(p => { p.material.opacity = e.target.checked ? 0.30 : 0.95; });
+$('t-rotate').onchange = e => controls.autoRotate = e.target.checked;
+controls.autoRotateSpeed = 0.8;
+$('reset').onclick = () => { camera.position.copy(CAM0); controls.target.copy(TGT0); };
+
+//// ---- Hover tooltips + highlight (raycaster) ----
+const raycaster = new THREE.Raycaster();
+const ndc = new THREE.Vector2();
+const tip = document.getElementById('tip');
+const pickRoots = [cabinet, instrGroup, gearGroup, cableGroup];
+const boxHelper = new THREE.BoxHelper(new THREE.Object3D(), 0xe67e22);
+boxHelper.material.depthTest = false; boxHelper.material.transparent = true; boxHelper.visible = false;
+scene.add(boxHelper);
+
+function findInfo(o) { while (o) { if (o.userData && o.userData.info) return o; o = o.parent; } return null; }
+function isShown(o) { while (o) { if (o.visible === false) return false; o = o.parent; } return true; }  // raycaster ignores .visible
+function hideTip() { tip.style.display = 'none'; boxHelper.visible = false; }
+
+renderer.domElement.addEventListener('pointermove', e => {
+  const r = renderer.domElement.getBoundingClientRect();
+  ndc.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+  ndc.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+  raycaster.setFromCamera(ndc, camera);
+  let target = null;
+  for (const h of raycaster.intersectObjects(pickRoots, true)) {
+    if (!isShown(h.object)) continue;            // ignore hidden door/cedar
+    const t = findInfo(h.object);
+    if (t) { target = t; break; }
+  }
+  if (!target) { hideTip(); return; }
+  const meta = target.userData.info;
+  tip.replaceChildren();
+  const h3 = document.createElement('h3'); h3.textContent = meta.title; tip.appendChild(h3);
+  meta.lines.filter(Boolean).forEach(line => {
+    const d = document.createElement('div'); d.className = 'dim'; d.textContent = line; tip.appendChild(d);
+  });
+  tip.style.display = 'block';
+  const x = Math.min(e.clientX + 16, innerWidth - tip.offsetWidth - 10);
+  const y = Math.min(e.clientY + 16, innerHeight - tip.offsetHeight - 10);
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  boxHelper.setFromObject(target); boxHelper.visible = true;
+});
+renderer.domElement.addEventListener('pointerleave', hideTip);
+// keep the highlight box aligned if the hovered object's layer is toggled off
+controls.addEventListener('start', hideTip);
+
+//// ---- Resize + loop ----
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  labelRenderer.setSize(innerWidth, innerHeight);
+});
+(function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+  labelRenderer.render(scene, camera);
+})();
+
+} catch (e) {
+  console.error(e);
+  document.getElementById('err').style.display = 'flex';
+}
+</script>
+</body>
+</html>
