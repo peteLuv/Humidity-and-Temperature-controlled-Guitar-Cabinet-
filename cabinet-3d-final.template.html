@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Climate Guitar Cabinet — Final (3D)</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #10161a; font-family: 'Segoe UI', Tahoma, sans-serif; color: #ecf0f1; }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; }
+  .ui { position: absolute; background: rgba(18,25,30,0.9); border: 1px solid rgba(255,255,255,.07); border-radius: 11px; padding: 12px 14px; backdrop-filter: blur(5px); box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+  #title { top: 14px; left: 14px; max-width: 320px; }
+  #title h1 { margin: 0 0 4px; font-size: 15px; color: #e67e22; }
+  #title p { margin: 0; font-size: 11.5px; line-height: 1.5; color: #bdc7cc; }
+  #panel { top: 14px; right: 14px; width: 196px; }
+  #panel h2 { margin: 0 0 8px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: #1abc9c; }
+  #panel label { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 4px 0; cursor: pointer; }
+  #panel input { accent-color: #e67e22; width: 15px; height: 15px; }
+  #panel button { margin-top: 10px; width: 100%; padding: 7px; border: 0; border-radius: 6px; background: #e67e22; color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; }
+  .lbl { font-size: 11px; padding: 2px 7px; border-radius: 9px; white-space: nowrap; pointer-events: none; background: rgba(15,22,26,.85); border: 1px solid rgba(255,255,255,.14); }
+  .lbl.dim { color: #ffe9c7; border-color: rgba(230,126,34,.6); font-variant-numeric: tabular-nums; }
+  .lbl.note { color: #cfe8f5; }
+  .lbl-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  #err { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; text-align: center; padding: 40px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="title" class="ui">
+  <h1>Climate Guitar Cabinet — Final</h1>
+  <p>Drag to orbit · scroll zoom · right-drag pan. Sealed cedar vault (guitars in a floor rack) over an open amp zone. Built to the Rev C measurements (cm).</p>
+</div>
+<div id="panel" class="ui">
+  <h2>Show</h2>
+  <label><input type="checkbox" id="t-walls" checked> See-through walls</label>
+  <label><input type="checkbox" id="t-cedar" checked> Cedar lining</label>
+  <label><input type="checkbox" id="t-furn" checked> Rack, guitars, amps</label>
+  <label><input type="checkbox" id="t-door"> Glass door</label>
+  <label><input type="checkbox" id="t-labels" checked> Dimensions</label>
+  <label><input type="checkbox" id="t-person"> Person (1.75 m)</label>
+  <button id="reset">Reset view</button>
+</div>
+<div id="err" class="ui"><div><h2>Could not start the 3D view</h2><p>Your browser must allow ES modules from local files.</p></div></div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three.module.js",
+  "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js",
+  "three/addons/renderers/CSS2DRenderer.js": "./vendor/CSS2DRenderer.js"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+try {
+// ===== measurements (cm) — Rev C =====
+const OW = 100.8, OD = 47.3, OH = 195;       // outer carcass
+const T = 1.9, BT = 1.3;                       // carcass / back thickness
+const IW = 97;                                 // inner width (between sides)
+const AMP = 60, VAULT = 129.3;                 // compartment heights
+const ampTop = T + AMP;                         // 61.9 (divider underside line)
+const divTop = ampTop + T;                      // 63.8 (vault floor)
+const vaultTop = divTop + VAULT;                // 193.1
+const fZ = OD/2 - BT;                            // interior front face z (+)
+const bZ = -(OD/2);                             // outer back z
+const innerX = IW/2;                            // 48.5
+const sideX = OW/2 - T/2;                        // 49.45
+
+const app = document.getElementById('app');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+app.appendChild(renderer.domElement);
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.setSize(innerWidth, innerHeight);
+labelRenderer.domElement.className = 'lbl-layer';
+app.appendChild(labelRenderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x10161a);
+const camera = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 1, 4000);
+const CAM0 = new THREE.Vector3(205, 135, 270), TGT0 = new THREE.Vector3(0, 95, 0);
+camera.position.copy(CAM0);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.copy(TGT0); controls.enableDamping = true; controls.maxDistance = 1400;
+
+scene.add(new THREE.HemisphereLight(0xfff4e4, 0x39424a, 0.95));
+const sun = new THREE.DirectionalLight(0xfff1da, 1.1);
+sun.position.set(160, 360, 280); sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048); sun.shadow.camera.near = 50; sun.shadow.camera.far = 1200;
+sun.shadow.camera.left = -260; sun.shadow.camera.right = 260; sun.shadow.camera.top = 320; sun.shadow.camera.bottom = -120;
+sun.shadow.bias = -0.0005; scene.add(sun);
+const fill = new THREE.DirectionalLight(0xc8dcec, 0.3); fill.position.set(-220, 160, -160); scene.add(fill);
+
+const std = (c, o={}) => new THREE.MeshStandardMaterial({ color: c, roughness: o.r ?? 0.85, metalness: o.m ?? 0, transparent: o.t ?? false, opacity: o.o ?? 1, side: o.side ?? THREE.FrontSide });
+function box(w,h,d,mat){ const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat); m.castShadow = true; m.receiveShadow = true; return m; }
+function put(group, mesh, x, y, z){ mesh.position.set(x,y,z); group.add(mesh); return mesh; }
+const labels = [];
+function label(text, x, y, z, cls, parent){ const e=document.createElement('div'); e.className='lbl '+cls; e.textContent=text; const o=new CSS2DObject(e); o.position.set(x,y,z); labels.push(o); (parent||scene).add(o); return o; }
+
+// ===== carcass (Baltic birch) =====
+const carcass = new THREE.Group(); scene.add(carcass);
+const birch = std(0xd9c298, { r:0.78 });
+const birchClear = std(0xd9c298, { r:0.78, t:true, o:0.16, side:THREE.DoubleSide });
+const wallMats = [];
+function wall(w,h,d,x,y,z){ const m = box(w,h,d,birchClear); m.position.set(x,y,z); carcass.add(m); wallMats.push(m); return m; }
+// solid (always opaque): bottom, divider, top
+put(carcass, box(IW, T, 46, birch), 0, T/2, 0);              // bottom
+put(carcass, box(IW, T, 46, birch), 0, ampTop + T/2, 0);     // divider
+put(carcass, box(IW, T, 46, birch), 0, OH - T/2, 0);         // top
+// see-through-able: sides + back
+wall(T, OH, 46, -sideX, OH/2, 0);
+wall(T, OH, 46,  sideX, OH/2, 0);
+wall(OW, OH, BT, 0, OH/2, bZ + BT/2);
+
+// ===== Spanish cedar lining (vault) =====
+const cedarG = new THREE.Group(); scene.add(cedarG);
+const cedarMat = std(0xc6905a, { r:0.85 });
+const C = 0.6, COURSE = 13, REV = 0.4;
+function cedarWall(kind, xPos){
+  for(let yb = divTop + C; yb < vaultTop - 2; yb += COURSE){
+    const h = Math.min(COURSE - REV, vaultTop - yb);
+    const m = (kind==='back') ? box(IW-1, h, C, cedarMat) : box(C, h, 45, cedarMat);
+    m.position.set(kind==='back' ? 0 : xPos, yb + h/2, kind==='back' ? bZ + BT + C/2 : 0);
+    cedarG.add(m);
+  }
+}
+cedarWall('back');
+cedarWall('side', -(innerX) + C/2);
+cedarWall('side',  (innerX) - C/2);
+put(cedarG, box(IW-1, C, 45, cedarMat), 0, divTop + C/2, 0);    // floor
+put(cedarG, box(IW-1, C, 45, cedarMat), 0, vaultTop - C/2, 0);  // ceiling
+
+// ===== furniture: floor rack + guitars + amps + pedalboard =====
+const furn = new THREE.Group(); scene.add(furn);
+const vFloor = divTop + C;       // top of cedar floor
+// guitar rack (simple A-frame base + lean bar)
+const rackMat = std(0x1c1c1f, { r:0.6 });
+put(furn, box(84, 5, 37, rackMat), 0, vFloor + 2.5, 2);                 // base platform
+for (let i=0;i<8;i++) put(furn, box(1.4, 7, 34, rackMat), -35 + i*10, vFloor + 8, 2); // slot fins
+put(furn, box(84, 3, 3, rackMat), 0, vFloor + 60, -10);                 // upper lean bar
+for (const s of [-1,1]) put(furn, box(3, 62, 3, rackMat), s*40, vFloor + 31, -4); // end posts
+// guitars standing in the rack (face-out, leaning back)
+const gcols = [0x9c5a2c, 0x6e2230, 0x214055, 0xc9a14a, 0x2d3b45, 0xb08440];
+for (let i=0;i<6;i++){
+  const g = new THREE.Group();
+  const col = std(gcols[i], { r:0.55 });
+  put(g, box(33, 46, 10, col), 0, 27, 0);                   // body
+  put(g, box(6, 66, 4, std(0x3a2a1a,{r:0.6})), 0, 70, -1);  // neck
+  put(g, box(9, 13, 3, std(0x241a10,{r:0.6})), 0, 109, -1); // headstock
+  g.position.set(-34 + i*13.5, vFloor + 5, 2 + (i%2 ? -3 : 4));
+  g.rotation.x = 0.12;                                       // lean back
+  furn.add(g);
+}
+// two combo amps + pedalboard in the amp zone
+const ampMat = std(0xe07b27, { r:0.5 }), grille = std(0x141414, { r:0.9 });
+function amp(w,h,d,x){ const a = box(w,h,d,ampMat); a.position.set(x, T + h/2, -2); const gr = box(w*0.8,h*0.7,0.5,grille); gr.position.set(0,-h*0.05,d/2+0.3); a.add(gr); furn.add(a); }
+amp(47, 41, 27, -24);    // Rocker 15
+amp(43, 48.5, 27, 22);   // Crush Bass 50
+put(furn, box(70, 3, 16, std(0x2b2b2b,{r:0.8})), 0, T + 1.5, 14);   // pedalboard
+
+// ===== cherry face frame + glass door =====
+const cherry = std(0x7a3f24, { r:0.55 });
+const faceG = new THREE.Group(); scene.add(faceG);
+put(faceG, box(3.8, OH, 2, cherry), -innerX, OH/2, fZ + 1);
+put(faceG, box(3.8, OH, 2, cherry),  innerX, OH/2, fZ + 1);
+put(faceG, box(93.2, 3.8, 2, cherry), 0, OH - 2, fZ + 1);     // top rail
+put(faceG, box(93.2, 3.8, 2, cherry), 0, ampTop, fZ + 1);     // middle rail (divider line)
+put(faceG, box(93.2, 3.8, 2, cherry), 0, 1.5, fZ + 1);        // bottom rail
+
+const doorG = new THREE.Group(); scene.add(doorG); doorG.visible = false;
+const doorCY = (divTop + vaultTop) / 2;
+put(doorG, box(92, 127, 2.2, cherry), 0, doorCY, fZ + 2.4);                                   // door frame slab
+put(doorG, box(80, 115, 0.5, std(0xa9d8ea, { t:true, o:0.4, r:0.1 })), 0, doorCY, fZ + 3.7);  // glass
+
+// ===== base / plinth + ground =====
+const base = box(96, 14, 44, std(0x4f3f2a, { r:0.5 })); base.position.set(0, -7, -1); scene.add(base);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(2000,2000), std(0x171f24,{r:1}));
+ground.rotation.x = -Math.PI/2; ground.position.y = -14; ground.receiveShadow = true; scene.add(ground);
+
+// ===== person (scale) =====
+const person = new THREE.Group(); person.visible = false; person.position.set(95, 0, 8); scene.add(person);
+const skin = std(0x9aa0a8, { r:0.85 });
+put(person, box(33, 58, 18, skin), 0, 113, 0);
+put(person, box(33, 26, 18, skin), 0, 79, 0);
+put(person, new THREE.Mesh(new THREE.CylinderGeometry(6,6,66,12), skin), -8, 33, 0);
+put(person, new THREE.Mesh(new THREE.CylinderGeometry(6,6,66,12), skin), 8, 33, 0);
+put(person, new THREE.Mesh(new THREE.SphereGeometry(11,16,16), skin), 0, 158, 0);
+
+// ===== dimension labels =====
+label('Outer 100.8 × 47.3 × 195 cm', 0, OH + 12, 0, 'dim');
+label('Vault 97 × 46 × 129.3 cm', innerX + 6, divTop + VAULT/2, 0, 'dim');
+label('Amp zone 97 × 46 × 60 cm', innerX + 6, T + AMP/2, 0, 'dim');
+label('cedar-lined · floor rack', 0, vaultTop - 14, fZ, 'note');
+
+// ===== toggles =====
+const $ = id => document.getElementById(id);
+$('t-walls').onchange = e => wallMats.forEach(m => { m.material.opacity = e.target.checked ? 0.16 : 1; m.material.transparent = e.target.checked; });
+$('t-cedar').onchange = e => cedarG.visible = e.target.checked;
+$('t-furn').onchange  = e => furn.visible = e.target.checked;
+$('t-door').onchange  = e => doorG.visible = e.target.checked;
+$('t-labels').onchange = e => labels.forEach(l => l.visible = e.target.checked);
+$('t-person').onchange = e => person.visible = e.target.checked;
+$('reset').onclick = () => { camera.position.copy(CAM0); controls.target.copy(TGT0); };
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight); labelRenderer.setSize(innerWidth, innerHeight);
+});
+(function animate(){ requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); labelRenderer.render(scene, camera); })();
+window.__cab = { scene, OW, OD, OH, IW, VAULT, AMP };
+} catch (err) { console.error(err); document.getElementById('err').style.display = 'flex'; }
+</script>
+</body>
+</html>

@@ -42,6 +42,17 @@ nails + a little instrument-safe adhesive.
 > Lining adds ~6 mm to each face, so the clear vault becomes ~95.8 × 45 × 128 cm —
 > the guitar rack (≈ 82 × 37 cm) and the standing guitars (≈ 118 cm) still fit.
 
+**How many planks?** Total face area is **3.34 m² (≈ 36 sq ft)** — order **~3.7 m²
+(≈ 40 sq ft)** to cover cuts/waste. Plank count depends on the size you buy:
+
+| If you buy… | Each plank | Planks needed |
+|---|---|---|
+| **~13 cm (5″) wide boards** (recommended) | 13 cm wide × 46–97 cm long | **~46** (back ×10 @ 97 cm, sides ×20 @ 46 cm, floor+ceiling ×16 @ 46 cm) **+ a few spares → ~50** |
+| **~7.5 cm (3″) wide boards** | 7.5 cm × 46–97 cm | **~80** |
+| Small **30 × 7.5 cm (12 × 3″) humidor planks** | 0.023 m² each | **~150–160** (≈ 40 four-packs) — pricey; prefer boards by area |
+
+Buy by **area** when you can; it's far cheaper than the little humidor packs.
+
 ---
 
 ## 2) Cherry frame (face frame + glass door)
@@ -93,6 +104,29 @@ around) or overlay.
 4. **Seal the vault airtight** (caulk all interior seams above the divider); amp zone stays vented.
 5. **Install climate/electrical gear** per `guitar-cabinet-plan.html`, run the sensor probe up through the Ø5 cm divider grommet with a drip loop.
 6. **Burn-in:** run empty a few days, confirm it holds 45–50% RH before loading the rack + guitars.
+
+## Exterior finish — clear shellac (birch plywood)
+
+The exterior birch is finished with **clear (blonde) shellac** (~2-lb cut, e.g.
+Bulls Eye Clear) — a great choice for birch; warms the grain, no blotch, and it's
+instrument-safe once cured. **Exterior only — keep it off the vault interior and the
+cedar.**
+
+1. **Sand** to 220 grit; vacuum and wipe with a tack cloth.
+2. **Brush thin coats** with a natural-bristle brush or pad, **with the grain**;
+   don't overwork it — shellac sets fast.
+3. **Recoat after ~45 min – 1 hr** (dry to the touch, not tacky; allow longer in
+   humid weather).
+4. **Scuff-sand lightly (320 grit)** between coats after the first; tack off dust.
+5. **2–3 coats** total.
+6. **Cure the final coat 24–48 hr** before waxing or hard handling.
+7. **Optional paste wax** after full cure, buffed out — adds sheen and a little
+   water/scratch resistance.
+
+Notes: work **ventilated, no open flame** (alcohol solvent); apply in **dry
+conditions** (high humidity can cause a cloudy "blush"); clean up with **denatured
+alcohol**. **Don't topcoat waxy clear shellac with polyurethane** — it won't bond
+(shellac + wax is a complete finish on its own).
 
 ## Material notes
 - **Cedar:** genuine Spanish cedar is mild and instrument-safe; leave bare. Western red cedar is a cheaper, stronger-smelling substitute; basswood = zero smell.

@@ -16,6 +16,10 @@ final build plan.
   for everything after the box: **Spanish cedar lining**, the **cherry frame +
   glass door**, the **glass**, assembly order, and material notes.
   Door detail: [`cherry-door-detail.png`](cherry-door-detail.png).
+- **[`cabinet-3d-final.html`](cabinet-3d-final.html)** — interactive **3D model of
+  the final cabinet** at the Rev C measurements: cedar-lined vault with the floor
+  guitar rack, amps + pedalboard in the amp zone, cherry frame + glass door, on its
+  base, with dimension labels. Double-click to open (Three.js embedded).
 - **[`guitar-cabinet-plan.html`](guitar-cabinet-plan.html)** — the
   **climate & electrical** master plan (humidity/temperature control, AC Infinity
   Controller 79, humidifier/dehumidifier, fans, sensor, power, sealing, finishing).
