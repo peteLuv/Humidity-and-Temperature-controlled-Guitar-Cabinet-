@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 600" font-family="'Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/></marker>
+    <marker id="al" markerWidth="9" markerHeight="9" refX="2" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 z" fill="#34495e"/></marker>
+  </defs>
+  <style>
+    .ply{fill:#e9d8b8;stroke:#5a4632;stroke-width:1.6;}
+    .panel{fill:#d9c08c;stroke:#5a4632;stroke-width:1.2;}
+    .base{fill:#5e4a32;stroke:#3a2c1a;stroke-width:1.2;}
+    .glass{fill:#cfe8f5;stroke:#3a86a8;stroke-width:2;opacity:0.8;}
+    .wall{fill:#cfd6db;stroke:#9aa6ad;stroke-width:1;}
+    .fix{fill:#e74c3c;}
+    .fixln{stroke:#c0392b;stroke-width:1.4;}
+    .lead{stroke:#7a8794;stroke-width:1;}
+    .h1{fill:#2c3e50;font-size:19px;font-weight:bold;}
+    .ttl{fill:#c0392b;font-size:12.5px;font-weight:bold;}
+    .nt{fill:#34495e;font-size:11px;}
+    .good{fill:#1e8449;font-size:11px;font-weight:bold;}
+    .gtr{fill:#c98a52;stroke:#7a4a22;stroke-width:1;}
+  </style>
+
+  <text x="22" y="30" class="h1">Structural reinforcements — side section</text>
+  <text x="22" y="49" class="nt">Cabinet 47.5 cm deep × 194 cm tall · ~160 kg loaded · all fixes are retrofits. Back = left (wall), door = right (front).</text>
+
+  <!-- wall -->
+  <rect x="150" y="55" width="14" height="495" class="wall"/>
+  <text x="157" y="540" text-anchor="middle" class="nt" transform="rotate(-90 157 540)">room wall (studs)</text>
+
+  <!-- ground -->
+  <line x1="150" y1="540" x2="360" y2="540" stroke="#34495e" stroke-width="2"/>
+
+  <!-- base / plinth -->
+  <rect x="180" y="508" width="120" height="32" class="base"/>
+  <circle cx="192" cy="540" r="3" fill="#222"/><circle cx="288" cy="540" r="3" fill="#222"/>
+
+  <!-- carcass outline (side) -->
+  <rect x="180" y="62" width="120" height="446" fill="#f6efdd" stroke="#5a4632" stroke-width="2"/>
+  <!-- back panel (left, thin) -->
+  <rect x="180" y="62" width="6" height="446" class="ply"/>
+  <!-- top + bottom -->
+  <rect x="180" y="62" width="120" height="7" class="ply"/>
+  <rect x="180" y="501" width="120" height="7" class="ply"/>
+  <!-- divider -->
+  <rect x="186" y="358" width="114" height="7" class="panel"/>
+
+  <!-- amp zone contents (low CG = good) -->
+  <rect x="190" y="438" width="66" height="63" fill="#e07b27" stroke="#7a3d10" stroke-width="1"/>
+  <text x="223" y="474" text-anchor="middle" class="nt" fill="#3a2410">amps</text>
+  <!-- vault: rack + leaning guitars -->
+  <g class="gtr" opacity="0.9">
+    <path d="M210 352 q-3 -120 14 -150 q4 38 4 150 z"/>
+    <path d="M236 352 q-3 -110 14 -140 q4 34 4 140 z"/>
+  </g>
+  <text x="244" y="250" class="nt" fill="#7a4a22">vault: rack + guitars (~45 kg on the divider)</text>
+
+  <!-- glass door (front/right) -->
+  <rect x="298" y="120" width="4" height="245" class="glass"/>
+  <path d="M302 365 a245 245 0 0 1 -120 -10" fill="none" stroke="#3a86a8" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="318" y="245" class="nt" transform="rotate(90 318 245)">glass door swings out →</text>
+
+  <!-- CG marker (low) -->
+  <circle cx="240" cy="395" r="7" fill="#fff" stroke="#1e8449" stroke-width="2"/>
+  <path d="M240 388 v14 M233 395 h14" stroke="#1e8449" stroke-width="2"/>
+  <text x="240" y="418" text-anchor="middle" class="good">low CG ✓</text>
+
+  <!-- ===== FIX CALLOUTS (red) ===== -->
+  <!-- 1 anti-tip strap -->
+  <rect x="164" y="78" width="22" height="8" class="fix"/>
+  <line x1="186" y1="82" x2="470" y2="82" class="fixln" marker-start="url(#al)"/>
+  <text x="476" y="78" class="ttl">1 · Anchor to wall studs — MANDATORY</text>
+  <text x="476" y="93" class="nt">2 straps/brackets, top rail → studs. Do this before</text>
+  <text x="476" y="107" class="nt">loading. Worst tip case = door open + reaching in.</text>
+
+  <!-- 2 divider stiffener -->
+  <rect x="288" y="365" width="12" height="10" class="fix"/>
+  <line x1="294" y1="370" x2="470" y2="150" class="fixln" marker-start="url(#al)"/>
+  <text x="476" y="138" class="ttl">2 · Divider stiffener rail + end cleats</text>
+  <text x="476" y="153" class="nt">¾″ ply at 38″ span + ~45 kg creeps ~5 mm over years.</text>
+  <text x="476" y="167" class="nt">Add a 40×20 mm rail under the front edge, ends on</text>
+  <text x="476" y="181" class="nt">cleats screwed to the sides → sag ≈ 0.</text>
+
+  <!-- 3 back fastening -->
+  <line x1="183" y1="280" x2="470" y2="230" class="fixln" marker-start="url(#al)"/>
+  <text x="476" y="218" class="ttl">3 · Fasten the back fully (anti-rack)</text>
+  <text x="476" y="233" class="nt">Glue + screw/staple every 10–15 cm all around +</text>
+  <text x="476" y="247" class="nt">into the divider. The back keeps the box square so</text>
+  <text x="476" y="261" class="nt">the door seals.</text>
+
+  <!-- 4 hinge -->
+  <line x1="300" y1="150" x2="470" y2="300" class="fixln" marker-start="url(#al)"/>
+  <text x="476" y="290" class="ttl">4 · Heavy door (~18 kg) — hinge + stop</text>
+  <text x="476" y="305" class="nt">Continuous piano hinge into the cherry stile AND the</text>
+  <text x="476" y="319" class="nt">ply side. Keep glass thin (5 mm). Add a swing stop.</text>
+
+  <!-- 5 base -->
+  <line x1="240" y1="524" x2="470" y2="360" class="fixln" marker-start="url(#al)"/>
+  <text x="476" y="350" class="ttl">5 · Rigid base on rated, level feet</text>
+  <text x="476" y="365" class="nt">Closed box (not legs); levelers rated &gt; 250 kg total;</text>
+  <text x="476" y="379" class="nt">level it so the door seals &amp; the divider isn't pre-stressed.</text>
+
+  <!-- priority box -->
+  <rect x="476" y="400" width="288" height="150" rx="8" fill="#fdeee9" stroke="#e0a08a"/>
+  <text x="490" y="422" class="ttl">Do in this order</text>
+  <text x="490" y="444" class="nt">1. Anchor to wall studs (before loading)</text>
+  <text x="490" y="463" class="nt">2. Divider stiffener rail + end cleats</text>
+  <text x="490" y="482" class="nt">3. Fully fasten the back panel</text>
+  <text x="490" y="501" class="nt">4. Reinforce hinge · thin glass · door stop</text>
+  <text x="490" y="520" class="nt">5. Rigid base on rated, level feet</text>
+  <text x="490" y="541" class="good">Tip-over + divider sag are the only two that matter.</text>
+</svg>
