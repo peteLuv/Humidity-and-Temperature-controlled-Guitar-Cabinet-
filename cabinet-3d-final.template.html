@@ -144,7 +144,7 @@ function buildCedar(W, vertical){
   const yb = divTop + C, yt = vaultTop - C, vH = yt - yb, vMid = (yb+yt)/2;
   const zB = bZ + BT + C/2, xL = -(innerX) + C/2, xR = (innerX) - C/2, Wx = IW - 1;
   // back wall
-  if(!vertical){ let i=0; for(let y=yb; y<yt-0.2; y+=W){ const h=Math.min(W-REV, yt-y); for(const s of lay(Wx,40,(i%2)?20:0)) plank(s.len-REV,h,C, s.c, y+h/2, zB, (i + (s.c>0?1:0))%2); i++; } }
+  if(!vertical){ let i=0; for(let y=yb; y<yt-0.2; y+=W){ const h=Math.min(W-REV, yt-y); plank(Wx-REV, h, C, 0, y+h/2, zB, i%2); i++; } }
   else { let j=0; for(let x=-Wx/2; x<Wx/2-0.2; x+=W){ const w=Math.min(W-REV, Wx/2-x); plank(w, vH-REV, C, x+w/2, vMid, zB, j%2); j++; } }
   // side walls
   for(const xs of [xL,xR]){
