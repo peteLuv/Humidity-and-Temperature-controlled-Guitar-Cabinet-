@@ -17,7 +17,12 @@
   #panel h2 { margin: 0 0 8px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: #1abc9c; }
   #panel label { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 4px 0; cursor: pointer; }
   #panel input { accent-color: #e67e22; width: 15px; height: 15px; }
-  #panel button { margin-top: 10px; width: 100%; padding: 7px; border: 0; border-radius: 6px; background: #e67e22; color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; }
+  #panel button#reset { margin-top: 10px; width: 100%; padding: 7px; border: 0; border-radius: 6px; background: #e67e22; color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; }
+  #cedarhead { margin-top: 11px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: #1abc9c; }
+  #cedarbtns { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  #cedarbtns button { flex: 1 1 44%; padding: 5px 4px; border: 1px solid rgba(255,255,255,.14); border-radius: 6px; background: #232e35; color: #e8eef1; font-size: 11px; cursor: pointer; }
+  #cedarbtns button.on { background: #e67e22; border-color: #e67e22; color: #fff; font-weight: 600; }
+  #cedarstatus { font-size: 10.5px; color: #9fb0ba; margin-top: 6px; }
   .lbl { font-size: 11px; padding: 2px 7px; border-radius: 9px; white-space: nowrap; pointer-events: none; background: rgba(15,22,26,.85); border: 1px solid rgba(255,255,255,.14); }
   .lbl.dim { color: #ffe9c7; border-color: rgba(230,126,34,.6); font-variant-numeric: tabular-nums; }
   .lbl.note { color: #cfe8f5; }
@@ -39,6 +44,14 @@
   <label><input type="checkbox" id="t-door"> Glass door</label>
   <label><input type="checkbox" id="t-labels" checked> Dimensions</label>
   <label><input type="checkbox" id="t-person"> Person (1.75 m)</label>
+  <div id="cedarhead">Cedar plank style</div>
+  <div id="cedarbtns">
+    <button data-w="13"   data-v="0">5″ · 10 rows</button>
+    <button data-w="7.6"  data-v="0">3″ · 17 rows</button>
+    <button data-w="16.5" data-v="0">6.5″ · 8 rows</button>
+    <button data-w="13"   data-v="1">5″ vertical</button>
+  </div>
+  <div id="cedarstatus"></div>
   <button id="reset">Reset view</button>
 </div>
 <div id="err" class="ui"><div><h2>Could not start the 3D view</h2><p>Your browser must allow ES modules from local files.</p></div></div>
@@ -118,23 +131,30 @@ wall(T, OH, 46, -sideX, OH/2, 0);
 wall(T, OH, 46,  sideX, OH/2, 0);
 wall(OW, OH, BT, 0, OH/2, bZ + BT/2);
 
-// ===== Spanish cedar lining (vault) =====
+// ===== Spanish cedar lining (vault) — switchable design options =====
 const cedarG = new THREE.Group(); scene.add(cedarG);
 const cedarMat = std(0xc6905a, { r:0.85 });
-const C = 0.6, COURSE = 13, REV = 0.4;
-function cedarWall(kind, xPos){
-  for(let yb = divTop + C; yb < vaultTop - 2; yb += COURSE){
-    const h = Math.min(COURSE - REV, vaultTop - yb);
-    const m = (kind==='back') ? box(IW-1, h, C, cedarMat) : box(C, h, 45, cedarMat);
-    m.position.set(kind==='back' ? 0 : xPos, yb + h/2, kind==='back' ? bZ + BT + C/2 : 0);
-    cedarG.add(m);
+const cedarMat2 = std(0xb9824a, { r:0.85 });        // slight tone variation so the plank pattern reads
+const C = 0.6, REV = 0.45;
+function clearG(g){ while(g.children.length) g.remove(g.children[0]); }
+function plank(sx,sy,sz,cx,cy,cz,alt){ const m = box(sx,sy,sz, alt ? cedarMat2 : cedarMat); m.position.set(cx,cy,cz); cedarG.add(m); }
+function lay(L, Lp, off){ const r=[]; let cur=-L/2, rem=L, len = off>0?off:Lp; while(rem>0.2){ len=Math.min(len,rem); r.push({c:cur+len/2,len}); cur+=len; rem-=len; len=Lp; } return r; }
+function buildCedar(W, vertical){
+  clearG(cedarG);
+  const yb = divTop + C, yt = vaultTop - C, vH = yt - yb, vMid = (yb+yt)/2;
+  const zB = bZ + BT + C/2, xL = -(innerX) + C/2, xR = (innerX) - C/2, Wx = IW - 1;
+  // back wall
+  if(!vertical){ let i=0; for(let y=yb; y<yt-0.2; y+=W){ const h=Math.min(W-REV, yt-y); for(const s of lay(Wx,40,(i%2)?20:0)) plank(s.len-REV,h,C, s.c, y+h/2, zB, (i + (s.c>0?1:0))%2); i++; } }
+  else { let j=0; for(let x=-Wx/2; x<Wx/2-0.2; x+=W){ const w=Math.min(W-REV, Wx/2-x); plank(w, vH-REV, C, x+w/2, vMid, zB, j%2); j++; } }
+  // side walls
+  for(const xs of [xL,xR]){
+    if(!vertical){ let i=0; for(let y=yb; y<yt-0.2; y+=W){ const h=Math.min(W-REV, yt-y); plank(C, h, 45-REV, xs, y+h/2, 0, i%2); i++; } }
+    else { let j=0; for(let z=-22.5; z<22.5-0.2; z+=W){ const w=Math.min(W-REV, 22.5-z); plank(C, vH-REV, w, xs, vMid, z+w/2, j%2); j++; } }
   }
+  // floor + ceiling (planks run front-to-back)
+  for(const yF of [divTop + C/2, vaultTop - C/2]){ let j=0; for(let x=-Wx/2; x<Wx/2-0.2; x+=W){ const w=Math.min(W-REV, Wx/2-x); plank(w, C, 45, x+w/2, yF, 0, j%2); j++; } }
 }
-cedarWall('back');
-cedarWall('side', -(innerX) + C/2);
-cedarWall('side',  (innerX) - C/2);
-put(cedarG, box(IW-1, C, 45, cedarMat), 0, divTop + C/2, 0);    // floor
-put(cedarG, box(IW-1, C, 45, cedarMat), 0, vaultTop - C/2, 0);  // ceiling
+buildCedar(13, false);
 
 // ===== furniture: floor rack + guitars + amps + pedalboard =====
 const furn = new THREE.Group(); scene.add(furn);
@@ -207,6 +227,19 @@ $('t-door').onchange  = e => doorG.visible = e.target.checked;
 $('t-labels').onchange = e => labels.forEach(l => l.visible = e.target.checked);
 $('t-person').onchange = e => person.visible = e.target.checked;
 $('reset').onclick = () => { camera.position.copy(CAM0); controls.target.copy(TGT0); };
+
+// cedar design-option switcher
+const cedarStatus = $('cedarstatus');
+function setCedar(W, v, btn){
+  const vert = (v === '1');
+  buildCedar(+W, vert);
+  cedarG.visible = $('t-cedar').checked;
+  document.querySelectorAll('#cedarbtns button').forEach(x => x.classList.toggle('on', x === btn));
+  const rows = Math.ceil((vaultTop - divTop - 2*C) / +W);
+  cedarStatus.textContent = `${vert ? 'Vertical' : 'Horizontal'} · ${(+W/2.54).toFixed(1)}″ (${+W} cm) · ${vert ? Math.ceil((IW-1)/+W)+' planks across' : rows+' rows'}`;
+}
+document.querySelectorAll('#cedarbtns button').forEach(b => b.onclick = () => setCedar(b.dataset.w, b.dataset.v, b));
+setCedar('13', '0', document.querySelector('#cedarbtns button'));
 
 addEventListener('resize', () => {
   camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();

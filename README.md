@@ -19,7 +19,9 @@ final build plan.
 - **[`cabinet-3d-final.html`](cabinet-3d-final.html)** — interactive **3D model of
   the final cabinet** at the Rev C measurements: cedar-lined vault with the floor
   guitar rack, amps + pedalboard in the amp zone, cherry frame + glass door, on its
-  base, with dimension labels. Double-click to open (Three.js embedded).
+  base, with dimension labels. Includes a **cedar plank-style switcher** to compare
+  the lining design options live (5″/10 rows, 3″/17 rows, 6.5″/8 rows, and 5″
+  vertical). Double-click to open (Three.js embedded).
 - **[`guitar-cabinet-plan.html`](guitar-cabinet-plan.html)** — the
   **climate & electrical** master plan (humidity/temperature control, AC Infinity
   Controller 79, humidifier/dehumidifier, fans, sensor, power, sealing, finishing).
