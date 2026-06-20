@@ -46,10 +46,10 @@
   <label><input type="checkbox" id="t-person"> Person (1.75 m)</label>
   <div id="cedarhead">Cedar plank style</div>
   <div id="cedarbtns">
-    <button data-w="12.5" data-v="0">5″ · 10 rows</button>
+    <button data-w="12.7" data-v="0">5″ · 10 rows</button>
     <button data-w="7.6"  data-v="0">3″ · 17 rows</button>
     <button data-w="16.5" data-v="0">6.5″ · 8 rows</button>
-    <button data-w="12.5" data-v="1">5″ vertical</button>
+    <button data-w="12.7" data-v="1">5″ vertical</button>
   </div>
   <div id="cedarstatus"></div>
   <button id="reset">Reset view</button>
@@ -156,7 +156,7 @@ function buildCedar(W, vertical){
   // ceiling: short planks run front-to-back (full depth), stacked left-to-right
   { let j=0; for(let x=-Wx/2; x<Wx/2-0.2; x+=W){ const w=Math.min(W-REV, Wx/2-x); plank(w, C, 45, x+w/2, vaultTop - C/2, 0, j%2); j++; } }
 }
-buildCedar(12.5, false);
+buildCedar(12.7, false);
 
 // ===== furniture: floor rack + guitars + amps + pedalboard =====
 const furn = new THREE.Group(); scene.add(furn);
@@ -241,7 +241,7 @@ function setCedar(W, v, btn){
   cedarStatus.textContent = `${vert ? 'Vertical' : 'Horizontal'} · ${(+W/2.54).toFixed(1)}″ (${+W} cm) · ${vert ? Math.ceil((IW-1)/+W)+' planks across' : rows+' rows'}`;
 }
 document.querySelectorAll('#cedarbtns button').forEach(b => b.onclick = () => setCedar(b.dataset.w, b.dataset.v, b));
-setCedar('12.5', '0', document.querySelector('#cedarbtns button'));
+setCedar('12.7', '0', document.querySelector('#cedarbtns button'));
 
 addEventListener('resize', () => {
   camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();

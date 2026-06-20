@@ -34,7 +34,7 @@ dealer. See material notes at the end.
 | Floor | 97 × 46 cm | 1 |
 | Ceiling | 97 × 46 cm | 1 |
 
-**Install:** run the planks in **horizontal courses (~12.5 cm / 5 in wide) with
+**Install:** run the planks in **horizontal courses (5 in wide) with
 staggered end seams**; the **back** boards run full-width (left↔right) and the **side**
 boards butt into them at the front corners; the **floor** boards run **left↔right**,
 the **ceiling** boards run **front↔back**. Fix with brad nails + a little
@@ -45,37 +45,30 @@ instrument-safe adhesive.
 
 ### Order — pre-cut planks (no cutting at home)
 
-Have the supplier cut every plank to size. All planks **¼ in (6 mm) thick × 12.5 cm
-(≈ 5 in) wide** — at 12.5 cm wide the **125 cm vault height = exactly 10 rows** (no ripping).
+Have the supplier cut every plank. **¼ in thick × 5 in wide** Spanish cedar. At 5 in
+wide the 49.2 in vault height is **9 full rows + a ~4¼ in top row** per wall.
 
-Plank directions: **back & floor** run **left↔right** (97 cm long); **sides & ceiling**
-run **front↔back** (46 cm long — the ceiling planks are the side planks laid flat).
+Directions: **back & floor** run **left↔right** (38.2 in long); **sides & ceiling**
+run **front↔back** (18.1 in long).
 
-| Face | Plank size (length × width) | Qty |
+**Full planks — ¼ in × 5 in wide** (incl. ~10% extra):
+
+| Length | Use | Qty |
 |---|---|---|
-| Back (L→R) | 97 × 12.5 cm | 10 |
-| Floor (L→R) | 97 × 12.5 cm | 3 |
-| Floor edge row | 97 × ~8.5 cm | 1 |
-| Left side (F→B) | 46 × 12.5 cm | 10 |
-| Right side (F→B) | 46 × 12.5 cm | 10 |
-| Ceiling (F→B) | 46 × 12.5 cm | 7 |
-| Ceiling edge row | 46 × ~9.5 cm | 1 |
-| **Exact total** | | **42** |
+| 38.2 in | back (9) + floor (3) | **14** |
+| 18.1 in | sides (18) + ceiling (7) | **28** |
 
-**Order with ~10% extra** — two main sizes + two edge strips:
+**Narrow last-row strips — ¼ in thick:**
 
-| Plank size | Qty to order |
-|---|---|
-| **97 × 12.5 cm** | **15** |
-| **46 × 12.5 cm** | **30** |
-| 97 × ~8.5 cm | 2 |
-| 46 × ~9.5 cm | 2 |
-| **Total** | **≈ 49** |
+| Size (L × W) | Use | Qty |
+|---|---|---|
+| 38.2 × 4¼ in | back top row | 2 |
+| 18.1 × 4¼ in | side top rows | 3 |
+| 38.2 × 3⅛ in | floor edge | 2 |
+| 18.1 × 3¼ in | ceiling edge | 2 |
 
-**Corner fit:** install the **back first (full 97 cm)**, then butt the sides/ceiling
-to it — so those may want to be **~45.5 cm** (46 − 6 mm). Ask the supplier for 45.5 cm,
-or shave ~6 mm at home. Edge-row widths (8.5 / 9.5 cm) are approximate — confirm
-against the box.
+**Total ≈ 51 planks.** Corner fit: install the back first (full 38.2 in), then butt
+the sides/ceiling to it (~17.9 in) or trim ~¼ in at home.
 
 ---
 
