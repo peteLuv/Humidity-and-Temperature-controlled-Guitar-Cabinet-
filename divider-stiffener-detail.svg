@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" font-family="'Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#34495e"/></marker>
+  </defs>
+  <style>
+    .div{fill:#d9c08c;stroke:#5a4632;stroke-width:1.4;}
+    .rail{fill:#b9824a;stroke:#5a3a1e;stroke-width:1.4;}
+    .cleat{fill:#caa06a;stroke:#5a3a1e;stroke-width:1.3;}
+    .ply{fill:#e9d8b8;stroke:#5a4632;stroke-width:1.3;}
+    .screw{fill:none;stroke:#c0392b;stroke-width:1.6;}
+    .h1{fill:#8a4b2f;font-size:19px;font-weight:bold;}
+    .ttl{fill:#2c3e50;font-size:13px;font-weight:bold;}
+    .nt{fill:#5a6b78;font-size:11px;}
+    .dim{stroke:#34495e;stroke-width:0.9;}
+    .dl{fill:#34495e;font-size:11px;}
+    .lb{fill:#2c3e50;font-size:11.5px;}
+  </style>
+
+  <text x="22" y="28" class="h1">Divider stiffener — shop detail (retrofit)</text>
+  <text x="22" y="47" class="nt">A front apron rail under the divider stops the ~45 kg vault load from sagging the shelf. The back edge is already held by the ½″ back panel.</text>
+
+  <!-- ============ VIEW A: front elevation (looking at the divider's front edge) ============ -->
+  <text x="40" y="78" class="ttl">A · Front view (from the amp zone, looking up at the divider)</text>
+
+  <!-- side panels -->
+  <rect x="60" y="95" width="16" height="150" class="ply"/>
+  <rect x="404" y="95" width="16" height="150" class="ply"/>
+  <text x="68" y="170" text-anchor="middle" class="nt" transform="rotate(-90 68 170)">side panel</text>
+  <text x="412" y="170" text-anchor="middle" class="nt" transform="rotate(-90 412 170)">side panel</text>
+
+  <!-- divider (seen edge-on as a thin band at top) -->
+  <rect x="76" y="100" width="328" height="14" class="div"/>
+  <text x="240" y="110" text-anchor="middle" class="lb">divider (vault floor) — 97 cm between sides</text>
+
+  <!-- apron rail under the front edge -->
+  <rect x="76" y="114" width="328" height="30" class="rail"/>
+  <text x="240" y="133" text-anchor="middle" class="lb" fill="#fff">FRONT APRON RAIL · 970 × 45 × 19 mm</text>
+
+  <!-- end cleats -->
+  <path d="M76 114 h26 v30 h-26 z" class="cleat"/>
+  <path d="M404 114 h-26 v30 h26 z" class="cleat"/>
+  <text x="93" y="160" text-anchor="middle" class="nt">cleat</text>
+  <text x="387" y="160" text-anchor="middle" class="nt">cleat</text>
+
+  <!-- screws from divider top into rail (every ~150 mm) -->
+  <g class="screw">
+    <line x1="120" y1="100" x2="120" y2="140"/><line x1="160" y1="100" x2="160" y2="140"/>
+    <line x1="200" y1="100" x2="200" y2="140"/><line x1="240" y1="100" x2="240" y2="140"/>
+    <line x1="280" y1="100" x2="280" y2="140"/><line x1="320" y1="100" x2="320" y2="140"/>
+    <line x1="360" y1="100" x2="360" y2="140"/>
+  </g>
+  <text x="240" y="92" text-anchor="middle" class="nt" fill="#c0392b">screws from the divider top down into the rail — ~7 across, every ~150 mm (+ glue)</text>
+
+  <!-- cleat-to-side screws -->
+  <g class="screw"><line x1="84" y1="122" x2="68" y2="122"/><line x1="84" y1="136" x2="68" y2="136"/></g>
+  <g class="screw"><line x1="396" y1="122" x2="412" y2="122"/><line x1="396" y1="136" x2="412" y2="136"/></g>
+
+  <!-- length dim -->
+  <line x1="76" y1="200" x2="404" y2="200" class="dim" marker-start="url(#a)" marker-end="url(#a)"/>
+  <text x="240" y="216" text-anchor="middle" class="dl">rail = 97 cm (full width between sides)</text>
+  <!-- height dim -->
+  <line x1="430" y1="114" x2="430" y2="144" class="dim" marker-start="url(#a)" marker-end="url(#a)"/>
+  <text x="436" y="132" class="dl">45 mm</text>
+
+  <!-- ============ VIEW B: side section ============ -->
+  <text x="40" y="285" class="ttl">B · Side section (cut through the front edge)</text>
+
+  <!-- back panel (left) -->
+  <rect x="70" y="300" width="10" height="150" class="ply"/>
+  <text x="60" y="375" text-anchor="middle" class="nt" transform="rotate(-90 60 375)">½″ back panel</text>
+  <!-- divider (horizontal) -->
+  <rect x="80" y="318" width="240" height="14" class="div"/>
+  <text x="200" y="312" text-anchor="middle" class="nt">divider — 46 cm deep (back ← → front)</text>
+  <!-- back edge held by back panel -->
+  <circle cx="84" cy="325" r="3" fill="#1e8449"/>
+  <text x="92" y="345" class="nt" fill="#1e8449">back edge already supported ✓</text>
+  <!-- apron rail under FRONT edge -->
+  <rect x="296" y="332" width="20" height="42" class="rail"/>
+  <text x="330" y="356" class="lb">apron rail</text>
+  <text x="330" y="370" class="nt">19 mm thick × 45 mm tall</text>
+  <!-- screw from divider into rail -->
+  <line x1="306" y1="318" x2="306" y2="372" class="screw"/>
+  <text x="330" y="330" class="nt" fill="#c0392b">screw + glue ↑ from divider top</text>
+  <!-- glass door hint at front -->
+  <rect x="320" y="300" width="4" height="150" fill="#cfe8f5" stroke="#3a86a8" stroke-width="1.2" opacity="0.7"/>
+  <text x="318" y="430" class="nt" transform="rotate(90 318 430)">front / door</text>
+  <!-- amp zone below -->
+  <text x="200" y="430" text-anchor="middle" class="nt">amp zone below (rail clears the amps — they sit lower &amp; toward the back)</text>
+
+  <!-- ============ NOTES ============ -->
+  <rect x="470" y="250" width="312" height="200" rx="8" fill="#f9fbfb" stroke="#bdc3c7"/>
+  <text x="486" y="272" class="ttl">Materials &amp; fasteners</text>
+  <text x="486" y="294" class="nt">• Rail: hardwood or ¾″ Baltic-birch ply, 970 × 45 × 19 mm.</text>
+  <text x="486" y="312" class="nt">• Cleats: ~40 × 40 mm blocks, one each side, 3 screws</text>
+  <text x="486" y="326" class="nt">  into the side panel; rail ends land on them.</text>
+  <text x="486" y="344" class="nt">• Screws: #8 × 1¼″ (32 mm), pre-drilled, + wood glue.</text>
+  <text x="486" y="362" class="nt">• Glue the rail to the divider underside its full length.</text>
+  <text x="486" y="384" class="ttl">Why this works</text>
+  <text x="486" y="404" class="nt">The front edge is the only unsupported span. The rail</text>
+  <text x="486" y="418" class="nt">turns it into a stiff beam → mid-span sag ≈ 0, and no</text>
+  <text x="486" y="432" class="nt">long-term creep. Add a matching back rail for belt-and-</text>
+  <text x="486" y="446" class="nt">suspenders if you like.</text>
+</svg>

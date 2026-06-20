@@ -55,7 +55,7 @@ load (~45 kg)** — rack, ~7 guitars, climate gear.
 **Why:** a ¾ in ply shelf at 38 in span deflects ~2 mm immediately, and plywood
 **creeps** under constant load → **~4–6 mm over a few years**. That crowns the vault
 floor, pre-stresses the sealed joints, and looks saggy.
-**How to fix:** add a **stiffener rail** — glue + screw a hardwood/ply strip
+**How to fix:** add a **stiffener rail** (shop detail: `divider-stiffener-detail.png`) — glue + screw a hardwood/ply strip
 (~40 × 20 mm) under the **front edge** of the divider (and ideally the back), running
 side to side, its ends landing on **cleats** screwed to the side panels. That converts
 the shelf into a supported beam and the deflection becomes negligible. (A single
