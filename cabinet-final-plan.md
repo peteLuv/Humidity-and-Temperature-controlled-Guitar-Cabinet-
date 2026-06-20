@@ -6,10 +6,10 @@ covers the three remaining pieces: **Spanish cedar lining**, the **cherry frame*
 `guitar-cabinet-plan.html`.
 
 ## The cabinet at a glance
-- **Outer carcass:** 100.8 × 47.3 × ~190.7 cm (39.7 × 18.6 × 75.1 in)
+- **Outer carcass (measured):** 101 × 47.5 × 194 cm (39.8 × 18.7 × 76.4 in)
 - **Vault (sealed, top):** 97 × 46 × 125 cm interior — cedar-lined; holds a **floor guitar rack** + guitars
-- **Amp zone (open/vented, bottom):** 97 × 46 × 60 cm interior — two combo amps
-- **Divider top:** 61.9 cm from the floor · **Ø5 cm cable hole** in the divider, 6 cm from the back
+- **Amp zone (open/vented, bottom):** 97 × 46 × ~63 cm interior — two combo amps
+- **Divider top:** ~65 cm from the floor · **Ø5 cm cable hole** in the divider, 6 cm from the back
 - Material: 19 mm (¾ in) carcass, 13 mm (½ in) back
 - Guitars stand in a **floor rack** (no internal hanging hardware). The oud gets its own spot.
 
@@ -70,10 +70,10 @@ opening. The inner edge overhangs the cavity ~2 cm to form the gasket lip.
 
 | Part | Size | Qty |
 |---|---|---|
-| Stile (vertical) | 3.8 × **~190.7 cm** (full carcass height) | 2 |
+| Stile (vertical) | 3.8 × **~194 cm** (full carcass height) | 2 |
 | Rail (top / middle@divider / bottom) | 3.8 × **93.2 cm** | 3 |
 
-The middle rail sits on the divider line (top face 61.9 cm from floor).
+The middle rail sits on the divider line (top face ~65 cm from floor).
 
 ### Vault door — cherry 1×3 (≈ 64 × 19 mm) + glass
 Covers the **vault opening only** (~93 × 122 cm). Build it **inset** (~3 mm gap all
