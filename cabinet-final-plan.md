@@ -42,16 +42,20 @@ nails + a little instrument-safe adhesive.
 > Lining adds ~6 mm to each face, so the clear vault becomes ~95.8 × 45 × 128 cm —
 > the guitar rack (≈ 82 × 37 cm) and the standing guitars (≈ 118 cm) still fit.
 
-**How many planks?** Total face area is **3.34 m² (≈ 36 sq ft)** — order **~3.7 m²
-(≈ 40 sq ft)** to cover cuts/waste. Plank count depends on the size you buy:
+**How many planks?** Total face area is **3.34 m² (≈ 36 sq ft)**. Short planks waste
+more to cutting, so add ~**20%** → buy material for **~43 sq ft (4.0 m²)**.
 
-| If you buy… | Each plank | Planks needed |
+| If you buy… | Each plank | Planks to buy |
 |---|---|---|
-| **~13 cm (5″) wide boards** (recommended) | 13 cm wide × 46–97 cm long | **~46** (back ×10 @ 97 cm, sides ×20 @ 46 cm, floor+ceiling ×16 @ 46 cm) **+ a few spares → ~50** |
-| **~7.5 cm (3″) wide boards** | 7.5 cm × 46–97 cm | **~80** |
-| Small **30 × 7.5 cm (12 × 3″) humidor planks** | 0.023 m² each | **~150–160** (≈ 40 four-packs) — pricey; prefer boards by area |
+| **6″ × 12″ × ¼″** (recommended of the short planks) | 0.50 sq ft | **~85–90** |
+| 5″ × 12″ × ¼″ | 0.42 sq ft | **~100–105** |
+| ~13 cm (5″) wide **long boards** (46–97 cm) | — | ~50 (much less cutting waste) |
+| Small 30 × 7.5 cm (12 × 3″) humidor planks | 0.023 m² | ~150–160 |
 
-Buy by **area** when you can; it's far cheaper than the little humidor packs.
+Per-face at **6″ × 12″**: back ~30 · two sides ~30 · floor + ceiling ~28 → **≈ 88**.
+Prefer the **6″** width (fewer pieces, less waste), or **long boards by area** when
+available. Skipping the ceiling lining saves ~15 planks (then shellac that one bare
+plywood face).
 
 ---
 
