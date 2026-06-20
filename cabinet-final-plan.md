@@ -1,13 +1,13 @@
 # Climate Guitar Cabinet — Final Build Plan
 
-The **carcass is built** to `cabinet-final-measurements.md` (Rev C). This document
+The **carcass is built** to `cabinet-final-measurements.md` (Rev D, as-built). This document
 covers the three remaining pieces: **Spanish cedar lining**, the **cherry frame**
 (face frame + glass door), and the **glass**. Climate/electrical gear is in
 `guitar-cabinet-plan.html`.
 
 ## The cabinet at a glance
-- **Outer carcass:** 100.8 × 47.3 × 195 cm (39.7 × 18.6 × 76.8 in)
-- **Vault (sealed, top):** 97 × 46 × 129.3 cm interior — cedar-lined; holds a **floor guitar rack** + guitars
+- **Outer carcass:** 100.8 × 47.3 × ~190.7 cm (39.7 × 18.6 × 75.1 in)
+- **Vault (sealed, top):** 97 × 46 × 125 cm interior — cedar-lined; holds a **floor guitar rack** + guitars
 - **Amp zone (open/vented, bottom):** 97 × 46 × 60 cm interior — two combo amps
 - **Divider top:** 61.9 cm from the floor · **Ø5 cm cable hole** in the divider, 6 cm from the back
 - Material: 19 mm (¾ in) carcass, 13 mm (½ in) back
@@ -21,16 +21,16 @@ Line the **four inner faces of the vault** — back, two sides, floor, and ceili
 **Do not line the front** (that's the door opening). Leave the cedar **bare**
 (no finish) so it buffers humidity.
 
-**Order:** ~**3.7 m² (≈ 40 sq ft)** of **6 mm (¼ in) solid Spanish cedar**
+**Order:** ~**3.9 m² (≈ 42 sq ft)** of **6 mm (¼ in) solid Spanish cedar**
 (*Cedrela*, not Western red cedar; kiln-dried). Quote by area from a hardwood/humidor
 dealer. See material notes at the end.
 
-**Cut to these faces** (cedar covers the bare plywood of the 97 × 46 × 129.3 cm vault):
+**Cut to these faces** (cedar covers the bare plywood of the 97 × 46 × 125 cm vault):
 
 | Face | Size | Qty |
 |---|---|---|
-| Back | 97 × 129.3 cm | 1 |
-| Side | 46 × 129.3 cm | 2 |
+| Back | 97 × 125 cm | 1 |
+| Side | 46 × 125 cm | 2 |
 | Floor | 97 × 46 cm | 1 |
 | Ceiling | 97 × 46 cm | 1 |
 
@@ -39,20 +39,20 @@ staggered end seams**; run the back boards full-width and butt the side boards i
 them at the front corners; floor/ceiling boards run front-to-back. Fix with brad
 nails + a little instrument-safe adhesive.
 
-> Lining adds ~6 mm to each face, so the clear vault becomes ~95.8 × 45 × 128 cm —
+> Lining adds ~6 mm to each face, so the clear vault becomes ~95.8 × 45 × 124 cm —
 > the guitar rack (≈ 82 × 37 cm) and the standing guitars (≈ 118 cm) still fit.
 
-**How many planks?** Total face area is **3.34 m² (≈ 36 sq ft)**. Short planks waste
-more to cutting, so add ~**20%** → buy material for **~43 sq ft (4.0 m²)**.
+**How many planks?** Total face area is **3.25 m² (≈ 35 sq ft)**. Short planks waste
+more to cutting, so add ~**20%** → buy material for **~42 sq ft (3.9 m²)**.
 
 | If you buy… | Each plank | Planks to buy |
 |---|---|---|
-| **6″ × 12″ × ¼″** (recommended of the short planks) | 0.50 sq ft | **~85–90** |
-| 5″ × 12″ × ¼″ | 0.42 sq ft | **~100–105** |
+| **6″ × 12″ × ¼″** (recommended of the short planks) | 0.50 sq ft | **~84–85** |
+| 5″ × 12″ × ¼″ | 0.42 sq ft | **~100** |
 | ~13 cm (5″) wide **long boards** (46–97 cm) | — | ~50 (much less cutting waste) |
 | Small 30 × 7.5 cm (12 × 3″) humidor planks | 0.023 m² | ~150–160 |
 
-Per-face at **6″ × 12″**: back ~30 · two sides ~30 · floor + ceiling ~28 → **≈ 88**.
+Per-face at **6″ × 12″**: back ~30 · two sides ~30 · floor + ceiling ~28 → **≈ 85**.
 Prefer the **6″** width (fewer pieces, less waste), or **long boards by area** when
 available. Skipping the ceiling lining saves ~15 planks (then shellac that one bare
 plywood face).
@@ -70,22 +70,22 @@ opening. The inner edge overhangs the cavity ~2 cm to form the gasket lip.
 
 | Part | Size | Qty |
 |---|---|---|
-| Stile (vertical) | 3.8 × **195 cm** | 2 |
+| Stile (vertical) | 3.8 × **~190.7 cm** (full carcass height) | 2 |
 | Rail (top / middle@divider / bottom) | 3.8 × **93.2 cm** | 3 |
 
 The middle rail sits on the divider line (top face 61.9 cm from floor).
 
 ### Vault door — cherry 1×3 (≈ 64 × 19 mm) + glass
-Covers the **vault opening only** (~93 × 127 cm). Build it **inset** (~3 mm gap all
+Covers the **vault opening only** (~93 × 122 cm). Build it **inset** (~3 mm gap all
 around) or overlay.
 
 | Part | Size (approx — trim to your opening) | Qty |
 |---|---|---|
-| Door stile | 6.4 × **~127 cm** | 2 |
+| Door stile | 6.4 × **~122 cm** | 2 |
 | Door rail | 6.4 × **~80 cm** | 2 |
 
 - Join flat & square; rout a **~10 × 10 mm rabbet** on the inside-back edge for the glass.
-- Hang on a **continuous piano hinge (~125 cm)**; add an **EPDM gasket** + **2–3 draw latches** + a pull, so closing compresses the seal.
+- Hang on a **continuous piano hinge (~120 cm)**; add an **EPDM gasket** + **2–3 draw latches** + a pull, so closing compresses the seal.
 - **Amp zone stays open** (no door), or fit a louvered panel for venting.
 
 ---
@@ -93,7 +93,7 @@ around) or overlay.
 ## 3) Glass (vault door glazing)
 
 - **Spec:** **tempered**, **clear**, **pencil-polished edges**, ~6 mm.
-- **Approx size (planning only):** ~**82 × 116 cm**.
+- **Approx size (planning only):** ~**81 × 110 cm**.
 - **⚠ Order it LAST.** Build the door first, then **measure the rabbet opening and
   subtract ~3 mm** — tempered glass **cannot be cut** after tempering.
 - **Set** on **foam glazing tape**; retain with thin cherry stops or a bead of
