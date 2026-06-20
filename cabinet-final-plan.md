@@ -21,7 +21,7 @@ Line the **four inner faces of the vault** — back, two sides, floor, and ceili
 **Do not line the front** (that's the door opening). Leave the cedar **bare**
 (no finish) so it buffers humidity.
 
-**Order:** ~**3.9 m² (≈ 42 sq ft)** of **6 mm (¼ in) solid Spanish cedar**
+**Order:** **6 mm (¼ in) solid Spanish cedar**, ~3.25 m² (≈ 35 sq ft) of coverage
 (*Cedrela*, not Western red cedar; kiln-dried). Quote by area from a hardwood/humidor
 dealer. See material notes at the end.
 
@@ -34,28 +34,48 @@ dealer. See material notes at the end.
 | Floor | 97 × 46 cm | 1 |
 | Ceiling | 97 × 46 cm | 1 |
 
-**Install:** run the planks in **horizontal courses (~13 cm / 5 in wide) with
-staggered end seams**; run the back boards full-width and butt the side boards into
-them at the front corners; floor/ceiling boards run front-to-back. Fix with brad
-nails + a little instrument-safe adhesive.
+**Install:** run the planks in **horizontal courses (~12.5 cm / 5 in wide) with
+staggered end seams**; the **back** boards run full-width (left↔right) and the **side**
+boards butt into them at the front corners; the **floor** boards run **left↔right**,
+the **ceiling** boards run **front↔back**. Fix with brad nails + a little
+instrument-safe adhesive.
 
 > Lining adds ~6 mm to each face, so the clear vault becomes ~95.8 × 45 × 124 cm —
 > the guitar rack (≈ 82 × 37 cm) and the standing guitars (≈ 118 cm) still fit.
 
-**How many planks?** Total face area is **3.25 m² (≈ 35 sq ft)**. Short planks waste
-more to cutting, so add ~**20%** → buy material for **~42 sq ft (3.9 m²)**.
+### Order — pre-cut planks (no cutting at home)
 
-| If you buy… | Each plank | Planks to buy |
+Have the supplier cut every plank to size. All planks **¼ in (6 mm) thick × 12.5 cm
+(≈ 5 in) wide** — at 12.5 cm wide the **125 cm vault height = exactly 10 rows** (no ripping).
+
+Plank directions: **back & floor** run **left↔right** (97 cm long); **sides & ceiling**
+run **front↔back** (46 cm long — the ceiling planks are the side planks laid flat).
+
+| Face | Plank size (length × width) | Qty |
 |---|---|---|
-| **6″ × 12″ × ¼″** (recommended of the short planks) | 0.50 sq ft | **~84–85** |
-| 5″ × 12″ × ¼″ | 0.42 sq ft | **~100** |
-| ~13 cm (5″) wide **long boards** (46–97 cm) | — | ~50 (much less cutting waste) |
-| Small 30 × 7.5 cm (12 × 3″) humidor planks | 0.023 m² | ~150–160 |
+| Back (L→R) | 97 × 12.5 cm | 10 |
+| Floor (L→R) | 97 × 12.5 cm | 3 |
+| Floor edge row | 97 × ~8.5 cm | 1 |
+| Left side (F→B) | 46 × 12.5 cm | 10 |
+| Right side (F→B) | 46 × 12.5 cm | 10 |
+| Ceiling (F→B) | 46 × 12.5 cm | 7 |
+| Ceiling edge row | 46 × ~9.5 cm | 1 |
+| **Exact total** | | **42** |
 
-Per-face at **6″ × 12″**: back ~30 · two sides ~30 · floor + ceiling ~28 → **≈ 85**.
-Prefer the **6″** width (fewer pieces, less waste), or **long boards by area** when
-available. Skipping the ceiling lining saves ~15 planks (then shellac that one bare
-plywood face).
+**Order with ~10% extra** — two main sizes + two edge strips:
+
+| Plank size | Qty to order |
+|---|---|
+| **97 × 12.5 cm** | **15** |
+| **46 × 12.5 cm** | **30** |
+| 97 × ~8.5 cm | 2 |
+| 46 × ~9.5 cm | 2 |
+| **Total** | **≈ 49** |
+
+**Corner fit:** install the **back first (full 97 cm)**, then butt the sides/ceiling
+to it — so those may want to be **~45.5 cm** (46 − 6 mm). Ask the supplier for 45.5 cm,
+or shave ~6 mm at home. Edge-row widths (8.5 / 9.5 cm) are approximate — confirm
+against the box.
 
 ---
 

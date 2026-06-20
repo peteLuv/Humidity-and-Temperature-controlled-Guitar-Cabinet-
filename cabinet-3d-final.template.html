@@ -46,10 +46,10 @@
   <label><input type="checkbox" id="t-person"> Person (1.75 m)</label>
   <div id="cedarhead">Cedar plank style</div>
   <div id="cedarbtns">
-    <button data-w="13"   data-v="0">5″ · 10 rows</button>
+    <button data-w="12.5" data-v="0">5″ · 10 rows</button>
     <button data-w="7.6"  data-v="0">3″ · 17 rows</button>
     <button data-w="16.5" data-v="0">6.5″ · 8 rows</button>
-    <button data-w="13"   data-v="1">5″ vertical</button>
+    <button data-w="12.5" data-v="1">5″ vertical</button>
   </div>
   <div id="cedarstatus"></div>
   <button id="reset">Reset view</button>
@@ -151,10 +151,12 @@ function buildCedar(W, vertical){
     if(!vertical){ let i=0; for(let y=yb; y<yt-0.2; y+=W){ const h=Math.min(W-REV, yt-y); plank(C, h, 45-REV, xs, y+h/2, 0, i%2); i++; } }
     else { let j=0; for(let z=-22.5; z<22.5-0.2; z+=W){ const w=Math.min(W-REV, 22.5-z); plank(C, vH-REV, w, xs, vMid, z+w/2, j%2); j++; } }
   }
-  // floor + ceiling (planks run front-to-back)
-  for(const yF of [divTop + C/2, vaultTop - C/2]){ let j=0; for(let x=-Wx/2; x<Wx/2-0.2; x+=W){ const w=Math.min(W-REV, Wx/2-x); plank(w, C, 45, x+w/2, yF, 0, j%2); j++; } }
+  // floor: long planks run left-to-right (full width), stacked front-to-back
+  { let j=0; for(let z=-22.5; z<22.5-0.2; z+=W){ const dd=Math.min(W-REV, 22.5-z); plank(Wx, C, dd, 0, divTop + C/2, z+dd/2, j%2); j++; } }
+  // ceiling: short planks run front-to-back (full depth), stacked left-to-right
+  { let j=0; for(let x=-Wx/2; x<Wx/2-0.2; x+=W){ const w=Math.min(W-REV, Wx/2-x); plank(w, C, 45, x+w/2, vaultTop - C/2, 0, j%2); j++; } }
 }
-buildCedar(13, false);
+buildCedar(12.5, false);
 
 // ===== furniture: floor rack + guitars + amps + pedalboard =====
 const furn = new THREE.Group(); scene.add(furn);
@@ -239,14 +241,14 @@ function setCedar(W, v, btn){
   cedarStatus.textContent = `${vert ? 'Vertical' : 'Horizontal'} · ${(+W/2.54).toFixed(1)}″ (${+W} cm) · ${vert ? Math.ceil((IW-1)/+W)+' planks across' : rows+' rows'}`;
 }
 document.querySelectorAll('#cedarbtns button').forEach(b => b.onclick = () => setCedar(b.dataset.w, b.dataset.v, b));
-setCedar('13', '0', document.querySelector('#cedarbtns button'));
+setCedar('12.5', '0', document.querySelector('#cedarbtns button'));
 
 addEventListener('resize', () => {
   camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight); labelRenderer.setSize(innerWidth, innerHeight);
 });
 (function animate(){ requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); labelRenderer.render(scene, camera); })();
-window.__cab = { scene, OW, OD, OH, IW, VAULT, AMP };
+window.__cab = { scene, camera, controls, CAM0, TGT0, OW, OD, OH, IW, VAULT, AMP };
 } catch (err) { console.error(err); document.getElementById('err').style.display = 'flex'; }
 </script>
 </body>
