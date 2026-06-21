@@ -1,35 +1,29 @@
-# Spanish Cedar Plank Order — email draft (US supplier, inches)
+# Spanish Cedar Plank Order — final (5 in, US supplier)
 
-**Subject:** Spanish cedar planks, cut to size — small order
+**Subject:** RE: Spanish cedar planks — adjusted list (5 in)
 
 Hi,
 
-I'd like **solid Spanish cedar** (Cedrela, kiln-dried) cut to size so I don't have to
-cut at home. Everything is **1/4 inch thick**. Quantities include ~10% extra for waste.
+Thanks — 5 in works great, let's go with that. Production in 1–2 days plus 5–6 day
+transit is perfect.
 
-My **preferred width is 4.92 inches (= 12.5 cm)** — at that width it's exactly **10
-even rows** over the vault height, which keeps the cut list simplest:
+Here's the adjusted cut list. **All pieces: 1/4 in thick, genuine Spanish cedar.**
+Quantities include ~10% extra for waste.
 
-**Full planks — 1/4 in thick × 4.92 in wide:**
-- **38.2 in long** — 15 pcs
-- **18.1 in long** — 30 pcs
+**Full planks — 5 in wide:**
+- **38 1/8 in long** — 14 pcs
+- **18 1/8 in long** — 28 pcs
 
-**Narrow edge strips — 1/4 in thick:**
-- **38.2 in long × 3 3/8 in wide** — 2 pcs
-- **18.1 in long × 3 3/4 in wide** — 2 pcs
+**Narrower strips (the last row of each face):**
+- **4 1/4 in wide × 38 1/8 in long** — 2 pcs
+- **4 1/4 in wide × 18 1/8 in long** — 3 pcs
+- **3 1/8 in wide × 38 1/8 in long** — 2 pcs
+- **3 1/4 in wide × 18 1/8 in long** — 2 pcs
 
-**Total ≈ 49 pieces.**
+**Total: 51 pieces.**
 
-If a 4.92 in rip is awkward and you'd rather work in a round **5 in** width, that's
-totally fine — just let me know and I'll send the adjusted list (5 in adds a couple of
-narrow top-row strips).
+Could you update the invoice with this and send it over with the shipping line? I'll
+confirm and pay right away.
 
-For context, this lines a cabinet vault measuring **38.2 in wide × 18.1 in deep ×
-49.2 in tall** (back + two sides + floor + ceiling).
-
-Could you please confirm:
-1. Genuine **Spanish cedar (Cedrela), kiln-dried**, left unfinished?
-2. **Price**, and whether cut-to-size is included?
-3. **Lead time**, and pickup vs. delivery?
-
-Thanks very much!
+Thanks again,
+Asaf
