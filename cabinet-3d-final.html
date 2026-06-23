@@ -186,6 +186,14 @@ amp(47, 41, 27, -24);    // Rocker 15
 amp(43, 48.5, 27, 22);   // Crush Bass 50
 put(furn, box(70, 3, 16, std(0x2b2b2b,{r:0.8})), 0, T + 1.5, 14);   // pedalboard
 
+// behind-glass climate display unit (sits on the vault floor, front-left, readable through the door)
+const meter = new THREE.Group();
+meter.add(box(8, 8.5, 2.6, std(0xf2f2f0, { r:0.5 })));               // body
+const meterScreen = box(6, 5, 0.3, std(0x0e1814, { r:0.2, m:0.1 }));
+meterScreen.position.set(0, 0.6, 1.45); meter.add(meterScreen);     // dark screen face, toward door
+meter.position.set(-43, vFloor + 4.25, 19); furn.add(meter);
+label('RH / temp display', -43, vFloor + 13, 19, 'note', furn);
+
 // ===== cherry face frame + glass door =====
 const cherry = std(0x7a3f24, { r:0.55 });
 const faceG = new THREE.Group(); scene.add(faceG);
