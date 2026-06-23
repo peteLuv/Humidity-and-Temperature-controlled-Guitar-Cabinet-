@@ -242,14 +242,14 @@
             <thead><tr><th>Subsystem</th><th>Hardware</th><th>Setup detail</th></tr></thead>
             <tbody>
                 <tr>
-                    <td><strong>Controller</strong> <em>(slick pick)</em></td>
-                    <td><strong>AC Infinity Controller 69 Pro+</strong> (WiFi + Bluetooth, color display, app with RH/temp graphs &amp; alarms). Budget/known-good alt: Inkbird IHC-200 (humidity) + ITC-308 (temp).</td>
-                    <td>One brain instead of two boxes. Mount in the open amp zone (outside the sealed vault). Route probe wires up through the sealed grommet, then caulk; place probes at instrument height, away from the humidifier outlet. Switch the ultrasonic humidifier and Peltier dehumidifier through AC Infinity's <strong>smart-outlet / control-plug</strong> adapters (the controller's ports drive AC Infinity fans natively). <em>Verify current model numbers before buying &mdash; AC Infinity refreshes the line often; the plain 69 Pro is Bluetooth-only.</em></td>
+                    <td><strong>Controller</strong> <em>(the brain)</em></td>
+                    <td><strong>AC Infinity Controller 79</strong> &mdash; 2 built-in AC outlets (1100&nbsp;W total), <strong>includes a 12&nbsp;ft temp/humidity/VPD sensor probe</strong>, color display, Bluetooth + WiFi app (graphs &amp; alarms), wall-hang. Budget/known-good alt: Inkbird IHC-200 (humidity) + ITC-308 (temp).</td>
+                    <td>One self-contained unit. Wall-hang it in the open amp zone (outside the sealed vault); route the included probe up through the sealed grommet, then caulk; place the probe at instrument height, away from the humidifier outlet. The humidifier plugs into <strong>outlet&nbsp;1</strong> and (if fitted) the dehumidifier into <strong>outlet&nbsp;2</strong> &mdash; <strong>no extra adapters or separate sensor needed</strong>. The 79 was chosen over the bigger 4&ndash;8&nbsp;port Controller 69 Pro/Pro+ on purpose: those drive AC&nbsp;Infinity's proprietary UIS fans and would need add-on outlet adapters to switch a standard humidifier/dehumidifier. The fans here run continuously off a plain USB adapter, so you only need to <em>switch</em> two devices.</td>
                 </tr>
                 <tr>
-                    <td><strong>Display</strong> <em>(in-vault, behind glass)</em></td>
-                    <td><strong>SwitchBot Meter Pro</strong> (clean minimalist LCD, app + alerts). Alt: Govee H5179.</td>
-                    <td>A good-looking standalone unit that sits on the divider shelf and reads through the glass door &mdash; zero woodwork, fully reversible, easy to swap. This is also the <strong>independent second sensor</strong> from Section&nbsp;7 (don't trust the controller alone). Salt-test calibrate it before relying on it.</td>
+                    <td><strong>Display</strong> <em>(optional &mdash; in-vault, behind glass)</em></td>
+                    <td><strong>SwitchBot Meter Pro</strong> or Govee H5179 (clean LCD, app + alerts). <em>Optional &mdash; the 79 already has a screen, sensor, and app.</em></td>
+                    <td>Add this only if you want (a) a readout visible <em>inside</em> the vault through the glass (the 79's screen sits lower in the amp zone), and/or (b) an <strong>independent second sensor</strong> so a drifted controller probe can't silently hold the wrong RH (worthwhile for the vintage Rickenbacker). A standalone unit sits on the shelf and reads through the door &mdash; zero woodwork, reversible. Salt-test calibrate before relying on it.</td>
                 </tr>
                 <tr>
                     <td><strong>Humidify</strong></td>
@@ -257,9 +257,9 @@
                     <td>Aim the mist <em>away</em> from instruments and let it disperse &mdash; cool mist can over-humidify locally and condense. Keep the reservoir small and refill often rather than blasting. A fan-assisted evaporative unit or passive Boveda is gentler if you live somewhere humid.</td>
                 </tr>
                 <tr>
-                    <td><strong>Dehumidify</strong></td>
+                    <td><strong>Dehumidify</strong> <em>(conditional &mdash; don't pre-buy)</em></td>
                     <td>Peltier dehumidifier with external drain tube</td>
-                    <td>Run the drain out through a sealed grommet to a bottle or floor drain so collected water leaves the vault.</td>
+                    <td><strong>Buy only if the data calls for it.</strong> A sealed box has no internal moisture source, so it usually trends <em>dry</em>, not damp &mdash; run the vault empty for 1&ndash;2 weeks first (build step&nbsp;6) and add this <em>only</em> if RH keeps climbing past ~55%. Skipping it also removes a drain tube, a drain bottle, and one penetration. If fitted: run the drain out through the sealed grommet to a bottle so collected water leaves the vault.</td>
                 </tr>
                 <tr>
                     <td><strong>Circulate</strong></td>
@@ -268,12 +268,16 @@
                 </tr>
             </tbody>
         </table>
-        <h3>Controller deadband &mdash; stop the fight</h3>
-        <p>If the humidifier and dehumidifier setpoints overlap they will short-cycle against each other and burn out. Give them a dead zone:</p>
+        <div class="note">
+            <strong>Measure before you buy the wet/dry gear.</strong> Set up the controller (it ships with its sensor), seal the vault, and log RH empty for 1&ndash;2 weeks. If it sits low &rarr; you only need the <em>humidifier</em>. If it sits high &rarr; you only need the <em>dehumidifier</em>. If it crosses the band both ways across seasons &rarr; fit both. Most sealed indoor cabinets need only the humidifier.
+        </div>
+        <h3>Controller deadband &mdash; stop the fight (only if you run both)</h3>
+        <p>If you end up running a humidifier <em>and</em> a dehumidifier and their setpoints overlap, they short-cycle against each other and burn out. Give them a dead zone:</p>
         <ul>
             <li>Humidifier: turn <strong>ON below 43%</strong>, OFF at 47%.</li>
             <li>Dehumidifier: turn <strong>ON above 52%</strong>, OFF at 48%.</li>
             <li>Result: nothing runs in the 47&ndash;52% comfort band, so the two devices never run at once. Set the controller's hysteresis/differential to at least 2&ndash;3% to avoid rapid cycling.</li>
+            <li>Humidifier-only setup: simply ON below 45%, OFF at 48% &mdash; no deadband juggling needed.</li>
         </ul>
         <h3>Footprint</h3>
         <p>Allocate a ~6" &times; 8" corner of the divider shelf for the humidifier + dehumidifier. Keep them on the shelf (not the floor of the vault) and sit them in a shallow tray to catch any drips.</p>
@@ -283,8 +287,8 @@
         <h2>7. Power, Cable Management, Monitoring &amp; Failover</h2>
         <h3>Electrical layout</h3>
         <ul>
-            <li><strong>One mains hub.</strong> A single <strong>GFCI surge-protected power strip with a resettable breaker</strong>, mounted to the amp-zone back wall <em>off the floor</em>, feeds everything: both amps, the two controllers, and the fans' USB adapter. Only <strong>one cord leaves the cabinet</strong>, exiting a grommet at the back to a GFCI wall receptacle.</li>
-            <li><strong>Put the controller in the open amp zone, not inside the vault.</strong> The bottom section is already outside the sealed chamber, so the AC Infinity 69 Pro+ (or the Inkbird pair) lives there with its display facing out. The humidifier and dehumidifier plug into its switched smart-outlets per the deadband logic. Short, tidy runs &mdash; no long cords across the cabinet. The only thing inside the vault is the small behind-glass display unit (battery, no cord).</li>
+            <li><strong>One mains hub.</strong> A single <strong>GFCI surge-protected power strip with a resettable breaker</strong>, mounted to the amp-zone back wall <em>off the floor</em>, feeds everything: both amps, the controller, and the fans' USB adapter. Only <strong>one cord leaves the cabinet</strong>, exiting a grommet at the back to a GFCI wall receptacle.</li>
+            <li><strong>Put the controller in the open amp zone, not inside the vault.</strong> The bottom section is already outside the sealed chamber, so the AC Infinity 79 (or the Inkbird pair) wall-hangs there with its display facing out. The humidifier (and dehumidifier, if fitted) plug straight into the 79's two built-in outlets per the deadband logic &mdash; no separate adapters. Short, tidy runs &mdash; no long cords across the cabinet. The only thing that may sit inside the vault is the optional behind-glass display unit (battery, no cord).</li>
             <li><strong>Keep water below mains.</strong> The humidifier/dehumidifier and the drain bottle sit lower than the strip and controllers; water vessels never sit above an outlet or electronics.</li>
         </ul>
         <h3>Cable management</h3>
@@ -296,7 +300,7 @@
         </ul>
         <h3>Monitoring &amp; failover</h3>
         <ul>
-            <li><strong>Trust two sensors, not one.</strong> The behind-glass display (SwitchBot Meter Pro / Govee, Section&nbsp;6) <em>is</em> this second sensor &mdash; an independent logging hygrometer with phone alerts, separate from the controller. Calibrate every sensor with a salt test (75% RH reference) before you rely on it &mdash; cheap hygrometers are often off by 5&ndash;10%.</li>
+            <li><strong>Two sensors beat one (optional but wise for the vintage piece).</strong> The controller acts on its own probe; if that probe drifts, it will happily hold the <em>wrong</em> RH and never alarm. An independent second hygrometer catches that &mdash; the optional behind-glass display (Section&nbsp;6) doubles as it. Calibrate every sensor with a salt test (75% RH reference) before you rely on it &mdash; cheap hygrometers are often off by 5&ndash;10%.</li>
             <li><strong>Set high/low alarms</strong> (e.g. RH &lt; 40% or &gt; 55%, temp &gt; 80&deg;F) so a failed humidifier or a stuck dehumidifier wakes you before the instruments suffer.</li>
             <li><strong>Power-loss plan:</strong> cedar mass + Boveda packs hold the line passively for a day or two. For longer outages or vintage pieces, a small UPS on the controllers/sensors at least keeps monitoring and alerts alive.</li>
         </ul>
@@ -309,8 +313,8 @@
             <li>Install the 3/4" plywood divider; caulk all joints; add the underside thermal break.</li>
             <li>Mount the plywood hanger board to the frame's solid members; dry-fit hangers and confirm spacing/height-stagger or two-rank layout with the <em>actual</em> instruments (no strings attached to climate yet).</li>
             <li>Line walls with Spanish cedar; gasket and latch the door.</li>
-            <li>Install grommets, route probe/drain/power; mount humidifier, dehumidifier, fans, controllers.</li>
-            <li>Run empty for 1&ndash;2 weeks: off-gas, then tune the deadbands and verify RH/temp hold steady through a day/night cycle. Calibrate sensors.</li>
+            <li>Install grommets, route probe/power; mount the controller, humidifier, and fans. (Hold the dehumidifier until step&nbsp;6 shows you need it.)</li>
+            <li>Run empty for 1&ndash;2 weeks: off-gas, then watch which way RH drifts &mdash; add a dehumidifier only if it climbs past ~55%. Tune the setpoint(s) and verify RH/temp hold steady through a day/night cycle. Calibrate sensors.</li>
             <li>Only once it holds &plusmn;3% RH for several days, move the instruments in &mdash; least valuable first as a final check, vintage Rickenbacker last.</li>
         </ol>
     </div>
