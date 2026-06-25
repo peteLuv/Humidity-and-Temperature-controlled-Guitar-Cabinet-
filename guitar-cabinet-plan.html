@@ -238,71 +238,79 @@
 
     <div class="section-card">
         <h2>6. Climate Hardware &amp; Control Logic</h2>
+        <div class="note">
+            <strong>This cabinet uses a monitored + passive + manual approach &mdash; not an automated humidifier loop.</strong> A sealed, cedar-lined box has so much hygric mass that it drifts over <em>days</em>, not hours &mdash; so a passive buffer holds the baseline, a sensor alerts you to real drift, and you top up by hand during dry spells. Less to fail, no water running unattended, no leak risk, no mineral dust. (Prefer full automation? See the optional closed-loop fallback at the end of this section.)
+        </div>
         <table>
             <thead><tr><th>Subsystem</th><th>Hardware</th><th>Setup detail</th></tr></thead>
             <tbody>
                 <tr>
-                    <td><strong>Controller</strong> <em>(the brain)</em></td>
-                    <td><strong>AC Infinity Controller 79</strong> &mdash; 2 built-in AC outlets (1100&nbsp;W total), <strong>includes a 12&nbsp;ft temp/humidity/VPD sensor probe</strong>, color display, Bluetooth + WiFi app (graphs &amp; alarms), wall-hang. Budget/known-good alt: Inkbird IHC-200 (humidity) + ITC-308 (temp).</td>
-                    <td>One self-contained unit. Wall-hang it in the open amp zone (outside the sealed vault); route the included probe up through the sealed grommet, then caulk; place the probe at instrument height, away from the humidifier outlet. The humidifier plugs into <strong>outlet&nbsp;1</strong> and (if fitted) the dehumidifier into <strong>outlet&nbsp;2</strong> &mdash; <strong>no extra adapters or separate sensor needed</strong>. The 79 was chosen over the bigger 4&ndash;8&nbsp;port Controller 69 Pro/Pro+ on purpose: those drive AC&nbsp;Infinity's proprietary UIS fans and would need add-on outlet adapters to switch a standard humidifier/dehumidifier. The fans here run continuously off a plain USB adapter, so you only need to <em>switch</em> two devices.</td>
+                    <td><strong>Monitor</strong> <em>(screen + alerts &mdash; the brain)</em></td>
+                    <td><strong>Govee H5179</strong> (WiFi-native, phone alerts anywhere, has a screen) <em>or</em> <strong>SwitchBot Meter Pro + Hub Mini</strong> (nicer screen behind the glass; the hub enables away-from-home alerts). Premium-accuracy alt: SensorPush HT.w + WiFi gateway.</td>
+                    <td>Sits on the vault floor, readable through the glass &mdash; your "nice screen with the measurements." Set high/low alarms (RH &lt; 40% or &gt; 55%, temp &gt; 80&deg;F) so it pings your phone the moment the box drifts. <strong>The alert is what makes the manual approach safe</strong> &mdash; pick a sensor whose alerts reach you when you're <em>not home</em> (WiFi-native, or Bluetooth + a hub). It's a battery unit, so <strong>no wire into the vault</strong>. Salt-test calibrate (75% RH reference) before trusting it.</td>
                 </tr>
                 <tr>
-                    <td><strong>Display</strong> <em>(optional &mdash; in-vault, behind glass)</em></td>
-                    <td><strong>SwitchBot Meter Pro</strong> or Govee H5179 (clean LCD, app + alerts). <em>Optional &mdash; the 79 already has a screen, sensor, and app.</em></td>
-                    <td>Add this only if you want (a) a readout visible <em>inside</em> the vault through the glass (the 79's screen sits lower in the amp zone), and/or (b) an <strong>independent second sensor</strong> so a drifted controller probe can't silently hold the wrong RH (worthwhile for the vintage Rickenbacker). A standalone unit sits on the shelf and reads through the door &mdash; zero woodwork, reversible. Salt-test calibrate before relying on it.</td>
+                    <td><strong>Passive buffer</strong> <em>(the safety net)</em></td>
+                    <td><strong>Boveda 49% (Size&nbsp;320)</strong> two-way humidity packs &mdash; ~2&ndash;3 to start</td>
+                    <td>The always-on baseline: two-way packs add <em>and</em> remove moisture with no power, water, or leak risk. They hold the line 24/7 &mdash; especially while you're away or asleep &mdash; so the box self-regulates between manual top-ups. Tuck them behind a cedar slat grille or in a shallow tray at the rack base so nothing shows. Replace when they go stiff (a sealed cedar box works them lightly, so they last well past the nominal ~3&nbsp;months).</td>
                 </tr>
                 <tr>
-                    <td><strong>Humidify</strong></td>
-                    <td>Small ultrasonic humidifier, distilled water only</td>
-                    <td>Aim the mist <em>away</em> from instruments and let it disperse &mdash; cool mist can over-humidify locally and condense. Keep the reservoir small and refill often rather than blasting. A fan-assisted evaporative unit or passive Boveda is gentler if you live somewhere humid.</td>
-                </tr>
-                <tr>
-                    <td><strong>Dehumidify</strong> <em>(conditional &mdash; don't pre-buy)</em></td>
-                    <td>Peltier dehumidifier with external drain tube</td>
-                    <td><strong>Buy only if the data calls for it.</strong> A sealed box has no internal moisture source, so it usually trends <em>dry</em>, not damp &mdash; run the vault empty for 1&ndash;2 weeks first (build step&nbsp;6) and add this <em>only</em> if RH keeps climbing past ~55%. Skipping it also removes a drain tube, a drain bottle, and one penetration. If fitted: run the drain out through the sealed grommet to a bottle so collected water leaves the vault.</td>
+                    <td><strong>Humidify</strong> <em>(manual, on demand)</em></td>
+                    <td>Small USB diffuser or ultrasonic mist-maker, <strong>distilled water only</strong> &mdash; kept on the shelf, not running 24/7</td>
+                    <td>Your boost tool for sustained dry spells (winter heating season). When the monitor alerts low, run it a while with the door cracked, mist aimed <em>away</em> from instruments, until the box climbs back to ~48%; then put it away. <strong>Plain water only &mdash; never essential oils</strong> (VOCs attack finishes) and never tap water (atomized minerals = white dust on your guitars).</td>
                 </tr>
                 <tr>
                     <td><strong>Circulate</strong></td>
                     <td>Two 120&nbsp;mm USB fans (~4.7" sq &times; 1")</td>
-                    <td>These recirculate <em>internal</em> air (do not exhaust). Set up a single loop: one fan low pushing air up the <em>front</em>, the other high pulling it down the <em>rear</em> duct, so air rotates past every instrument instead of two fans canceling each other.</td>
+                    <td>Low-speed continuous circulation so RH and temperature stay even and no damp/mold pockets form in corners. Recirculate <em>internal</em> air (do not exhaust): one fan low pushing air up the <em>front</em>, the other high pulling it down the <em>rear</em>, so air rotates past every instrument instead of canceling out. Runs off a USB adapter on the power strip.</td>
+                </tr>
+                <tr>
+                    <td><strong>Light</strong> <em>(warm display lighting)</em></td>
+                    <td><strong>Warm-white ~3000K, high-CRI (90+) LED strip</strong> in an aluminum channel with a frosted diffuser. Door-activated + remote/app override, dimmable.</td>
+                    <td>See the lighting detail below. LED only (cool-running, emits essentially no UV, so it won't fade finishes); driver hidden in the amp zone; thin low-voltage lead up through the sealed grommet.</td>
                 </tr>
             </tbody>
         </table>
-        <div class="note">
-            <strong>Measure before you buy the wet/dry gear.</strong> Set up the controller (it ships with its sensor), seal the vault, and log RH empty for 1&ndash;2 weeks. If it sits low &rarr; you only need the <em>humidifier</em>. If it sits high &rarr; you only need the <em>dehumidifier</em>. If it crosses the band both ways across seasons &rarr; fit both. Most sealed indoor cabinets need only the humidifier.
-        </div>
-        <h3>Controller deadband &mdash; stop the fight (only if you run both)</h3>
-        <p>If you end up running a humidifier <em>and</em> a dehumidifier and their setpoints overlap, they short-cycle against each other and burn out. Give them a dead zone:</p>
+
+        <h3>Lighting detail &mdash; warm wash, door&nbsp;+&nbsp;override</h3>
         <ul>
-            <li>Humidifier: turn <strong>ON below 43%</strong>, OFF at 47%.</li>
-            <li>Dehumidifier: turn <strong>ON above 52%</strong>, OFF at 48%.</li>
-            <li>Result: nothing runs in the 47&ndash;52% comfort band, so the two devices never run at once. Set the controller's hysteresis/differential to at least 2&ndash;3% to avoid rapid cycling.</li>
-            <li>Humidifier-only setup: simply ON below 45%, OFF at 48% &mdash; no deadband juggling needed.</li>
+            <li><strong>Strip &amp; quality:</strong> use a <strong>CRI&nbsp;90+ (ideally 95) warm-white ~3000K</strong> strip &mdash; cheap CRI&nbsp;80 strips make wood look flat and greenish; high-CRI is the single detail that makes the guitars look rich. Prefer a <strong>24&nbsp;V</strong> strip over 12&nbsp;V for less voltage drop over the run.</li>
+            <li><strong>Mount it as a wash, not dots:</strong> seat the strip in an <strong>aluminum channel with a frosted diffuser</strong>, hidden behind the front top rail (a valance) aiming <em>down</em> the guitar faces, so light rakes the instruments without glaring out through the glass at you. Optional short vertical strips down the inner side stiles for even fill.</li>
+            <li><strong>Control = both:</strong> a <strong>magnetic reed door switch</strong> turns the light on automatically when you open the door (display-case behavior), wired to <em>override</em> a <strong>smart RF/WiFi single-colour dimmer</strong> that drives the strip the rest of the time. Door closed &rarr; the dimmer holds whatever you set (off, or a dim glow to admire through the glass); door open &rarr; full brightness regardless; close it and control returns to the dimmer.</li>
+            <li><strong>Heat &amp; seal:</strong> the aluminum channel heat-sinks the strip so it runs cool (a few watts &mdash; negligible against the climate). Its lead is one more thin low-voltage wire through the existing caulked grommet, not a new hole.</li>
         </ul>
-        <h3>Footprint</h3>
-        <p>Allocate a ~6" &times; 8" corner of the divider shelf for the humidifier + dehumidifier. Keep them on the shelf (not the floor of the vault) and sit them in a shallow tray to catch any drips.</p>
+
+        <h3>Manual humidity routine (how it actually runs day to day)</h3>
+        <ol>
+            <li><strong>Baseline:</strong> Boveda + cedar hold ~45&ndash;50% on their own most of the year. You do nothing.</li>
+            <li><strong>Alert low</strong> (dry spell): run the diffuser a while until it climbs back to ~48%, then put it away.</li>
+            <li><strong>Alert high</strong> (rare in a sealed box): crack the door, let it equilibrate, check the room; the Boveda packs absorb minor excess. Persistent high RH is the only reason you'd add the optional dehumidifier.</li>
+            <li><strong>Seasonal:</strong> replace Boveda packs when stiff; recalibrate the sensor once a year.</li>
+        </ol>
+
+        <h3>Optional: full-automation fallback</h3>
+        <p>If you later decide you don't want to think about it at all, bolt on a closed loop without changing anything above: an <strong>Inkbird IHC-200</strong> hygrostat (AC-outlet, ~$40) with its probe in the vault, switching a hidden <strong>ultrasonic mist-maker disc</strong> in a low reservoir in the amp zone (its 24&nbsp;V adapter on the Inkbird's switched outlet), fogging up through the grommet. The disc mists whenever powered, so the Inkbird gates it cleanly. The monitor, Boveda, fans, and light all stay exactly as they are.</p>
     </div>
 
     <div class="section-card">
         <h2>7. Power, Cable Management, Monitoring &amp; Failover</h2>
         <h3>Electrical layout</h3>
         <ul>
-            <li><strong>One mains hub.</strong> A single <strong>GFCI surge-protected power strip with a resettable breaker</strong>, mounted to the amp-zone back wall <em>off the floor</em>, feeds everything: both amps, the controller, and the fans' USB adapter. Only <strong>one cord leaves the cabinet</strong>, exiting a grommet at the back to a GFCI wall receptacle.</li>
-            <li><strong>Put the controller in the open amp zone, not inside the vault.</strong> The bottom section is already outside the sealed chamber, so the AC Infinity 79 (or the Inkbird pair) wall-hangs there with its display facing out. The humidifier (and dehumidifier, if fitted) plug straight into the 79's two built-in outlets per the deadband logic &mdash; no separate adapters. Short, tidy runs &mdash; no long cords across the cabinet. The only thing that may sit inside the vault is the optional behind-glass display unit (battery, no cord).</li>
-            <li><strong>Keep water below mains.</strong> The humidifier/dehumidifier and the drain bottle sit lower than the strip and controllers; water vessels never sit above an outlet or electronics.</li>
+            <li><strong>One mains hub.</strong> A single <strong>GFCI surge-protected power strip with a resettable breaker</strong>, mounted to the amp-zone back wall <em>off the floor</em>, feeds everything that's plugged in: both amps, the <strong>LED driver/dimmer</strong>, and the fans' USB adapter. Only <strong>one cord leaves the cabinet</strong>, exiting a grommet at the back to a GFCI wall receptacle.</li>
+            <li><strong>Nothing runs unattended inside the vault.</strong> The monitor is a battery unit and the Boveda packs are passive &mdash; neither needs power or a wire. The manual diffuser is plugged in <em>only while you're using it</em>. The sole always-on vault items are the low-voltage <strong>fans</strong> and the <strong>LED strip</strong>, both fed from the amp zone.</li>
+            <li><strong>Keep water below mains.</strong> When you run the manual diffuser, sit it in a shallow tray in the amp zone, lower than the strip and any outlet &mdash; water vessels never sit above electronics.</li>
         </ul>
         <h3>Cable management</h3>
         <ul>
-            <li><strong>One sealed pass-through.</strong> Route <em>all</em> vault cabling &mdash; controller probes going up, device power cords coming down &mdash; through a single caulked grommet in the divider shelf, alongside the dehumidifier drain. Fewer penetrations = an easier airtight seal.</li>
-            <li><strong>Drip loop on every cord.</strong> Let each cable dip <em>below</em> its entry point before reaching a device or the grommet, so condensation runs off the low point instead of tracking along the wire into electronics or through the seal.</li>
-            <li><strong>Corral cords up the back.</strong> Run an adhesive cable raceway (D-Line or similar) up the rear wall of the vault so the humidifier, dehumidifier, and fan leads stay off the instruments. Bundle with hook-and-loop ties, not zip ties you have to cut.</li>
-            <li><strong>Label both ends</strong> of every cable and leave a little service slack &mdash; you <em>will</em> pull devices out to refill, clean, or replace them.</li>
+            <li><strong>One sealed pass-through, now nearly empty.</strong> Only two thin low-voltage leads cross into the vault &mdash; the <strong>LED strip lead</strong> and the <strong>fan leads</strong> &mdash; through a single caulked grommet in the divider shelf. (No humidifier cord, no sensor probe, no drain: the manual/passive approach removed them, so the seal is much easier.)</li>
+            <li><strong>Drip loop on every cord.</strong> Let each cable dip <em>below</em> its entry point before reaching the grommet, so any condensation runs off the low point instead of tracking along the wire through the seal.</li>
+            <li><strong>Corral cords up the back.</strong> Run an adhesive cable raceway (D-Line or similar) up the rear wall so the fan and LED leads stay off the instruments. Bundle with hook-and-loop ties, not zip ties.</li>
+            <li><strong>Label both ends</strong> and leave a little service slack &mdash; you'll pull the fans/strip occasionally to clean or replace them.</li>
         </ul>
         <h3>Monitoring &amp; failover</h3>
         <ul>
-            <li><strong>Two sensors beat one (optional but wise for the vintage piece).</strong> The controller acts on its own probe; if that probe drifts, it will happily hold the <em>wrong</em> RH and never alarm. An independent second hygrometer catches that &mdash; the optional behind-glass display (Section&nbsp;6) doubles as it. Calibrate every sensor with a salt test (75% RH reference) before you rely on it &mdash; cheap hygrometers are often off by 5&ndash;10%.</li>
-            <li><strong>Set high/low alarms</strong> (e.g. RH &lt; 40% or &gt; 55%, temp &gt; 80&deg;F) so a failed humidifier or a stuck dehumidifier wakes you before the instruments suffer.</li>
-            <li><strong>Power-loss plan:</strong> cedar mass + Boveda packs hold the line passively for a day or two. For longer outages or vintage pieces, a small UPS on the controllers/sensors at least keeps monitoring and alerts alive.</li>
+            <li><strong>The monitor is the whole safety system.</strong> Set high/low alarms (RH &lt; 40% or &gt; 55%, temp &gt; 80&deg;F) that <strong>reach your phone when you're not home</strong> &mdash; the alert is what makes the manual approach safe. Salt-test calibrate (75% RH reference) before you rely on it; cheap hygrometers are often off by 5&ndash;10%. A cheap second hygrometer inside is worthwhile insurance for the vintage Rickenbacker.</li>
+            <li><strong>Power loss is a non-event here.</strong> Cedar mass + Boveda hold RH passively for days; the fans and light simply go off, harmlessly. Nothing can fail <em>on</em> and flood or over-humidify, so <strong>no UPS is needed</strong> &mdash; at most, keep the monitor's batteries fresh so alerts survive an outage.</li>
         </ul>
     </div>
 
@@ -313,8 +321,8 @@
             <li>Install the 3/4" plywood divider; caulk all joints; add the underside thermal break.</li>
             <li>Mount the plywood hanger board to the frame's solid members; dry-fit hangers and confirm spacing/height-stagger or two-rank layout with the <em>actual</em> instruments (no strings attached to climate yet).</li>
             <li>Line walls with Spanish cedar; gasket and latch the door.</li>
-            <li>Install grommets, route probe/power; mount the controller, humidifier, and fans. (Hold the dehumidifier until step&nbsp;6 shows you need it.)</li>
-            <li>Run empty for 1&ndash;2 weeks: off-gas, then watch which way RH drifts &mdash; add a dehumidifier only if it climbs past ~55%. Tune the setpoint(s) and verify RH/temp hold steady through a day/night cycle. Calibrate sensors.</li>
+            <li>Install the grommet and route the two low-voltage leads; mount the <strong>fans</strong> and the <strong>LED strip</strong> (channel behind the front top rail) with the driver/dimmer and door reed switch; set the <strong>monitor</strong> on the shelf and place the <strong>Boveda</strong> packs. Keep the manual diffuser on hand.</li>
+            <li>Run empty for 1&ndash;2 weeks: off-gas, calibrate the sensor (salt test), and watch RH. Confirm Boveda + cedar hold ~45&ndash;50% on their own; learn how far it drifts in a dry spell so you know when to reach for the diffuser. (Only if RH persistently climbs past ~55% would you add a dehumidifier or the optional automated loop.)</li>
             <li>Only once it holds &plusmn;3% RH for several days, move the instruments in &mdash; least valuable first as a final check, vintage Rickenbacker last.</li>
         </ol>
     </div>
