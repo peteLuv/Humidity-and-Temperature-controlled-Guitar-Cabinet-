@@ -1,0 +1,18 @@
+{
+  "name": "Rush @ MSG",
+  "venues": ["ticketmaster", "seatgeek"],
+  "match": {
+    "keyword": "Rush",
+    "venueName": "Madison Square Garden",
+    "dateFrom": "2026-07-01",
+    "dateTo": "2026-12-31"
+  },
+  "rules": {
+    "quantity": 2,
+    "maxPricePerTicket": 250,
+    "requireSeatsTogether": true,
+    "excludeSections": ["Obstructed View"]
+  },
+  "pollSeconds": 30,
+  "purchaseMode": "notify"
+}
