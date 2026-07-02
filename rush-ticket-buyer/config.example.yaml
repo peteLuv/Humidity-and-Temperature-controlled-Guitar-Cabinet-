@@ -1,0 +1,53 @@
+# Copy to config.yaml and edit. Secrets go in .env, NOT here.
+
+watches:
+  - name: "Rush @ MSG"
+    venue: "Madison Square Garden"
+    # Pin the exact date(s) once known:
+    event_dates: ["2026-XX-XX"]
+    # Per-source event ids (resolve via each API; leave blank to search by name+date):
+    source_event_ids:
+      seatgeek: ""
+      stubhub: ""
+      ticketmaster: ""
+    criteria:
+      quantity: 2                 # we want a pair
+      min_seats_together: 2       # must be contiguous
+      max_price_per_ticket: 250   # USD, all-in target
+      sections:
+        allow: []                 # empty = any section
+        deny: []                  # e.g. ["obstructed", "SRO"]
+
+sources:
+  seatgeek:
+    enabled: true
+    poll_interval_seconds: 30
+  stubhub:
+    enabled: false               # enable once you have partner API access
+    poll_interval_seconds: 30
+  ticketmaster:
+    enabled: false               # enable once you have partner/resale access
+    poll_interval_seconds: 30
+
+notifications:
+  # Enable at least one. Tokens/keys come from env (.env).
+  ntfy:
+    enabled: true
+    topic: "rush-msg-tickets"    # pick something unguessable
+  pushover:
+    enabled: false
+  telegram:
+    enabled: false
+    chat_id: ""
+  twilio_sms:
+    enabled: false
+    to_number: "+1..."
+
+auto_buy:
+  enabled: false                 # OFF by default — read docs/LEGAL-AND-COMPLIANCE.md
+  dry_run: true                  # simulate; never actually purchases while true
+  quantity: 2
+  daily_spend_cap: 700           # USD hard ceiling across all attempts per day
+  per_run_spend_cap: 550         # USD ceiling for a single purchase attempt
+  # Only sources with a sanctioned programmatic-purchase path should be listed:
+  sources: []                    # e.g. [] until a permitted path exists
