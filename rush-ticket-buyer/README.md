@@ -21,6 +21,7 @@ price threshold you set.
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | How the pieces fit together |
 | [`docs/DATA-SOURCES.md`](docs/DATA-SOURCES.md) | Each venue's API/feed options, auth, and limits |
 | [`docs/LEGAL-AND-COMPLIANCE.md`](docs/LEGAL-AND-COMPLIANCE.md) | ToS, the BOTS Act, and what "auto-buy" really means |
+| [`docs/CREDENTIALS.md`](docs/CREDENTIALS.md) | Step-by-step: getting every API key and notification credential |
 | [`config.example.yaml`](config.example.yaml) | Watch targets, thresholds, notification channels |
 | [`src/`](src) | Starter scaffold (TypeScript) with the interfaces to fill in |
 
