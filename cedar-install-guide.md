@@ -59,6 +59,26 @@ This is the payoff for the divider being loose.
 
 ---
 
+## STEP 1.5 — Seal the plywood box FIRST (before any cedar)
+
+The airtight boundary is the **plywood shell**, not the cedar (air slips through the
+cedar's butt joints). Once the cedar's on you can't reach the plywood joints — so
+**caulk the box now, then line over it.**
+
+1. **Product: neutral-cure silicone** (e.g. GE Silicone II) — the label must say
+   *neutral cure / low odor*, **no vinegar smell**. **Never acetoxy silicone** (vinegar
+   smell = acetic acid, which corrodes strings/frets/hardware). Easy alt: paintable
+   **acrylic-latex** caulk (low odor, water cleanup, safe once cured).
+2. **Seal the vault interior seams only** (above the divider): back-to-sides,
+   back/sides-to-top, and the **divider-to-sides/back** joints as you set the divider.
+   **Leave the amp zone open/vented** — don't seal below the divider.
+3. **Thin bead pressed into each seam, tooled smooth** (wet fingertip) — a filled,
+   flush joint, **not a fat blob**, so the cedar still sits flat in the corner.
+4. **Don't finish or seal the cedar itself** — it stays bare; only the plywood gets caulk.
+5. Let it skin over before lining; full cure (vault open, ~1–2 weeks) before instruments.
+
+---
+
 ## STEP 2 — Floor (easiest first; can be done on the bench)
 
 Floor planks run **left ↔ right**, stacked front-to-back.

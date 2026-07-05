@@ -115,12 +115,12 @@ around) or overlay.
 ---
 
 ## 4) Assembly order
-1. **Line the vault** with cedar (bare).
-2. **Glue on the face frame**; flush-sand.
-3. **Build, glaze, and hang the vault door** (gasket + latches); leave the amp zone open.
-4. **Seal the vault airtight** (caulk all interior seams above the divider); amp zone stays vented.
-5. **Install climate/electrical gear** per `guitar-cabinet-plan.html`, run the sensor probe up through the Ø5 cm divider grommet with a drip loop.
-6. **Burn-in:** run empty a few days, confirm it holds 45–50% RH before loading the rack + guitars.
+1. **Fix the divider** at the cedar height, then **seal the vault airtight FIRST** — caulk all interior plywood seams above the divider (back-to-sides, panel-to-top, divider joints) with **neutral-cure** silicone; amp zone stays vented. The plywood shell is the air barrier, so seal it before lining (you can't reach the joints once cedar's on).
+2. **Line the vault** with cedar (bare) over the sealed shell — see `cedar-install-guide.md`.
+3. **Glue on the face frame**; flush-sand.
+4. **Build, glaze, and hang the vault door** (gasket + latches); leave the amp zone open.
+5. **Install climate/electrical gear** per `guitar-cabinet-plan.html`; route the fan + LED leads up through the Ø5 cm divider grommet with a drip loop, then caulk the grommet.
+6. **Burn-in:** run empty ~1–2 weeks (also lets the caulk off-gas), confirm it holds 45–50% RH before loading the rack + guitars.
 
 ## Exterior finish — clear shellac (birch plywood)
 
