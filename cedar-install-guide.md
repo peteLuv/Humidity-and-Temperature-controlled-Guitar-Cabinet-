@@ -150,11 +150,19 @@ a cheap electric/cordless) + a pack each of **⅝"** and **¾"** 18-ga brads.
 
 ## Spacing, gaps, and finish
 
-- **Install snug but not forced.** The planks are at room humidity now; if you jam
-  them bone-tight, they'll buckle when they swell at 50% RH. Edge-to-edge contact with
-  no force is right; a visible **0.5 mm** breathing gap is fine and invisible.
+- **Butt the planks tight in the field — no visible gaps.** Square-edge butt joints
+  look seamless, and that's the look you want. It's safe to go tight here: Spanish
+  cedar is a low-movement wood (why it's the humidor timber), the vault RH is
+  controlled to a narrow band, the planks are already acclimated to near their service
+  size, and thin cedar pinned to ¾" ply is restrained by the substrate.
+- **Put the movement allowance where it's hidden, not between planks.** The only
+  direction that accumulates is the *stacking* direction. Leave a **~1–2 mm allowance
+  at the very top row** of each wall (hidden under the ceiling cedar + the cherry
+  face-frame lip) and at the **back edge** of the floor/ceiling. Don't jam the whole
+  floor-to-ceiling stack into compression — a hairline in a corner shadow is invisible,
+  but a bone-tight stack with nowhere to go can bow.
 - **Push tolerance to the last (narrow) row** of every face — that's why those strips
-  are sized to be trimmed on site.
+  are sized to be trimmed on site, and where the allowance lives.
 - **Leave the cedar bare.** No oil, no shellac, no wax — a finish kills the humidity
   buffering and the smell. The exterior shellac (plan §"Exterior finish") never touches
   the inside.
