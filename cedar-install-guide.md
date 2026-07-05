@@ -120,18 +120,31 @@ Same corner rule: trim each plank's **back end ~¼"** to butt the back cedar.
 
 ---
 
-## Fastening (instrument-safe)
+## Fastening (instrument-safe) — brad nailer + spot glue
 
-- **Primary hold: pin/brad nails.** 23-gauge headless pins (cleanest, ~invisible
-  holes) or 18-gauge brads, **⅝"–1"** long, into the plywood. 2–3 per plank end +
-  one mid-span is plenty for the walls.
-- **Plus spot adhesive:** a few **dabs** (not a full bead) of **PVA wood glue
-  (Titebond)** or a **low-odor/low-VOC construction adhesive**. Dabs, not coverage —
-  solid cedar needs to move a little; gluing it down solid across its width can cup it.
-- **Avoid** contact cement and any aromatic/solvent adhesive (high VOC in a sealed
-  instrument box). If you must use construction adhesive, pick a low-VOC polymer one
-  and **off-gas the vault open for 1–2 weeks** before instruments (already in the plan).
-- **Ceiling** is the one place you lean on adhesive (gravity) — brads + props + dabs.
+Brad nailer does the holding; the glue is just a few dabs. **Do NOT glue the whole
+back of each plank** — right instinct.
+
+- **Glue: a few dabs only.** Pea-sized dabs of PVA wood glue (Titebond) or a low-VOC
+  construction adhesive, roughly **every 8–12"** — so **3–4 dabs on a 38" back plank,
+  2 on an 18" side plank.** Never a full bead or full coverage: solid cedar swells at
+  50% RH and gluing it down solid can cup or crack it. The dabs just stop rattle/lift;
+  the brads clamp.
+- **Brads: 18-gauge** (or 23-ga pins for near-invisible holes). **Length by panel:**
+  - **Back wall: ⅝" (16 mm)** — the back panel is only ½" (13 mm); longer can poke
+    through to the outside.
+  - **Sides / floor / ceiling: up to ¾" (19 mm)** — those are ¾" ply, no poke-through.
+  - **2–3 brads per plank end + one mid-span**, placed near the top edge/ends where the
+    next row or the cherry face frame hides them.
+- **Cheap gun is fine** (the glue does the real work). First thing: **test-fire on a
+  cedar offcut and dial the depth/pressure down** — soft cedar craters if over-driven.
+  Flush or a hair proud is right; since glue holds, any bad brad pulls out after cure.
+- **Avoid** contact cement / aromatic solvent adhesives (VOCs in a sealed box). Off-gas
+  the vault open **1–2 weeks** before instruments regardless.
+- **Ceiling** leans hardest on the nailer (gravity) — brads + dabs + a prop while it grabs.
+
+**Home Depot list:** one 18-gauge brad nailer (pneumatic if you have a compressor, else
+a cheap electric/cordless) + a pack each of **⅝"** and **¾"** 18-ga brads.
 
 ---
 
