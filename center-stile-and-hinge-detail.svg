@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1420" font-family="'Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/></marker>
+  </defs>
+  <style>
+    .cherry{fill:#8a4b2c;stroke:#5a3016;stroke-width:1.6;}
+    .cherryL{fill:#a9673d;stroke:#5a3016;stroke-width:1.4;}
+    .glass{fill:#cfe8f5;stroke:#3a86a8;stroke-width:1.4;opacity:0.55;}
+    .metal{fill:#c8ced4;stroke:#5a6b78;stroke-width:1.6;}
+    .metal2{fill:#dfe4e9;stroke:#5a6b78;stroke-width:1.6;}
+    .ply{fill:#e9d8b8;stroke:#5a4632;stroke-width:1.4;}
+    .screw{fill:none;stroke:#c0392b;stroke-width:1.8;}
+    .knuck{fill:#c0392b;}
+    .h1{fill:#8a4b2f;font-size:23px;font-weight:bold;}
+    .ttl{fill:#2c3e50;font-size:16px;font-weight:bold;}
+    .nt{fill:#40515c;font-size:13px;}
+    .lb{fill:#2c3e50;font-size:13px;font-weight:bold;}
+    .red{fill:#c0392b;font-size:13px;font-weight:bold;}
+    .dim{stroke:#c0392b;stroke-width:1.2;}
+  </style>
+
+  <!-- ============ PANEL A: CENTER STILE (front view) ============ -->
+  <text x="30" y="40" class="h1">1 · The center stile — how it hangs across the middle</text>
+  <text x="30" y="66" class="nt">Front view of the vault opening. The stile is one solid vertical cherry post. It only fastens at the TOP and BOTTOM —</text>
+  <text x="30" y="85" class="nt">nothing holds its middle, so make it stout (~4–5 cm wide) and anchor both ends well. The two doors close against its front face.</text>
+
+  <!-- face frame opening -->
+  <rect x="120" y="110" width="470" height="470" fill="#f6efdd" stroke="#5a4632" stroke-width="2"/>
+  <!-- top rail -->
+  <rect x="120" y="110" width="470" height="34" class="cherry"/>
+  <text x="355" y="132" text-anchor="middle" fill="#fff" class="lb">TOP RAIL</text>
+  <!-- middle rail -->
+  <rect x="120" y="546" width="470" height="34" class="cherry"/>
+  <text x="355" y="568" text-anchor="middle" fill="#fff" class="lb">MIDDLE RAIL (on the divider)</text>
+  <!-- side stiles -->
+  <rect x="120" y="110" width="30" height="470" class="cherry"/>
+  <rect x="560" y="110" width="30" height="470" class="cherry"/>
+  <!-- glass openings -->
+  <rect x="165" y="150" width="175" height="392" class="glass"/>
+  <rect x="372" y="150" width="175" height="392" class="glass"/>
+  <text x="252" y="360" text-anchor="middle" class="nt">LEFT door</text>
+  <text x="460" y="360" text-anchor="middle" class="nt">RIGHT door</text>
+  <!-- center stile -->
+  <rect x="343" y="144" width="26" height="402" class="cherryL"/>
+  <text x="356" y="350" text-anchor="middle" fill="#fff" class="lb" transform="rotate(-90 356 350)">CENTER STILE</text>
+
+  <!-- top fastening callout -->
+  <g class="screw">
+    <line x1="350" y1="118" x2="350" y2="152"/><line x1="362" y1="118" x2="362" y2="152"/>
+  </g>
+  <line x1="356" y1="127" x2="700" y2="127" class="dim" marker-end="url(#ar)"/>
+  <rect x="620" y="150" width="350" height="96" rx="8" fill="#fdeee9" stroke="#e0a08a"/>
+  <text x="636" y="172" class="ttl">TOP end</text>
+  <text x="636" y="194" class="nt">2 screws straight DOWN through the top rail</text>
+  <text x="636" y="212" class="nt">into the end of the stile — or a pocket-hole</text>
+  <text x="636" y="230" class="nt">screw + glue. Add a small glue block behind.</text>
+
+  <!-- bottom fastening callout -->
+  <g class="screw">
+    <line x1="350" y1="538" x2="350" y2="572"/><line x1="362" y1="538" x2="362" y2="572"/>
+  </g>
+  <line x1="356" y1="562" x2="700" y2="470" class="dim" marker-end="url(#ar)"/>
+  <rect x="620" y="410" width="350" height="96" rx="8" fill="#fdeee9" stroke="#e0a08a"/>
+  <text x="636" y="432" class="ttl">BOTTOM end</text>
+  <text x="636" y="454" class="nt">2 screws UP through the middle rail into</text>
+  <text x="636" y="472" class="nt">the stile end (or pocket screw + glue block).</text>
+  <text x="636" y="490" class="nt">Both ends solid = the post can't wobble.</text>
+
+  <line x1="700" y1="300" x2="700" y2="360" stroke="#bbb" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ============ PANEL B: WHAT A PIANO HINGE IS ============ -->
+  <text x="30" y="700" class="h1">2 · What a piano hinge is</text>
+  <text x="30" y="726" class="nt">Just a normal hinge, but one long continuous strip the full height of the door. Two flat metal leaves joined by a</text>
+  <text x="30" y="745" class="nt">barrel (the “knuckle”) with a pin down the middle. It folds along that pin. Screw holes run the whole length.</text>
+
+  <!-- opened hinge drawing (like a book at ~120deg) -->
+  <g transform="translate(120,770)">
+    <!-- leaf 1 -->
+    <polygon points="0,40 150,10 150,34 0,64" class="metal"/>
+    <!-- leaf 2 -->
+    <polygon points="0,40 150,70 150,94 0,64" class="metal2"/>
+    <!-- knuckle -->
+    <rect x="-9" y="38" width="18" height="28" rx="9" class="knuck"/>
+    <!-- screw holes leaf1 -->
+    <circle cx="40" cy="41" r="3.5" fill="#fff" stroke="#5a6b78"/><circle cx="80" cy="34" r="3.5" fill="#fff" stroke="#5a6b78"/><circle cx="120" cy="27" r="3.5" fill="#fff" stroke="#5a6b78"/>
+    <!-- screw holes leaf2 -->
+    <circle cx="40" cy="63" r="3.5" fill="#fff" stroke="#5a6b78"/><circle cx="80" cy="70" r="3.5" fill="#fff" stroke="#5a6b78"/><circle cx="120" cy="77" r="3.5" fill="#fff" stroke="#5a6b78"/>
+    <text x="165" y="20" class="lb">leaf A</text>
+    <text x="165" y="95" class="lb">leaf B</text>
+    <text x="-70" y="56" class="red">knuckle</text>
+    <text x="-70" y="72" class="red">(the pin/pivot)</text>
+  </g>
+  <text x="360" y="800" class="nt">• The two leaves fold toward each other along the pin.</text>
+  <text x="360" y="822" class="nt">• Screw holes every few cm — you screw through them.</text>
+  <text x="360" y="844" class="nt">• Buy it a bit longer than the door and cut to length,</text>
+  <text x="360" y="862" class="nt">  or get one ~120 cm (the door height).</text>
+
+  <!-- ============ PANEL C: WHERE EACH LEAF GOES ============ -->
+  <text x="30" y="940" class="h1">3 · Where each leaf connects (view from ABOVE)</text>
+  <text x="30" y="966" class="nt">Looking straight down on the LEFT front corner of the cabinet. One leaf screws to the cabinet, the other to the door.</text>
+
+  <!-- CLOSED -->
+  <text x="150" y="1010" class="ttl">Door CLOSED</text>
+  <!-- cabinet front stile (plan) -->
+  <rect x="90" y="1030" width="60" height="150" class="ply"/>
+  <text x="120" y="1200" text-anchor="middle" class="nt">cabinet</text>
+  <text x="120" y="1216" text-anchor="middle" class="nt">front stile</text>
+  <text x="120" y="1110" text-anchor="middle" class="nt" transform="rotate(-90 120 1110)">(fixed)</text>
+  <!-- door (plan) sitting in front, overlay -->
+  <rect x="150" y="1030" width="230" height="26" class="cherryL"/>
+  <rect x="150" y="1030" width="230" height="10" class="glass"/>
+  <text x="280" y="1049" text-anchor="middle" fill="#fff" class="lb">DOOR (moves)</text>
+  <!-- hinge folded at the corner -->
+  <rect x="148" y="1030" width="8" height="150" class="metal"/>
+  <circle cx="152" cy="1030" r="7" class="knuck"/>
+  <!-- labels -->
+  <line x1="120" y1="1030" x2="120" y2="1000" stroke="#5a6b78" stroke-width="1"/>
+  <text x="60" y="1052" class="red">leaf A → screwed to the</text>
+  <text x="60" y="1068" class="red">cabinet stile</text>
+  <line x1="360" y1="1056" x2="360" y2="1090" stroke="#5a6b78" stroke-width="1"/>
+  <text x="300" y="1108" class="red">leaf B → screwed to the door</text>
+  <text x="175" y="1000" class="red">knuckle at the outer front corner</text>
+  <line x1="152" y1="1023" x2="200" y2="1000" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- OPEN -->
+  <text x="620" y="1010" class="ttl">Door OPEN (swung out)</text>
+  <!-- cabinet front stile (plan) -->
+  <rect x="560" y="1030" width="60" height="150" class="ply"/>
+  <text x="590" y="1200" text-anchor="middle" class="nt">cabinet</text>
+  <text x="590" y="1216" text-anchor="middle" class="nt">front stile</text>
+  <!-- pivot point -->
+  <circle cx="622" cy="1030" r="7" class="knuck"/>
+  <!-- door swung ~80 deg toward viewer (down/out) -->
+  <g transform="rotate(72 622 1030)">
+    <rect x="622" y="1017" width="230" height="26" class="cherryL"/>
+    <rect x="622" y="1033" width="230" height="10" class="glass"/>
+    <text x="737" y="1035" text-anchor="middle" fill="#fff" class="lb">DOOR</text>
+    <rect x="620" y="1017" width="8" height="150" class="metal"/>
+  </g>
+  <!-- swing arrow -->
+  <path d="M700 1035 A 80 80 0 0 1 660 1120" fill="none" stroke="#c0392b" stroke-width="1.6" marker-end="url(#ar)" stroke-dasharray="5 4"/>
+  <text x="700" y="1150" class="nt">swings open on the pin</text>
+  <text x="560" y="1000" class="red">the pin stays put; the door rotates around it</text>
+
+  <!-- summary -->
+  <rect x="30" y="1250" width="940" height="140" rx="10" fill="#eef7f3" stroke="#1abc9c"/>
+  <text x="48" y="1280" class="ttl">In one line</text>
+  <text x="48" y="1308" class="nt">• CENTER STILE: one solid cherry post, screwed only at the top (into the top rail) and bottom (into the middle rail).</text>
+  <text x="48" y="1332" class="nt">• PIANO HINGE per door: <tspan class="lb">leaf A → the cabinet’s outer front stile</tspan>, <tspan class="lb">leaf B → the door’s outer edge</tspan>, knuckle at the corner.</text>
+  <text x="48" y="1356" class="nt">• Left door hinges on the LEFT stile, right door on the RIGHT stile — they swing open from the middle like an armoire.</text>
+  <text x="48" y="1380" class="nt">• Screw the hinge into the cherry AND catch the plywood behind it for a strong hold.</text>
+</svg>
