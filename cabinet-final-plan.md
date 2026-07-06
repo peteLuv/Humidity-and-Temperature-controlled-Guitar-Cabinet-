@@ -106,6 +106,7 @@ of the slightly out-of-square opening than inset.
 
 - Join each door flat & square; rout a **~10 × 10 mm rabbet** on the inside-back edge for the glass.
 - Hang **each** door on a **continuous piano hinge (~120 cm)** on its **outer** vertical edge; they swing open from the center like armoire doors.
+- **Hinge fastening (important):** screw the cabinet-side leaf through the cherry stile **into the 19 mm plywood side panel behind it** — use ~30–35 mm screws over the plywood-backed part of the stile, not the overhang lip. The door then hangs off the plywood carcass, not the cherry-to-ply glue joint. (Optional: glue a backing strip inside the side panel behind the hinge line for extra screw depth.)
 - **EPDM gasket** around each opening (frame + center stile) + a **draw latch** + pull per door, so closing each one compresses its seal against the frame/center stile.
 - **Amp zone stays open** (no door), or fit a louvered panel for venting.
 
