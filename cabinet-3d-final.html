@@ -274,7 +274,7 @@ addEventListener('resize', () => {
   renderer.setSize(innerWidth, innerHeight); labelRenderer.setSize(innerWidth, innerHeight);
 });
 (function animate(){ requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); labelRenderer.render(scene, camera); })();
-window.__cab = { scene, camera, controls, CAM0, TGT0, OW, OD, OH, IW, VAULT, AMP };
+window.__cab = { scene, camera, controls, CAM0, TGT0, OW, OD, OH, IW, VAULT, AMP, cherry };
 } catch (err) { console.error(err); document.getElementById('err').style.display = 'flex'; }
 </script>
 </body>
