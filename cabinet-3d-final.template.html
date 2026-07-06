@@ -212,11 +212,18 @@ put(faceG, box(3.8, OH, 2, cherry),  innerX, OH/2, fZ + 1);
 put(faceG, box(93.2, 3.8, 2, cherry), 0, OH - 2, fZ + 1);     // top rail
 put(faceG, box(93.2, 3.8, 2, cherry), 0, ampTop, fZ + 1);     // middle rail (divider line)
 put(faceG, box(93.2, 3.8, 2, cherry), 0, 1.5, fZ + 1);        // bottom rail
-
-const doorG = new THREE.Group(); scene.add(doorG); doorG.visible = false;
 const doorCY = (divTop + vaultTop) / 2;
-put(doorG, box(92, 120, 2.2, cherry), 0, doorCY, fZ + 2.4);                                   // door frame slab
-put(doorG, box(80, 108, 0.5, std(0xa9d8ea, { t:true, o:0.4, r:0.1 })), 0, doorCY, fZ + 3.7);  // glass
+put(faceG, box(4.5, 123, 2, cherry), 0, doorCY, fZ + 1);      // CENTER STILE (both doors seal against it)
+
+// two equal glass doors (armoire style), hinged on the outer edges, meeting at the center stile
+const doorG = new THREE.Group(); scene.add(doorG); doorG.visible = false;
+const glassMat = std(0xa9d8ea, { t:true, o:0.4, r:0.1 });
+const doorW = 43, doorH = 120;
+for (const sx of [-1, 1]) {
+  const dx = sx * (2.5 + doorW/2);                                            // beside the center stile
+  put(doorG, box(doorW, doorH, 2.2, cherry), dx, doorCY, fZ + 2.4);           // door cherry frame
+  put(doorG, box(doorW - 12, doorH - 12, 0.5, glassMat), dx, doorCY, fZ + 3.7); // glass pane
+}
 
 // ===== base / plinth + ground =====
 const base = box(96, 14, 44, std(0x4f3f2a, { r:0.5 })); base.position.set(0, -7, -1); scene.add(base);

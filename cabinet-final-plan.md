@@ -78,36 +78,44 @@ Cherry, oiled or shellac-finished (see `guitar-cabinet-plan.html` for finishing)
 Detail of the door rabbet/seal stack: **`cherry-door-detail.png`**.
 
 ### Face frame — cherry 1×2 (≈ 38 × 19 mm)
-Glued to the front of the carcass; defines the vault door opening and the open amp
-opening. The inner edge overhangs the cavity ~2 cm to form the gasket lip.
+Glued to the front edges of the carcass; defines the vault door openings and the open
+amp opening. The inner edge overhangs the cavity ~2 cm to form the gasket lip.
 
 | Part | Size | Qty |
 |---|---|---|
 | Stile (vertical) | 3.8 × **~194 cm** (full carcass height) | 2 |
 | Rail (top / middle@divider / bottom) | 3.8 × **93.2 cm** | 3 |
+| **Center stile** (vertical, vault opening only) | ~4.5 × **~123 cm** | 1 |
 
-The middle rail sits on the divider line (top face ~65 cm from floor).
+The middle rail sits on the divider line (top face ~65 cm from floor). The **center
+stile** runs from the middle rail up to the top rail, splitting the vault opening into
+**two door openings** — both doors close and seal against it. Screw it firmly at the
+**top** (into the top rail / cabinet top) and **bottom** (into the middle rail /
+divider), since it spans the opening unsupported in the middle.
 
-### Vault door — cherry 1×3 (≈ 64 × 19 mm) + glass
-Covers the **vault opening only** (~93 × 122 cm). Build it **inset** (~3 mm gap all
-around) or overlay.
+### Vault doors — TWO equal doors, cherry 1×3 (≈ 64 × 19 mm) + glass
+Each door covers **half** the vault opening (each ~44 × 122 cm). Two lighter doors
+(~9–10 kg each vs ~18 kg for one) — easier to hang, less racking, less tip-leverage.
+Build them **overlay** (each laps ~1 cm onto the frame + center stile) — more forgiving
+of the slightly out-of-square opening than inset.
 
 | Part | Size (approx — trim to your opening) | Qty |
 |---|---|---|
-| Door stile | 6.4 × **~122 cm** | 2 |
-| Door rail | 6.4 × **~80 cm** | 2 |
+| Door stile | 6.4 × **~122 cm** | **4** (2 per door) |
+| Door rail | 6.4 × **~31 cm** | **4** (2 per door) |
 
-- Join flat & square; rout a **~10 × 10 mm rabbet** on the inside-back edge for the glass.
-- Hang on a **continuous piano hinge (~120 cm)**; add an **EPDM gasket** + **2–3 draw latches** + a pull, so closing compresses the seal.
+- Join each door flat & square; rout a **~10 × 10 mm rabbet** on the inside-back edge for the glass.
+- Hang **each** door on a **continuous piano hinge (~120 cm)** on its **outer** vertical edge; they swing open from the center like armoire doors.
+- **EPDM gasket** around each opening (frame + center stile) + a **draw latch** + pull per door, so closing each one compresses its seal against the frame/center stile.
 - **Amp zone stays open** (no door), or fit a louvered panel for venting.
 
 ---
 
 ## 3) Glass (vault door glazing)
 
-- **Spec:** **tempered**, **clear**, **pencil-polished edges**, ~6 mm.
-- **Approx size (planning only):** ~**81 × 110 cm**.
-- **⚠ Order it LAST.** Build the door first, then **measure the rabbet opening and
+- **Spec:** **tempered**, **clear**, **pencil-polished edges**, ~5–6 mm (thinner is lighter).
+- **Two panes now** (one per door), each ~**31 × 110 cm** (planning only).
+- **⚠ Order it LAST.** Build the doors first, then **measure each rabbet opening and
   subtract ~3 mm** — tempered glass **cannot be cut** after tempering.
 - **Set** on **foam glazing tape**; retain with thin cherry stops or a bead of
   **neutral-cure silicone** (never acetoxy/vinegar-smell near instruments).
