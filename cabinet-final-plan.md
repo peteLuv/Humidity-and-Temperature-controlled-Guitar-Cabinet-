@@ -131,12 +131,16 @@ of the slightly out-of-square opening than inset.
 5. **Install climate/electrical gear** per `guitar-cabinet-plan.html`; route the fan + LED leads up through the Ø5 cm divider grommet with a drip loop, then caulk the grommet.
 6. **Burn-in:** run empty ~1–2 weeks (also lets the caulk off-gas), confirm it holds 45–50% RH before loading the rack + guitars.
 
-## Exterior finish — clear shellac (birch plywood)
+## Exterior finish — amber shellac (birch plywood) — DONE
 
-The exterior birch is finished with **clear (blonde) shellac** (~2-lb cut, e.g.
-Bulls Eye Clear) — a great choice for birch; warms the grain, no blotch, and it's
-instrument-safe once cured. **Exterior only — keep it off the vault interior and the
-cedar.**
+The exterior birch is finished with **amber shellac** (warm honey-gold) — great on birch;
+warms the grain, no blotch, instrument-safe once cured. **Exterior only — keep it off the
+vault interior and the cedar.** This gives a warm, unified palette with the cedar interior
+and the cherry frame.
+
+**Cherry frame finish:** don't stain the cherry — topcoat it **clear or with the same amber
+shellac** (or a wipe-on oil). Cherry darkens on its own over 6–12 months; staining it
+tends to blotch. Keep finish off the door's sealing faces and the cedar.
 
 1. **Sand** to 220 grit; vacuum and wipe with a tack cloth.
 2. **Brush thin coats** with a natural-bristle brush or pad, **with the grain**;
