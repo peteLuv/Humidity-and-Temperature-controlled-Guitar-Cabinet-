@@ -83,15 +83,24 @@ amp opening. The inner edge overhangs the cavity ~2 cm to form the gasket lip.
 
 | Part | Size | Qty |
 |---|---|---|
-| Stile (vertical) | 3.8 × **~194 cm** (full carcass height) | 2 |
-| Rail (top / middle@divider / bottom) | 3.8 × **93.2 cm** | 3 |
+| Stile (vertical) | 3.8 × **~194 cm** — or **two pieces per side** split at the middle rail (joint hidden behind it), so 6 ft boards work | 2 |
+| Top rail | 3.8 × **93.2 cm** | 1 |
+| Bottom rail | 3.8 × **93.2 cm** | 1 |
+| **Middle rail (wide — covers the plenum band)** | **~12.5 × 93.2 cm** (rip from cherry 1×6) | 1 |
 | **Center stile** (vertical, vault opening only) | ~4.5 × **~123 cm** | 1 |
 
-The middle rail sits on the divider line (top face ~65 cm from floor). The **center
-stile** runs from the middle rail up to the top rail, splitting the vault opening into
-**two door openings** — both doors close and seal against it. Screw it firmly at the
-**top** (into the top rail / cabinet top) and **bottom** (into the middle rail /
-divider), since it spans the opening unsupported in the middle.
+**Middle rail sizing rule (verify on the box):** it must hide the whole chamber band —
+from **~1.5 cm below the divider's underside** (a lip over the amp opening) up to
+**~2 cm above the deck top** (the gasket lip the doors land on). As-built that's
+≈ 1.5 + 1.9 (divider) + 6.4 (2.5 in blocks) + 0.6 (deck cedar) + 2 ≈ **12.5 cm wide**.
+Measure your actual divider-underside → deck-top distance and add 3.5 cm; position it so
+its **top edge sits ~2 cm above the deck**. The doors then start just above the deck, and
+the vault behind the glass reads clean cedar from the deck up.
+
+The **center stile** runs from the middle rail up to the top rail, splitting the vault
+opening into **two door openings** — both doors close and seal against it. Screw it
+firmly at the **top** (into the top rail) and **bottom** (into the wide middle rail),
+since it spans the opening unsupported in the middle.
 
 ### Vault doors — TWO equal doors, cherry 1×3 (≈ 64 × 19 mm) + glass
 Each door covers **half** the vault opening (each ~44 × 122 cm). Two lighter doors
@@ -99,10 +108,13 @@ Each door covers **half** the vault opening (each ~44 × 122 cm). Two lighter do
 Build them **overlay** (each laps ~1 cm onto the frame + center stile) — more forgiving
 of the slightly out-of-square opening than inset.
 
+Each door ≈ **47 × 124 cm** (overlays the outer stile ~1 cm, the wide middle rail and
+top rail ~1 cm, and laps ~1.75 cm onto the center stile, leaving ~1 cm between doors).
+
 | Part | Size (approx — trim to your opening) | Qty |
 |---|---|---|
-| Door stile | 6.4 × **~122 cm** | **4** (2 per door) |
-| Door rail | 6.4 × **~31 cm** | **4** (2 per door) |
+| Door stile | 6.4 × **~124 cm** | **4** (2 per door) |
+| Door rail | 6.4 × **~34 cm** | **4** (2 per door) |
 
 - Join each door flat & square; rout a **~10 × 10 mm rabbet** on the inside-back edge for the glass.
 - Hang **each** door on a **continuous piano hinge (~120 cm)** on its **outer** vertical edge; they swing open from the center like armoire doors.
