@@ -8,8 +8,8 @@ covers the three remaining pieces: **Spanish cedar lining**, the **cherry frame*
 ## The cabinet at a glance
 - **Outer carcass (measured):** 101 × 47.5 × 194 cm (39.8 × 18.7 × 76.4 in)
 - **Vault (sealed, top):** 97 × 46 × 125 cm interior — cedar-lined; holds a **floor guitar rack** + guitars
-- **Amp zone (open/vented, bottom):** 97 × 46 × ~63 cm interior — two combo amps
-- **Divider top:** ~65 cm from the floor · **Ø5 cm cable hole** in the divider, 6 cm from the back
+- **Amp zone (open/vented, bottom):** 97 × 46 × ~57 cm interior — two combo amps
+- **Plenum floor (as-built change):** divider lowered ~6.5 cm; the vault floor is a **slatted cedar deck on 2.5 × 2.5 in blocks** (pool-deck gaps ~1 cm) over a sealed cable/fan chamber. The plenum fan (front) blows **up through the slats**; the return fan (top rear) pushes air **down the back wall**; air re-enters the plenum through the rear slats — one continuous loop. Plenum perimeter + front rail sealed; the only penetration is a **small (½–¾ in) cable hole** in the divider, putty/silicone-sealed.
 - Material: 19 mm (¾ in) carcass, 13 mm (½ in) back
 - Guitars stand in a **floor rack** (no internal hanging hardware). The oud gets its own spot.
 

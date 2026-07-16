@@ -75,10 +75,12 @@ try {
 const OW = 101, OD = 47.5, OH = 194;       // outer carcass
 const T = 2, BT = 1.5;                       // carcass / back thickness
 const IW = 97;                                 // inner width (between sides)
-const AMP = 63, VAULT = 125;                 // compartment heights
-const ampTop = T + AMP;                         // 61.9 (divider underside line)
-const divTop = ampTop + T;                      // 63.8 (vault floor)
-const vaultTop = divTop + VAULT;                // 193.1
+const AMP = 56.5, VAULT = 125;               // divider lowered ~6.5 cm for the cable/fan plenum
+const PLEN = 6.4;                             // plenum height = 2.5 in support blocks
+const ampTop = T + AMP;                         // divider underside
+const divTop = ampTop + T;                      // divider top = plenum floor
+const DECK = divTop + PLEN;                     // underside of the slatted cedar deck
+const vaultTop = OH - T;                        // vault ceiling (unchanged)
 const fZ = OD/2 - BT;                            // interior front face z (+)
 const bZ = -(OD/2);                             // outer back z
 const innerX = IW/2;                            // 48.5
@@ -142,7 +144,7 @@ function plank(sx,sy,sz,cx,cy,cz,alt){ const m = box(sx,sy,sz, alt ? cedarMat2 :
 function lay(L, Lp, off){ const r=[]; let cur=-L/2, rem=L, len = off>0?off:Lp; while(rem>0.2){ len=Math.min(len,rem); r.push({c:cur+len/2,len}); cur+=len; rem-=len; len=Lp; } return r; }
 function buildCedar(W, vertical){
   clearG(cedarG);
-  const yb = divTop + C, yt = vaultTop - C, vH = yt - yb, vMid = (yb+yt)/2;
+  const yb = DECK + C, yt = vaultTop - C, vH = yt - yb, vMid = (yb+yt)/2;
   const zB = bZ + BT + C/2, xL = -(innerX) + C/2, xR = (innerX) - C/2, Wx = IW - 1;
   // back wall
   if(!vertical){ let i=0; for(let y=yb; y<yt-0.2; y+=W){ const h=Math.min(W-REV, yt-y); plank(Wx-REV, h, C, 0, y+h/2, zB, i%2); i++; } }
@@ -152,16 +154,33 @@ function buildCedar(W, vertical){
     if(!vertical){ let i=0; for(let y=yb; y<yt-0.2; y+=W){ const h=Math.min(W-REV, yt-y); plank(C, h, 45-REV, xs, y+h/2, 0, i%2); i++; } }
     else { let j=0; for(let z=-22.5; z<22.5-0.2; z+=W){ const w=Math.min(W-REV, 22.5-z); plank(C, vH-REV, w, xs, vMid, z+w/2, j%2); j++; } }
   }
-  // floor: long planks run left-to-right (full width), stacked front-to-back
-  { let j=0; for(let z=-22.5; z<22.5-0.2; z+=W){ const dd=Math.min(W-REV, 22.5-z); plank(Wx, C, dd, 0, divTop + C/2, z+dd/2, j%2); j++; } }
+  // floor: slatted "pool deck" — planks run left-to-right on 2.5 in blocks, ~1 cm air gaps
+  { let j=0; for(let z=-22.5; z<22.5-0.2; z+=W){ const dd=Math.min(W-1.0, 22.5-z); plank(Wx, C, dd, 0, DECK + C/2, z+dd/2, j%2); j++; } }
   // ceiling: short planks run front-to-back (full depth), stacked left-to-right
   { let j=0; for(let x=-Wx/2; x<Wx/2-0.2; x+=W){ const w=Math.min(W-REV, Wx/2-x); plank(w, C, 45, x+w/2, vaultTop - C/2, 0, j%2); j++; } }
 }
 buildCedar(12.7, false);
 
+// ===== plenum: support blocks + sealed front + circulation fans =====
+const plenumG = new THREE.Group(); scene.add(plenumG);
+const blockMat = std(0xb9824a, { r:0.85 });
+for (const bx of [-40, -20, 0, 20, 40])
+  for (const bz of [-17, 0, 17])
+    put(plenumG, box(6.4, PLEN, 6.4, blockMat), bx, divTop + PLEN/2, bz);   // 2.5 in blocks
+put(plenumG, box(IW, PLEN, 1.2, std(0xc6905a,{r:0.85})), 0, divTop + PLEN/2, 22.3); // sealed front rail
+const fanMat = std(0x1a1d20, { r:0.5 }), fanHub = std(0x3a4148, { r:0.4 });
+function fan(x, y, z){ const f = new THREE.Group();
+  put(f, box(12, 2.6, 12, fanMat), 0, 0, 0);
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(4.5, 4.5, 3, 16), fanHub); hub.position.set(0,0.2,0); f.add(hub);
+  f.position.set(x, y, z); plenumG.add(f); return f; }
+fan(0, divTop + PLEN/2 + 0.2, 14);                          // plenum fan (front) — blows UP through slats
+fan(0, vaultTop - 2.6, -17);                                 // return fan (rear ceiling) — pushes air DOWN the back
+label('plenum fan ↑ (up through the deck)', 0, divTop + PLEN + 4, 14, 'note', plenumG);
+label('return fan ↓ (down the back wall)', 0, vaultTop - 7, -17, 'note', plenumG);
+
 // ===== furniture: floor rack + guitars + amps + pedalboard =====
 const furn = new THREE.Group(); scene.add(furn);
-const vFloor = divTop + C;       // top of cedar floor
+const vFloor = DECK + C;       // top of the slatted cedar deck
 // guitar rack (simple A-frame base + lean bar)
 const rackMat = std(0x1c1c1f, { r:0.6 });
 put(furn, box(84, 5, 37, rackMat), 0, vFloor + 2.5, 2);                 // base platform
@@ -242,7 +261,8 @@ put(person, new THREE.Mesh(new THREE.SphereGeometry(11,16,16), skin), 0, 158, 0)
 // ===== dimension labels =====
 label('Outer 101 × 47.5 × 194 cm (measured)', 0, OH + 12, 0, 'dim');
 label('Vault 97 × 46 × 125 cm', innerX + 6, divTop + VAULT/2, 0, 'dim');
-label('Amp zone 97 × 46 × 63 cm', innerX + 6, T + AMP/2, 0, 'dim');
+label('Amp zone 97 × 46 × ~57 cm', innerX + 6, T + AMP/2, 0, 'dim');
+label('cable/fan plenum · 2.5 in', innerX + 6, divTop + PLEN/2, 0, 'dim');
 label('cedar-lined · floor rack', 0, vaultTop - 14, fZ, 'note');
 
 // ===== toggles =====
