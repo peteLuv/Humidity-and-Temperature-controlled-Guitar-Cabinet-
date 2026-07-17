@@ -75,7 +75,7 @@ try {
 const OW = 101.5, OD = 47.5, OH = 195;     // outer carcass (measured)
 const T = 2, BT = 1.5;                       // carcass / back thickness
 const IW = 97.5;                               // inner width (between sides)
-const AMP = 55.6, VAULT = 125;               // divider TOP (plenum floor) at 59.5 = 195 − 135.5 measured
+const AMP = 57.5, VAULT = 125;               // divider underside at 59.5 (195 − 135.5 measured)
 const PLEN = 6.35;                            // plenum chamber = 2.5 in rails
 const ampTop = T + AMP;                         // divider underside
 const divTop = ampTop + T;                      // divider top = plenum floor
@@ -231,13 +231,13 @@ put(faceG, box(3.8, OH, 2, cherry),  innerX, OH/2, fZ + 1);
 put(faceG, box(93.9, 3.8, 2, cherry), 0, OH - 2, fZ + 1);     // top rail
 put(faceG, box(93.9, 12.5, 2, cherry), 0, (ampTop - 1.5 + DECK + 2.6)/2, fZ + 1); // WIDE middle rail — hides divider + plenum band
 put(faceG, box(93.9, 3.8, 2, cherry), 0, 1.5, fZ + 1);        // bottom rail
-const doorCY = 130;                                            // door-opening center (deck+2 → top rail)
-put(faceG, box(4.5, 122, 2, cherry), 0, doorCY, fZ + 1);      // CENTER STILE (both doors seal against it)
+const doorCY = 131;                                            // door-opening center (deck+2 → top rail)
+put(faceG, box(4.5, 120, 2, cherry), 0, doorCY, fZ + 1);      // CENTER STILE (both doors seal against it)
 
 // two equal glass doors (armoire style), hinged on the outer edges, meeting at the center stile
 const doorG = new THREE.Group(); scene.add(doorG); doorG.visible = false;
 const glassMat = std(0xa9d8ea, { t:true, o:0.4, r:0.1 });
-const doorW = 47, doorH = 124;
+const doorW = 47, doorH = 122;
 for (const sx of [-1, 1]) {
   const dx = sx * (0.5 + doorW/2);                                            // laps onto the center stile
   put(doorG, box(doorW, doorH, 2.2, cherry), dx, doorCY, fZ + 2.4);           // door cherry frame
@@ -260,8 +260,8 @@ put(person, new THREE.Mesh(new THREE.SphereGeometry(11,16,16), skin), 0, 158, 0)
 
 // ===== dimension labels =====
 label('Outer 101.5 × 47.5 × 195 cm (measured)', 0, OH + 12, 0, 'dim');
-label('Vault ~97.5 × 46 × ~126.5 cm above deck', innerX + 6, DECK + 62, 0, 'dim');
-label('Amp zone ~97.5 × 46 × ~55.6 cm', innerX + 6, T + AMP/2, 0, 'dim');
+label('Vault ~97.5 × 46 × ~124.5 cm above deck', innerX + 6, DECK + 62, 0, 'dim');
+label('Amp zone ~97.5 × 46 × ~57.5 cm', innerX + 6, T + AMP/2, 0, 'dim');
 label('cable/fan plenum · 2.5 in', innerX + 6, divTop + PLEN/2, 0, 'dim');
 label('cedar-lined · floor rack', 0, vaultTop - 14, fZ, 'note');
 
