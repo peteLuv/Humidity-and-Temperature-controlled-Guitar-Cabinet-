@@ -34,9 +34,10 @@ confirm ceiling height at the final spot.
 | Vault ceiling (inner) | ~193 | vault clear above deck ≈ **124.5** |
 | Outer top | 195 | |
 
-> ⚠ Assumes the 135.5 was measured from the **outer top surface**. If it was from the
-> *inner* ceiling, every datum shifts down 2 cm — harmless, since the face-frame rule
-> is to measure the divider→deck band on the box before cutting.
+> ✅ Stack confirmed by the builder (top → bottom): **2 ceiling + 131.5 vault (incl.
+> the hidden plenum) + 2 divider + 57.5 amp zone + 2 floor = 195.** The 135.5 spans
+> outer top → divider **bottom**. As always, cut the face-frame middle rail to the
+> divider→deck band measured on the box, not to this table.
 
 ## INNER (clear cavities)
 | Compartment | Width | Depth | Height |
