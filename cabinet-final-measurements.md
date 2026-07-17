@@ -1,60 +1,69 @@
-# Climate Guitar Cabinet — Final Measurements (woodworker handoff)
+# Climate Guitar Cabinet — Final Measurements (as-built, Rev E)
 
-> **Rev D (as-built).** Vault interior **measured at 125 cm** after the box was
-> made. Outer carcass measured **194 × 101 × 47.5 cm** (so the amp zone came out ~63 cm).
+> **Rev E — FINAL as-built spec** (measured after the divider was lowered for the
+> plenum floor). Outer carcass **101.5 × 47.5 × 195 cm**; **135.5 cm** measured from
+> the outer top down to the **bottom of the divider**; plenum chamber **2.5 in**.
 
-Two-compartment box: **sealed vault on top** (holds a floor guitar rack + guitars)
-over an **open, vented amp compartment** below. The front is open for a glass door
-(made separately).
-
-> **The INNER (clear cavity) dimensions are the requirement — build to hit these.**
-> Outer dimensions assume **19 mm (¾ in) carcass** and a **13 mm (½ in) back**.
-> If you use different thicknesses, keep the inner cavities and adjust the outer.
+Two-compartment box: **sealed cedar vault on top** (floor guitar rack + guitars on a
+slatted deck) over an **open, vented amp compartment** below. Front gets a cherry face
+frame + two glass doors (built separately).
 
 ## Material thickness
-- Sides, top, bottom, middle divider: **19 mm (¾ in)**
+- Sides, top, bottom, divider: **19 mm (¾ in)**
 - Back panel: **13 mm (½ in)**
+- Cedar lining: **6 mm (¼ in)**
 
-## OUTER (overall carcass)
-| | cm | mm | inches |
-|---|---|---|---|
-| Width | **101** | 1010 | 39.8 |
-| Depth (carcass) | **47.5** | 475 | 18.7 |
-| Height (carcass) | **194** | 1940 | 76.4 |
+## OUTER (overall carcass — measured)
+| | cm | inches |
+|---|---|---|
+| Width | **101.5** | 40.0 |
+| Depth (carcass) | **47.5** | 18.7 |
+| Height | **195** | 76.8 |
 
-The door adds ~2 cm at the front. A base/plinth (if used, ~14 cm) makes the total
-~209 cm — **confirm the ceiling at the final spot before adding a base.**
+Doors add ~2 cm at the front. A base/plinth (if used, ~14 cm) makes the total ~209 cm —
+confirm ceiling height at the final spot.
 
-## INNER (clear cavities — the spec)
+## Vertical datums (from the outer bottom)
+| Level | Height | Note |
+|---|---|---|
+| Bottom panel top | ~2 | amp-zone floor |
+| **Divider underside** | **~59.5** | = 195 − 135.5 (measured) · amp clear ≈ **57.5** |
+| Divider top | ~61.5 | plenum floor |
+| **Plenum chamber** | 61.5 → ~67.9 | **2.5 in (6.35 cm)** rails — cables + plenum fan |
+| **Deck top (vault floor)** | **~68.5** | slatted ¼ in cedar deck, ~1 cm air gaps |
+| Vault ceiling (inner) | ~193 | vault clear above deck ≈ **124.5** |
+| Outer top | 195 | |
+
+> ⚠ Assumes the 135.5 was measured from the **outer top surface**. If it was from the
+> *inner* ceiling, every datum shifts down 2 cm — harmless, since the face-frame rule
+> is to measure the divider→deck band on the box before cutting.
+
+## INNER (clear cavities)
 | Compartment | Width | Depth | Height |
 |---|---|---|---|
-| **Vault** (top, sealed) | **97 cm / 970 mm** | **46 cm / 460 mm** | **125 cm / 1250 mm (measured)** |
-| **Amp zone** (bottom, open) | **97 cm / 970 mm** | **46 cm / 460 mm** | **~63 cm / 630 mm (measured)** |
+| **Vault** (above the deck, sealed) | **~97.5 cm** | **46 cm** | **~124.5 cm** |
+| **Plenum** (cable/fan chamber) | ~97.5 cm | 46 cm | **6.35 cm (2.5 in)** |
+| **Amp zone** (open) | ~97.5 cm | 46 cm | **~57.5 cm** |
 
-- **Divider:** top face **~65 cm (650 mm)** from the floor.
-- **Cable hole:** Ø **5 cm (50 mm)** in the divider, centered across the width, **6 cm (60 mm)** from the back edge.
+- **Cable hole:** small **½–¾ in (12–20 mm)** hole in the divider near the back,
+  sized to the fan/LED lead bundle; sealed with duct-seal putty / neutral silicone.
+  (Replaces the old Ø5 cm grommet.)
+- **Plenum airflow:** fan (front, offset left) blows **up** through the deck slats;
+  return fan (top rear, offset right) pushes air **down** the back wall; air re-enters
+  through the rear slats. Plenum perimeter + front rail are sealed — the chamber is
+  part of the sealed vault volume.
 
-> Height check: vault 1250 + amp ~630 + 3 panels ~60 = **~1940 mm = 194 cm** (measured outer 194 × 101 × 47.5 cm).
-
-## Panel cut list
-| Part | Qty | Size | Thickness |
-|---|---|---|---|
-| Side | 2 | 46 cm deep × **194 cm** tall | ~20 mm |
-| Top / Bottom / Divider | 3 | **97 cm** wide × 46 cm deep | 19 mm |
-| Back | 1 | **101 cm** wide × **194 cm** tall | ~15 mm |
-
-Top/bottom/divider are housed **between** the two full-height sides; the back overlays
-the rear. No internal hanger board (guitars sit in a floor rack).
-
-## Build margin
+## Build margin (checks)
 | Cavity | Needs | Built | Spare |
 |---|---|---|---|
-| Vault height | ~118 cm (45 in bass standing in the rack) | 125 cm | **+7 cm** |
-| Amp-zone height | ~48.5 cm (tallest Orange combo) | 60 cm | **+11.5 cm** (vent gap) |
-| Depth | ~37 cm (guitar rack) | 46 cm | **+9 cm** to the glass |
-| Width | ~90 cm (two amps side by side) | 97 cm | **+7 cm** |
+| Vault height above deck | ~118 cm (45 in bass in rack) | ~124.5 cm | **+6.5 cm** |
+| Amp-zone height | ~48.5 cm (Crush Bass 50) | ~57.5 cm | **+9 cm** vent gap |
+| Depth | ~37 cm (rack) | 46 cm | **+9 cm** |
+| Width | ~90 cm (two amps) | ~97.5 cm | **+7.5 cm** |
 
 ## Notes
-- Glass door + cherry face frame are separate; the **vault door opening** is ~97 × 125 cm.
-- All **vault** joints airtight (glue + caulk); the **amp zone stays open/vented**.
-- If you ever drop the amps, the box can shrink (no 60 cm amp zone; width can come down toward ~88 cm for just the rack).
+- Face frame + two glass doors per `cabinet-final-plan.md` (wide middle rail hides the
+  divider + plenum band; center stile between the doors).
+- All **vault** joints airtight (neutral-cure silicone); **amp zone stays open/vented**.
+- Cedar: back/floor planks run left↔right, sides/ceiling front↔back; the floor is a
+  slatted deck on 2.5×2.5 in rails spaced ≤20 cm, rack feet landing over rails.

@@ -1,30 +1,33 @@
 # Humidity- and Temperature-Controlled Guitar Cabinet
 
 A climate-controlled "vault" for instruments: a **sealed, cedar-lined upper vault**
-(holding a floor guitar rack + guitars) over an **open, vented amp zone** below,
-with a tempered-glass cherry door and an active humidity-control system. The
-**carcass is built by a woodworker** to the measurements below; this repo is the
-final build plan.
+(floor guitar rack on a slatted plenum deck) over an **open, vented amp zone** below,
+with a cherry face frame, **two tempered-glass doors on a center stile**, warm LED
+display lighting, and monitored (passive + manual) humidity control. The **carcass is
+built**; this repo is the final build plan.
 
-## The plan
+## The plan (final spec — Rev E)
 
 - **[`cabinet-final-measurements.md`](cabinet-final-measurements.md)** — the
-  **carcass measurements** (outer + inner, both compartments) handed to the
-  woodworker. Outer 100.8 × 47.3 × 195 cm; vault 97 × 46 × 129.3 cm interior;
-  amp zone 97 × 46 × 60 cm.
-- **[`cabinet-final-plan.md`](cabinet-final-plan.md)** — the **final build plan**
-  for everything after the box: **Spanish cedar lining**, the **cherry frame +
-  glass door**, the **glass**, assembly order, and material notes.
-  Door detail: [`cherry-door-detail.png`](cherry-door-detail.png).
-- **[`cabinet-3d-final.html`](cabinet-3d-final.html)** — interactive **3D model of
-  the final cabinet** at the Rev C measurements: cedar-lined vault with the floor
-  guitar rack, amps + pedalboard in the amp zone, cherry frame + glass door, on its
-  base, with dimension labels. Includes a **cedar plank-style switcher** to compare
-  the lining design options live (5″/10 rows, 3″/17 rows, 6.5″/8 rows, and 5″
-  vertical). Double-click to open (Three.js embedded).
+  **as-built measurements**. Outer 101.5 × 47.5 × 195 cm; vault ~97.5 × 46 ×
+  ~124.5 cm above the slatted deck; 2.5 in cable/fan plenum; amp zone ~57.5 cm.
+- **[`cabinet-final-plan.md`](cabinet-final-plan.md)** — the **final build plan**:
+  **Spanish cedar lining**, the **cherry face frame (wide plenum-covering middle
+  rail, center stile) + two glass doors**, the **glass**, assembly order, finishes.
+  Details: [`cherry-door-detail.png`](cherry-door-detail.png),
+  [`center-stile-and-hinge-detail.png`](center-stile-and-hinge-detail.png),
+  [`divider-stiffener-detail.png`](divider-stiffener-detail.png).
+- **[`cedar-install-guide.md`](cedar-install-guide.md)** — step-by-step cedar
+  lining install (seal-first, fitting an out-of-square box, brad + spot-glue).
+- **[`structural-review.md`](structural-review.md)** — structural risk review
+  (anchor to wall first; divider stiffener).
+- **[`cabinet-3d-final.html`](cabinet-3d-final.html)** — interactive **3D model**
+  at the Rev E measurements: cedar-lined vault, slatted plenum deck + fans, floor
+  rack, amps, cherry frame + two glass doors, warm LED wash, RH display, cedar
+  plank-style switcher. Double-click to open (Three.js embedded).
 - **[`guitar-cabinet-plan.html`](guitar-cabinet-plan.html)** — the
-  **climate & electrical** master plan (humidity/temperature control, AC Infinity
-  Controller 79, humidifier/dehumidifier, fans, sensor, power, sealing, finishing).
+  **climate & electrical** master plan (monitor + Boveda + manual humidify
+  approach, fans, warm LED lighting spec, power, sealing).
 
 ## Room visualizer
 

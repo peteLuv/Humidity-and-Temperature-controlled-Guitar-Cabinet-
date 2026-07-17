@@ -5,11 +5,11 @@ covers the three remaining pieces: **Spanish cedar lining**, the **cherry frame*
 (face frame + glass door), and the **glass**. Climate/electrical gear is in
 `guitar-cabinet-plan.html`.
 
-## The cabinet at a glance
-- **Outer carcass (measured):** 101 × 47.5 × 194 cm (39.8 × 18.7 × 76.4 in)
-- **Vault (sealed, top):** 97 × 46 × 125 cm interior — cedar-lined; holds a **floor guitar rack** + guitars
-- **Amp zone (open/vented, bottom):** 97 × 46 × ~57 cm interior — two combo amps
-- **Plenum floor (as-built change):** divider lowered ~6.5 cm; the vault floor is a **slatted cedar deck on 2.5 × 2.5 in blocks** (pool-deck gaps ~1 cm) over a sealed cable/fan chamber. The plenum fan (front) blows **up through the slats**; the return fan (top rear) pushes air **down the back wall**; air re-enters the plenum through the rear slats — one continuous loop. Plenum perimeter + front rail sealed; the only penetration is a **small (½–¾ in) cable hole** in the divider, putty/silicone-sealed.
+## The cabinet at a glance (final, Rev E)
+- **Outer carcass (measured):** 101.5 × 47.5 × 195 cm (40 × 18.7 × 76.8 in)
+- **Vault (sealed, top):** ~97.5 × 46 × ~124.5 cm clear above the deck — cedar-lined; **floor guitar rack** + guitars
+- **Amp zone (open/vented, bottom):** ~97.5 × 46 × ~57.5 cm — two combo amps (divider underside at ~59.5 cm; 135.5 cm measured from outer top to divider bottom)
+- **Plenum floor:** the vault floor is a **slatted cedar deck on 2.5 × 2.5 in rails** (front-to-back, ≤20 cm apart, pool-deck gaps ~1 cm) over a sealed **2.5 in cable/fan chamber**. The plenum fan (front, offset left) blows **up through the slats**; the return fan (top rear, offset right) pushes air **down the back wall**; air re-enters through the rear slats — one continuous loop. Plenum perimeter + front rail sealed; the only penetration is a **small (½–¾ in) cable hole** in the divider, putty/silicone-sealed.
 - Material: 19 mm (¾ in) carcass, 13 mm (½ in) back
 - Guitars stand in a **floor rack** (no internal hanging hardware). The oud gets its own spot.
 
@@ -83,11 +83,11 @@ amp opening. The inner edge overhangs the cavity ~2 cm to form the gasket lip.
 
 | Part | Size | Qty |
 |---|---|---|
-| Stile (vertical) | 3.8 × **~194 cm** — or **two pieces per side** split at the middle rail (joint hidden behind it), so 6 ft boards work | 2 |
-| Top rail | 3.8 × **93.2 cm** | 1 |
-| Bottom rail | 3.8 × **93.2 cm** | 1 |
-| **Middle rail (wide — covers the plenum band)** | **~12.5 × 93.2 cm** (rip from cherry 1×6) | 1 |
-| **Center stile** (vertical, vault opening only) | ~4.5 × **~123 cm** | 1 |
+| Stile (vertical) | 3.8 × **195 cm** — or **two pieces per side** split at the middle rail (joint hidden behind it), so 6 ft boards work | 2 |
+| Top rail | 3.8 × **~93.9 cm** (101.5 − 2×3.8 — cut to the box) | 1 |
+| Bottom rail | 3.8 × **~93.9 cm** | 1 |
+| **Middle rail (wide — covers the plenum band)** | **~12.5 × 93.9 cm** (rip from cherry 1×6) | 1 |
+| **Center stile** (vertical, vault opening only) | ~4.5 × **~121 cm** | 1 |
 
 **Middle rail sizing rule (verify on the box):** it must hide the whole chamber band —
 from **~1.5 cm below the divider's underside** (a lip over the amp opening) up to
@@ -108,13 +108,15 @@ Each door covers **half** the vault opening (each ~44 × 122 cm). Two lighter do
 Build them **overlay** (each laps ~1 cm onto the frame + center stile) — more forgiving
 of the slightly out-of-square opening than inset.
 
-Each door ≈ **47 × 124 cm** (overlays the outer stile ~1 cm, the wide middle rail and
-top rail ~1 cm, and laps ~1.75 cm onto the center stile, leaving ~1 cm between doors).
+Door opening (middle-rail top ≈ deck+2 cm → top-rail bottom ≈ 191.2) is ≈ **120.7 cm
+tall × 93.9 cm wide**; each side of the center stile ≈ 44.7 cm. Each door ≈
+**47.5 × 123 cm** (overlays the outer stile ~1 cm, the wide middle rail and top rail
+~1 cm, and laps ~1.75 cm onto the center stile, leaving ~1 cm between doors).
 
 | Part | Size (approx — trim to your opening) | Qty |
 |---|---|---|
-| Door stile | 6.4 × **~124 cm** | **4** (2 per door) |
-| Door rail | 6.4 × **~34 cm** | **4** (2 per door) |
+| Door stile | 6.4 × **~123 cm** | **4** (2 per door) |
+| Door rail | 6.4 × **~35 cm** | **4** (2 per door) |
 
 - Join each door flat & square; rout a **~10 × 10 mm rabbet** on the inside-back edge for the glass.
 - Hang **each** door on a **continuous piano hinge (~120 cm)** on its **outer** vertical edge; they swing open from the center like armoire doors.
@@ -127,7 +129,7 @@ top rail ~1 cm, and laps ~1.75 cm onto the center stile, leaving ~1 cm between d
 ## 3) Glass (vault door glazing)
 
 - **Spec:** **tempered**, **clear**, **pencil-polished edges**, ~5–6 mm (thinner is lighter).
-- **Two panes now** (one per door), each ~**31 × 110 cm** (planning only).
+- **Two panes** (one per door), each ~**36 × 112 cm** (planning only).
 - **⚠ Order it LAST.** Build the doors first, then **measure each rabbet opening and
   subtract ~3 mm** — tempered glass **cannot be cut** after tempering.
 - **Set** on **foam glazing tape**; retain with thin cherry stops or a bead of
