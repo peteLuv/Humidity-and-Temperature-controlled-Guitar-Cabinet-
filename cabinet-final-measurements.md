@@ -2,7 +2,8 @@
 
 > **Rev E — FINAL as-built spec** (measured after the divider was lowered for the
 > plenum floor). Outer carcass **101.5 × 47.5 × 195 cm**; **135.5 cm** measured from
-> the outer top down to the **bottom of the divider**; plenum chamber **2.5 in**.
+> the outer top down to the **plenum floor (divider top face)** — the divider's
+> thickness hangs below that mark; plenum chamber **2.5 in**.
 
 Two-compartment box: **sealed cedar vault on top** (floor guitar rack + guitars on a
 slatted deck) over an **open, vented amp compartment** below. Front gets a cherry face
@@ -27,23 +28,23 @@ confirm ceiling height at the final spot.
 | Level | Height | Note |
 |---|---|---|
 | Bottom panel top | ~2 | amp-zone floor |
-| **Divider underside** | **~59.5** | = 195 − 135.5 (measured) · amp clear ≈ **57.5** |
-| Divider top | ~61.5 | plenum floor |
-| **Plenum chamber** | 61.5 → ~67.9 | **2.5 in (6.35 cm)** rails — cables + plenum fan |
-| **Deck top (vault floor)** | **~68.5** | slatted ¼ in cedar deck, ~1 cm air gaps |
-| Vault ceiling (inner) | ~193 | vault clear above deck ≈ **124.5** |
+| Divider underside | ~57.6 | amp clear ≈ **55.6** |
+| **Divider top (plenum floor)** | **59.5** | = 195 − 135.5 (measured to this face) |
+| **Plenum chamber** | 59.5 → ~65.9 | **2.5 in (6.35 cm)** rails — cables + plenum fan |
+| **Deck top (vault floor)** | **~66.5** | slatted ¼ in cedar deck, ~1 cm air gaps |
+| Vault ceiling (inner) | ~193 | vault clear above deck ≈ **126.5** |
 | Outer top | 195 | |
 
-> ⚠ Assumes the 135.5 was measured from the **outer top surface**. If it was from the
-> *inner* ceiling, every datum shifts down 2 cm — harmless, since the face-frame rule
-> is to measure the divider→deck band on the box before cutting.
+> Reference confirmed: the 135.5 runs from the **outer top surface** to the **plenum
+> floor (divider top)**. As always, cut the face-frame middle rail to the
+> divider→deck band measured on the box, not to this table.
 
 ## INNER (clear cavities)
 | Compartment | Width | Depth | Height |
 |---|---|---|---|
-| **Vault** (above the deck, sealed) | **~97.5 cm** | **46 cm** | **~124.5 cm** |
+| **Vault** (above the deck, sealed) | **~97.5 cm** | **46 cm** | **~126.5 cm** |
 | **Plenum** (cable/fan chamber) | ~97.5 cm | 46 cm | **6.35 cm (2.5 in)** |
-| **Amp zone** (open) | ~97.5 cm | 46 cm | **~57.5 cm** |
+| **Amp zone** (open) | ~97.5 cm | 46 cm | **~55.6 cm** |
 
 - **Cable hole:** small **½–¾ in (12–20 mm)** hole in the divider near the back,
   sized to the fan/LED lead bundle; sealed with duct-seal putty / neutral silicone.
@@ -56,8 +57,8 @@ confirm ceiling height at the final spot.
 ## Build margin (checks)
 | Cavity | Needs | Built | Spare |
 |---|---|---|---|
-| Vault height above deck | ~118 cm (45 in bass in rack) | ~124.5 cm | **+6.5 cm** |
-| Amp-zone height | ~48.5 cm (Crush Bass 50) | ~57.5 cm | **+9 cm** vent gap |
+| Vault height above deck | ~118 cm (45 in bass in rack) | ~126.5 cm | **+8.5 cm** |
+| Amp-zone height | ~48.5 cm (Crush Bass 50) | ~55.6 cm | **+7 cm** vent gap |
 | Depth | ~37 cm (rack) | 46 cm | **+9 cm** |
 | Width | ~90 cm (two amps) | ~97.5 cm | **+7.5 cm** |
 

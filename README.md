@@ -10,7 +10,7 @@ built**; this repo is the final build plan.
 
 - **[`cabinet-final-measurements.md`](cabinet-final-measurements.md)** — the
   **as-built measurements**. Outer 101.5 × 47.5 × 195 cm; vault ~97.5 × 46 ×
-  ~124.5 cm above the slatted deck; 2.5 in cable/fan plenum; amp zone ~57.5 cm.
+  ~126.5 cm above the slatted deck; 2.5 in cable/fan plenum; amp zone ~55.6 cm.
 - **[`cabinet-final-plan.md`](cabinet-final-plan.md)** — the **final build plan**:
   **Spanish cedar lining**, the **cherry face frame (wide plenum-covering middle
   rail, center stile) + two glass doors**, the **glass**, assembly order, finishes.
