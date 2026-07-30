@@ -27,8 +27,8 @@ ANCHOR_LAT = 32.816258
 ANCHOR_LON = 35.002768
 
 BUILDING_RADIUS_M = 900     # footprints are extruded out to here
-TERRAIN_HALF_M = 1800       # terrain grid half-width (3.6 km across)
-TERRAIN_N = 72              # samples per side -> 50 m spacing
+TERRAIN_HALF_M = 1500      # terrain grid half-width (3.0 km across)
+TERRAIN_N = 101             # samples per side -> 30 m, SRTM native resolution
 OVERPASS = "https://overpass-api.de/api/interpreter"
 
 M_PER_DEG_LAT = 110574.0

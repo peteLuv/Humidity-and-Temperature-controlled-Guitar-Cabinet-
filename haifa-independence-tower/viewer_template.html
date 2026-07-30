@@ -415,6 +415,7 @@ const LAYERS = [
   // -0.15 m purely to avoid z-fighting with the podium deck.
   {id:'new_tower_basement', label:'Basements',  color:[0.72,0.60,0.30], on:true,
    fade:true},
+  {id:'landscape',      label:'Landscaped steps',color:[0.72,0.77,0.63], on:true},
   {id:'sail_tower',     label:'Sail Tower',     color:[0.86,0.87,0.90], on:true},
   {id:'sail_mast',      label:'Sail Tower mast',color:[0.60,0.62,0.66], on:true,
    hidden:true},
@@ -487,11 +488,11 @@ for(let i=0;i<V.length;i+=3)
 // Plan and elevation are shot long-lens so they read as orthographic
 // drawings rather than perspectives; distance compensates for the narrow fov.
 const VIEWS = {
-  axo:     {yaw:-118, pitch:16, dist: 2.6, tgt: 0.05, fov:38},
-  aerial:  {yaw:-152, pitch:42, dist: 2.7, tgt: 0.05, fov:38},
-  plan:    {yaw:-133, pitch:88, dist: 6.6, tgt: 0.00, fov:13},
-  elev:    {yaw: -43, pitch: 2, dist: 7.2, tgt: 0.02, fov:13},
-  street:  {yaw:  55, pitch: 6, dist: 1.9, tgt:-0.10, fov:42},
+  axo:     {yaw:-118, pitch:16, dist: 3.3, tgt: 0.05, fov:38},
+  aerial:  {yaw:-152, pitch:42, dist: 3.5, tgt: 0.05, fov:38},
+  plan:    {yaw:-146, pitch:88, dist: 8.0, tgt: 0.00, fov:13},
+  elev:    {yaw: -56, pitch: 2, dist: 8.6, tgt: 0.02, fov:13},
+  street:  {yaw:  42, pitch: 6, dist: 2.4, tgt:-0.10, fov:42},
   district:{yaw:-160, pitch:30, dist:11.0, tgt: 0.50, fov:38},
   // keep the camera inside the 3.6 km terrain tile, or its edge shows
   bay:     {yaw:  72, pitch: 8, dist:16.5, tgt: 1.05, fov:30}

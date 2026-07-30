@@ -4,20 +4,21 @@ Parametric massing model - new 22-storey "patio building" on Derech HaAtzma'ut, 
 
 Method
 ------
-The hand sketches are directionally accurate only, so they are used for SHAPE
-(plan proportions, where the patio sits, which way the mass flares).  All
-absolute sizes come from the floor-area schedule in data/floor_areas.csv, which
-is authoritative:
+The sketches are directionally accurate only, so they set the SHAPE - plan
+proportions, the patio, one raked end, a straight podium. Sizes come from the
+floor-area schedule in data/floor_areas.csv.
 
-  1. A schematic plan polygon + patio polygon are drawn in local metres.
-  2. One global scale k is solved so the GROUND floor nets exactly 2150 m2
-     (outline area minus patio area).
-  3. Every upper floor outline is that ground outline scaled about a fixed
-     anchor by s_i = sqrt((A_i + A_patio) / A_outline_ground), so each slab
-     hits its tabled area exactly while the mass pinches at level 2 and flares
-     continuously to level 21 - the profile drawn in the section.
-  4. Basements are the ground outline scaled about its centroid to 3200 m2,
-     with no patio void (full parking plate).
+Every floor is the same trapezoid seen from a fixed blunt SE tip. Only the NW
+end face moves: its distance L from the tip is solved per level so the slab
+makes its tabled area. Because the tabled areas grow linearly from level 4 up
+(+15.6 m2 a floor), that solve produces a single straight rake on its own -
+straight to 0.3 m over the whole height, without being constrained to be.
+
+  - Levels 2-3 are too small to sit on that line, so the line is extended down
+    to them and they gain area; the build prints how much.
+  - Ground and level 1 are one straight-sided podium, set back from the tower
+    and spread sideways to their own tabled areas.
+  - Basements are the podium plate pushed out to 3200 m2, no patio void.
 
 Every ring is resampled by ray-casting from a common centre, so the whole
 building is one clean quad grid -> trivial to loft, triangulate and export.
@@ -63,19 +64,14 @@ LEVEL1_H = 5.00
 # Only the level heights depend on it; the floor areas do not.
 TYPICAL_H = 3.20
 
-# --- schematic plan, local metres. +X runs NW -> SE along the plot ---------
-# Convex tapering quadrilateral with a clipped SE tip, traced off the site plan.
-FOOTPRINT_BASE = [
-    (0.0, -22.0),
-    (28.0, -19.0),
-    (56.0, -14.5),
-    (84.0, -8.0),
-    (88.0, -1.0),
-    (82.0, 5.5),
-    (64.0, 12.0),
-    (34.0, 18.5),
-    (0.0, 23.0),
-]
+# --- plan family, metres. +X runs NW -> SE along the plot ------------------
+# Every floor is the same trapezoid seen from the blunt SE tip: fixed long
+# sides, fixed tip, and one NW end face whose distance L from the tip is
+# solved per level so the slab hits its tabled area. Moving only that face
+# means the NW facade is a single straight rake rather than a stack of steps.
+X_TIP = 88.0        # station of the blunt SE end
+TIP_HALF = 8.0      # half-width there (site plan shows a blunt ~16 m end)
+TAPER = 0.159       # half-width gained per metre back from the tip
 
 # The patio: a wedge-shaped void, wide at the NW, narrowing to the SE, open
 # from grade all the way through the roof (the triangular hole in the sketches).
@@ -86,16 +82,38 @@ PATIO_BASE = [
     (30.0, 9.0),
 ]
 
-# Which point stays put as the tower grows with height.  The section shows one
-# near-vertical face and one strongly flaring face, so the mass is anchored at
-# the tight SE tip and opens toward the NW / the government building.
-ANCHOR_MODE = "se_tip"  # "se_tip" | "nw_edge" | "centroid"
+# Podium. Ground and level 1 read as one straight-sided base, set back from
+# the tower's NW end face and spread sideways to make up their tabled areas.
+PODIUM_SETBACK = 7.0   # how far inside level 2's NW face the podium starts
 
-# Plot bearing: the long axis runs parallel to Derech HaAtzma'ut. Measured at
-# 133.0 deg from the OSM centrelines of the street's long segments, which run
-# 131.8-134.6 deg. (The site plan's north arrow suggested ~138; the street
-# geometry is the better source.)
-SITE_BEARING_DEG = 133.0
+# The raked facade.
+#
+# From level 4 up the tabled areas grow almost perfectly linearly (+15.6 m2 a
+# floor), so solving each floor's end face for its exact area already produces
+# a straight line - to within 0.3 m over the whole height. Levels 2 and 3 do
+# not fit it: at 1,820 and 2,040 m2 against 2,370 at level 4, they are far too
+# small to sit on that line.
+#
+# The sketches show one unbroken diagonal, so the line is EXTENDED down to
+# STRAIGHT_FROM and those floors take the area that geometry gives them. The
+# build prints exactly how much they gain. Set STRAIGHT_FROM = 4 instead to
+# hold every tabled area and accept a kink above the podium.
+RAKE_FIT_FROM = 4      # levels whose areas define the line
+STRAIGHT_FROM = 2      # facade forced onto that line from here up
+
+# Landscaped strip between the new building and the Sail Tower's raised plaza.
+LAND_DEPTH = 26.0     # how far the terraces run toward the plaza
+LAND_TERRACES = 6
+LAND_SPREAD = 3.0     # they sit a little wider than the building's plan
+PLAZA_RISE = 4.0      # existing raised plaza above grade at the Sail Tower
+
+# Plot placement. Derech HaAtzma'ut curves around the south-east end of the
+# block, so averaging its centrelines (which gave 133 deg) put the building in
+# the carriageway. Both numbers below come from the vacant land itself: the
+# principal axis of the open parcels south-east of the Sail Tower, and the
+# position that keeps the footprint furthest off the kerb while staying on
+# that land. The result sits 91 m from the tower at bearing 162, 16 m clear.
+SITE_BEARING_DEG = 146.0
 
 # Context: "city" uses the real OSM + SRTM data cached in data/ (terrain, bay,
 # streets, 900 m of built fabric and the Sail Tower on its surveyed footprint).
@@ -108,7 +126,7 @@ RING_SAMPLES = 72  # extra uniform samples per ring (polygon corners are exact)
 # --- schematic context: the existing government tower ("בניין הטיל") -------
 # Reference massing only, so the new building can be read in its setting.
 CONTEXT_ENABLED = True
-CTX_CENTER = (-62.0, 4.0)  # local metres, pre-scale
+CTX_CENTER = (-34.5, 25.2)  # Sail Tower in local metres (solved, see README)
 CTX_LENS_LENGTH = 46.0  # long axis of the lens-shaped plan
 CTX_LENS_WIDTH = 30.0
 CTX_FLOORS = 26
@@ -153,6 +171,54 @@ def scale_poly(pts, s, anchor):
     p = np.asarray(pts, dtype=float)
     a = np.asarray(anchor, dtype=float)
     return a + (p - a) * s
+
+
+def offset_convex(ring, d):
+    """Push every edge of a convex CCW ring outward by d and re-intersect."""
+    n = len(ring)
+    lines = []
+    for i in range(n):
+        a = np.asarray(ring[i], dtype=float)
+        b = np.asarray(ring[(i + 1) % n], dtype=float)
+        e = b - a
+        nrm = np.array([e[1], -e[0]])
+        nrm /= np.linalg.norm(nrm)          # outward for a CCW ring
+        lines.append((a + nrm * d, e))
+    out = []
+    for i in range(n):
+        p0, d0 = lines[i - 1]
+        p1, d1 = lines[i]
+        den = d0[0] * d1[1] - d0[1] * d1[0]
+        if abs(den) < 1e-12:
+            out.append(tuple(p1))
+            continue
+        t = ((p1[0] - p0[0]) * d1[1] - (p1[1] - p0[1]) * d1[0]) / den
+        out.append(tuple(p0 + d0 * t))
+    return np.array(out)
+
+
+def plan(L):
+    """Trapezoid reaching L metres back from the SE tip, CCW."""
+    x0 = X_TIP - L
+    hw = TIP_HALF + TAPER * L
+    return np.array([(x0, -hw), (X_TIP, -TIP_HALF), (X_TIP, TIP_HALF), (x0, hw)])
+
+
+def plan_length_for(area):
+    """Invert area(L) = (2*TIP_HALF + TAPER*L) * L."""
+    a, b, c = TAPER, 2 * TIP_HALF, -area
+    return (-b + math.sqrt(b * b - 4 * a * c)) / (2 * a)
+
+
+def solve_widen(ring, target, lo=-8.0, hi=40.0):
+    """Uniform outward buffer that brings a convex ring to a target area."""
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        if poly_area(offset_convex(ring, mid)) < target:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
 
 
 def ray_hit(ring, center, theta):
@@ -301,6 +367,16 @@ class Mesh:
             self.groups[name] = kept
         return self
 
+    def translate(self, names, dz):
+        """Lift whole groups. Called before weld(), while their vertices are
+        still private to their own faces."""
+        idx = {i for n in names for f in self.groups.get(n, []) for i in f}
+        for i in idx:
+            x, y, z = self.v[i]
+            self.v[i] = (x, y, z + dz)
+        self.lines = [(a, b, c + dz, d, e, f + dz)
+                      for a, b, c, d, e, f in self.lines]
+
     def triangles(self, only=None):
         tris = []
         for name, faces in self.groups.items():
@@ -337,47 +413,64 @@ def build():
     print(f"schedule total ......... {total:,.0f} m2   (sheet says 69,240)")
     assert abs(total - 69240) < 0.5, "area schedule does not match the sheet total"
 
-    # --- global scale: ground floor nets exactly its tabled area -----------
-    a_out_base = poly_area(FOOTPRINT_BASE)
-    a_pat_base = poly_area(PATIO_BASE)
-    k = math.sqrt(areas["G"] / (a_out_base - a_pat_base))
-
-    foot = scale_poly(FOOTPRINT_BASE, k, (0, 0))
-    patio = scale_poly(PATIO_BASE, k, (0, 0))
-    a_out_g = poly_area(foot)
+    patio = np.array(PATIO_BASE, dtype=float)
     a_pat = poly_area(patio)
-    print(f"global scale k ......... {k:.4f}")
-    print(f"ground outline ......... {a_out_g:,.1f} m2")
+    center = poly_centroid(patio)
     print(f"patio void ............. {a_pat:,.1f} m2  (constant, grade to roof)")
 
-    center = poly_centroid(patio)
+    # --- tower levels: solve the NW end face per floor ---------------------
+    z_tower0 = GROUND_H + LEVEL1_H
+    zs, Ls = [], []
+    for i in range(2, 22):
+        zs.append(z_tower0 + (i - 2) * TYPICAL_H)
+        Ls.append(plan_length_for(areas[str(i)] + a_pat))
+    zs, Ls = np.array(zs), np.array(Ls)
 
-    anchor = {
-        "se_tip": np.array(foot[4]),
-        "nw_edge": np.array([foot[0][0], 0.0]),
-        "centroid": poly_centroid(foot),
-    }[ANCHOR_MODE]
+    fitmask = np.array([i >= RAKE_FIT_FROM for i in range(2, 22)])
+    coef = np.polyfit(zs[fitmask], Ls[fitmask], 1)
+    resid = np.polyval(coef, zs[fitmask]) - Ls[fitmask]
+    print(f"NW rake ................ fitted on levels {RAKE_FIT_FROM}-21: straight "
+          f"to {np.abs(resid).max():.2f} m over {zs[-1]-zs[fitmask][0]:.0f} m "
+          f"({math.degrees(math.atan(coef[0])):.1f} deg lean)")
 
-    # --- per-level outlines -------------------------------------------------
-    levels = []  # (label, z_bottom, z_top, outline, target_area)
-    z = -BASEMENT_H * len(basements)
-    s_bsmt = math.sqrt(areas["B1"] / a_out_g)
-    bsmt_ring = scale_poly(foot, s_bsmt, poly_centroid(foot))
-    z_grade = 0.0
-    z_base_bottom = z
-    for lbl in basements:
-        levels.append((lbl, z, z + BASEMENT_H, bsmt_ring, areas[lbl], None))
-        z += BASEMENT_H
+    # extend that line down over the transition floors
+    gained = []
+    for k, i in enumerate(range(2, 22)):
+        if STRAIGHT_FROM <= i < RAKE_FIT_FROM:
+            Lline = float(np.polyval(coef, zs[k]))
+            gained.append((i, Lline - Ls[k],
+                           (2 * TIP_HALF + TAPER * Lline) * Lline - a_pat
+                           - areas[str(i)]))
+            Ls[k] = Lline
+    if gained:
+        print("straightened ........... " + ", ".join(
+            f"level {i} pushed out {d:.1f} m, +{a:.0f} m2" for i, d, a in gained))
+        print(f"                       total +{sum(a for *_, a in gained):,.0f} m2 "
+              f"({100*sum(a for *_, a in gained)/53240:.1f}% on the above-grade area)")
 
-    tower = []  # (label, z_level, outline, target)
+    tower = []          # (label, z_bottom, z_top, ring, target, L)
+    # Podium: level 2's plan set back at the NW, then buffered sideways until
+    # each floor makes its tabled area. Extruded straight, so both facades are
+    # vertical rather than raked.
+    pod_base = plan(Ls[0] - PODIUM_SETBACK)
     z = 0.0
-    for lbl in uppers:
-        h = GROUND_H if lbl == "G" else (LEVEL1_H if lbl == "1" else TYPICAL_H)
-        s = math.sqrt((areas[lbl] + a_pat) / a_out_g)
-        ring = scale_poly(foot, s, anchor)
-        tower.append((lbl, z, z + h, ring, areas[lbl], s))
+    for lbl in ["G", "1"]:
+        d = solve_widen(pod_base, areas[lbl] + a_pat)
+        h = GROUND_H if lbl == "G" else LEVEL1_H
+        tower.append((lbl, z, z + h, offset_convex(pod_base, d), areas[lbl], None))
+        print(f"podium {lbl:<15} set back {PODIUM_SETBACK:.0f} m, "
+              f"spread {d:+.2f} m sideways, vertical faces")
         z += h
+    for k, i in enumerate(range(2, 22)):
+        tower.append((str(i), z, z + TYPICAL_H, plan(float(Ls[k])),
+                      areas[str(i)], float(Ls[k])))
+        z += TYPICAL_H
     z_roof = z
+    z_grade = 0.0
+    z_base_bottom = -BASEMENT_H * len(basements)
+
+    # --- basements: the podium plate pushed out to its tabled area ---------
+    bsmt_ring = offset_convex(pod_base, solve_widen(pod_base, areas["B1"]))
     print(f"roof level ............. +{z_roof:.2f} m   ({len(uppers)} storeys)")
     print(f"lowest basement ........ {z_base_bottom:.2f} m")
 
@@ -389,7 +482,7 @@ def build():
 
     # --- shared angle set: exact at every polygon corner -------------------
     angles = {2 * math.pi * i / RING_SAMPLES for i in range(RING_SAMPLES)}
-    for ring in [foot, patio, bsmt_ring] + [t[3] for t in tower]:
+    for ring in [patio, bsmt_ring] + [t[3] for t in tower]:
         for p in ring:
             angles.add(math.atan2(p[1] - center[1], p[0] - center[0]))
     angles = sorted(a % (2 * math.pi) for a in angles)
@@ -439,8 +532,8 @@ def build():
         m.vline(p, 0.0, tower[0][2])
 
     if CONTEXT_MODE == "schematic":
-        add_context(m, k)
-        add_site(m, k)
+        add_context(m, 1.0)
+        add_site(m, 1.0)
 
     # --- world orientation: rotate the plot onto its real bearing ----------
     # After this the frame is geographic: +X east, +Y true north, +Z up.
@@ -460,17 +553,32 @@ def build():
         # The site plan fixes the plot relative to the Sail Tower, and OSM
         # fixes the Sail Tower on the globe; composing the two georeferences
         # the model. CTX_CENTER is that offset, in pre-scale local metres.
-        ax, ay = CTX_CENTER[0] * k, CTX_CENTER[1] * k
+        ax, ay = CTX_CENTER            # already in metres
         anchor_world = (ax * ca - ay * sa, ax * sa + ay * ca)
         city_info = city.build_context(m, anchor_world, CITY_RADIUS_M)
+
+        # The model's z=0 is grade at the Sail Tower. The plot is 96 m away and
+        # SRTM reads it a little differently, so sit the building on its own
+        # ground rather than letting it sink into the terrain.
+        samp = city_info["sample"]
+        ring0 = tower[0][3]
+        gs = [samp(x * ca - y * sa, x * sa + y * ca) for x, y in ring0]
+        dz = float(np.median(gs))
+        m.translate(["new_tower", "new_tower_basement"], dz)
+        city_info["plot_dz"] = round(dz, 2)
+        city_info["plot_ground_spread"] = round(max(gs) - min(gs), 2)
+        print(f"plot grade ............. {dz:+.2f} m against the Sail Tower "
+              f"(SRTM spread across the footprint {max(gs)-min(gs):.1f} m)")
+        add_landscape(m, tower, ca, sa, samp, dz)
 
     m.weld()
 
     schedule = []
-    for lbl, zb, zt, ring, tgt, s in R_tower:
+    for lbl, zb, zt, ring, tgt, L in R_tower:
         got = poly_area(ring) - a_pat
         schedule.append(dict(level=lbl, z_bottom=round(zb, 2), z_top=round(zt, 2),
-                             height=round(zt - zb, 2), scale=round(s, 5),
+                             height=round(zt - zb, 2),
+                             plan_length=round(L, 2) if L else "",
                              target_sqm=tgt, achieved_sqm=round(got, 1),
                              error_sqm=round(got - tgt, 2)))
     zb = z_base_bottom
@@ -478,14 +586,17 @@ def build():
         got = poly_area(R_bsmt)
         schedule.insert(0, dict(level=lbl, z_bottom=round(zb, 2),
                                 z_top=round(zb + BASEMENT_H, 2), height=BASEMENT_H,
-                                scale=round(s_bsmt, 5), target_sqm=areas[lbl],
+                                plan_length="", target_sqm=areas[lbl],
                                 achieved_sqm=round(got, 1),
                                 error_sqm=round(got - areas[lbl], 2)))
         zb += BASEMENT_H
     schedule.sort(key=lambda r: r["z_bottom"])
 
-    worst = max(abs(r["error_sqm"]) for r in schedule)
-    print(f"worst area error ....... {worst:.2f} m2")
+    worst = max(abs(r["error_sqm"]) for r in schedule
+                if r["level"] not in [str(i) for i in
+                                      range(STRAIGHT_FROM, RAKE_FIT_FROM)])
+    print(f"area error ............. {worst:.2f} m2 worst, excluding the "
+          f"straightened floors above")
 
     if city_info:
         s = city_info["height_sources"]
@@ -497,7 +608,7 @@ def build():
 
     return dict(mesh=m, schedule=schedule, z_roof=z_roof,
                 z_base_bottom=z_base_bottom, above_total=sum(areas[l] for l in uppers),
-                below_total=sum(areas[l] for l in basements), k=k, patio_area=a_pat,
+                below_total=sum(areas[l] for l in basements), patio_area=a_pat,
                 city=city_info)
 
 
@@ -558,6 +669,37 @@ def add_context(m, k):
     m.cap(pod, CTX_PODIUM_BOTTOM, ctr, flip=True)
     m.strip(pod, pod, CTX_PODIUM_BOTTOM, CTX_PODIUM_TOP)
     m.cap(pod, CTX_PODIUM_TOP, ctr)
+
+
+def add_landscape(m, tower, ca, sa, samp, dz):
+    """Terraced public space between the new building and the Sail Tower.
+
+    Both the site plan (parallel curved lines in the strip between the two
+    buildings) and the sketches (a run of steps at the base) show the gap
+    landscaped rather than paved flat. It is modelled as treads and risers
+    climbing from the new building's grade to the existing raised plaza,
+    widening toward the north-west with the plot.
+    """
+    pod = tower[0][3]
+    x_se = float(min(p[0] for p in pod))          # podium's NW face
+    n = LAND_TERRACES
+
+    def hw(x):
+        return TIP_HALF + TAPER * (X_TIP - x) + LAND_SPREAD
+
+    def W(x, y, z):
+        return (x * ca - y * sa, x * sa + y * ca, z)
+
+    m.group("landscape")
+    for i in range(n):
+        xa = x_se - LAND_DEPTH * i / n
+        xb = x_se - LAND_DEPTH * (i + 1) / n
+        za = dz + (PLAZA_RISE - dz) * i / n
+        zb = dz + (PLAZA_RISE - dz) * (i + 1) / n
+        wa, wb = hw(xa), hw(xb)
+        m.face([W(xa, -wa, za), W(xa, wa, za), W(xb, wb, za), W(xb, -wb, za)])
+        m.face([W(xb, -wb, za), W(xb, wb, za), W(xb, wb, zb), W(xb, -wb, zb)])
+        m.polyline([(xa, -wa), (xa, wa), (xb, wb), (xb, -wb)], za)
 
 
 def add_site(m, k):
@@ -651,7 +793,7 @@ def check_closed(m, groups):
 
 
 def write_schedule(schedule, path):
-    cols = ["level", "z_bottom", "z_top", "height", "scale",
+    cols = ["level", "z_bottom", "z_top", "height", "plan_length",
             "target_sqm", "achieved_sqm", "error_sqm"]
     with open(path, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=cols)
@@ -687,13 +829,13 @@ def V(f, elev, azim, title, span, zc=None, zs=1.0):
 
 VIEWS = [
     V("preview_axo_a.png", 25, 200,
-      "Axonometric — raked NW end and the long SW facade", 95),
+      "Axonometric — straight NW rake over the set-back podium", 115),
     V("preview_axo_b.png", 40, 235,
-      "Aerial three-quarter — roof, patio void and the Sail Tower", 105),
-    V("preview_plan.png", 90, 133,
-      "Roof plan — tapering plate with the patio void through it", 85),
-    V("preview_elevation.png", 1, 223,
-      "Elevation across the plot — compare with the section", 100),
+      "Aerial — roof, patio void, landscaped steps to the Sail Tower", 125),
+    V("preview_plan.png", 90, 146,
+      "Roof plan — tapering plate with the patio void through it", 100),
+    V("preview_elevation.png", 1, 236,
+      "Elevation — one straight rake, vertical podium below", 112),
     V("preview_city_aerial.png", 24, 250,
       "The site in the Lower City, Mount Carmel rising behind", 640, 105, 0.34),
     V("preview_city_bay.png", 7, 18,
@@ -745,6 +887,7 @@ def render(m, meta, views=VIEWS, prefix=""):
         (["site"], (0.91, 0.91, 0.89), (0, 0, 0, 0.05), 0.10),
         (["city_buildings"], (0.82, 0.81, 0.77), (0, 0, 0, 0.14), 0.10),
         (["sail_tower", "sail_mast"], (0.88, 0.89, 0.91), (0, 0, 0, 0.16), 0.12),
+        (["landscape"], (0.74, 0.78, 0.66), (0.2, 0.25, 0.15, 0.35), 0.2),
         ([n for n in m.groups if n.startswith("context")], (0.87, 0.87, 0.90),
          (0, 0, 0, 0.10), 0.15),
         (["new_tower_basement"], (0.80, 0.70, 0.34), (0.30, 0.24, 0.05, 0.25), 0.18),

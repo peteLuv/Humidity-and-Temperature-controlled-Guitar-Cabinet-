@@ -250,32 +250,38 @@ def add_sail_tower(m, proj, terr):
     m.group("sail_tower")
     _prism(m, ring, ground - 4.0, ground + SAIL_ROOF)
 
-    # The sails: a blade following each long edge of the plan, its top edge
-    # arcing from the roof at the ends up to the tips over the middle.
+    # The sails: the two long flanks of the plan carried above the roof, each
+    # top edge arcing from the parapet at the ends up to the tips over the
+    # middle. Walk the ring between its two long-axis extremes rather than
+    # sorting points by projection, which interleaves the flanks and spikes.
     cx = sum(p[0] for p in ring) / len(ring)
     cy = sum(p[1] for p in ring) / len(ring)
-    ang = [math.atan2(p[1] - cy, p[0] - cx) for p in ring]
-    # long axis of the footprint
-    far = max(range(len(ring)), key=lambda i: (ring[i][0] - cx) ** 2 +
-              (ring[i][1] - cy) ** 2)
-    axis = math.atan2(ring[far][1] - cy, ring[far][0] - cx)
-    for side in (0, 1):
-        blade = [p for p, a in zip(ring, ang)
-                 if math.sin(a - axis) * (1 if side else -1) > 0]
-        if len(blade) < 3:
+    n = len(ring)
+    i0 = max(range(n), key=lambda i: (ring[i][0]-cx)**2 + (ring[i][1]-cy)**2)
+    i1 = max(range(n), key=lambda i: (ring[i][0]-ring[i0][0])**2 +
+             (ring[i][1]-ring[i0][1])**2)
+    a, b = sorted((i0, i1))
+    chains = [ring[a:b + 1], ring[b:] + ring[:a + 1]]
+
+    def arc_len(ch):
+        d = [0.0]
+        for i in range(len(ch) - 1):
+            d.append(d[-1] + math.hypot(ch[i+1][0]-ch[i][0], ch[i+1][1]-ch[i][1]))
+        return d
+
+    for ch in chains:
+        if len(ch) < 2:
             continue
-        blade.sort(key=lambda p: (p[0] - cx) * math.cos(axis) +
-                   (p[1] - cy) * math.sin(axis))
-        L = len(blade) - 1
-        for i in range(L):
-            a, b = blade[i], blade[i + 1]
-            ta = ground + SAIL_ROOF + (SAIL_TIP - SAIL_ROOF) * \
-                math.sin(math.pi * i / L)
-            tb = ground + SAIL_ROOF + (SAIL_TIP - SAIL_ROOF) * \
-                math.sin(math.pi * (i + 1) / L)
-            m.face([(a[0], a[1], ground + SAIL_ROOF),
-                    (b[0], b[1], ground + SAIL_ROOF),
-                    (b[0], b[1], tb), (a[0], a[1], ta)])
+        d = arc_len(ch)
+        if d[-1] < 1e-6:
+            continue
+        top = [ground + SAIL_ROOF + (SAIL_TIP - SAIL_ROOF) *
+               math.sin(math.pi * s / d[-1]) for s in d]
+        for i in range(len(ch) - 1):
+            p, q = ch[i], ch[i + 1]
+            m.face([(p[0], p[1], ground + SAIL_ROOF),
+                    (q[0], q[1], ground + SAIL_ROOF),
+                    (q[0], q[1], top[i + 1]), (p[0], p[1], top[i])])
 
     m.group("sail_mast")
     s = 0.8
