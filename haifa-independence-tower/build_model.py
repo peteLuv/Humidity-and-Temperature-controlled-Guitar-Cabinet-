@@ -377,9 +377,11 @@ def build(quality="high"):
 
     m.group("landscape_terraces")
     tree_pts = []
-    garden = fam.green.union(fam.zone.difference(
-        fam.outline(Ls["21"], 4.0)).intersection(
-        fam.green.buffer(60)))
+    # keep the garden on its drawn side; a wide buffer would spill the
+    # terraces across the bar to the street side
+    garden = fam.green.union(
+        fam.zone.intersection(fam.green.buffer(28))).difference(
+        fam.outline(Ls["21"], 6.0))
     for k in range(TERRACE_N):
         bandk = garden.intersection(
             paving.buffer((k + 1) * TERRACE_W).difference(
