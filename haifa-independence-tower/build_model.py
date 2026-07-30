@@ -250,7 +250,7 @@ def build(quality="high"):
     fit_lv = [str(i) for i in range(RAKE_FIT_FROM, 22)]
     A = np.polyfit([zs[l] for l in fit_lv], [Ls[l] for l in fit_lv], 1)
     resid = np.polyval(A, [zs[l] for l in fit_lv]) - np.array([Ls[l] for l in fit_lv])
-    print(f"NW rake ................ straight to {np.abs(resid).max():.2f} m over "
+    print(f"SE rake ................ straight to {np.abs(resid).max():.2f} m over "
           f"{zs['21'] - zs[str(RAKE_FIT_FROM)]:.0f} m "
           f"({math.degrees(math.atan(A[0])):.1f} deg lean)")
     gained = []
@@ -612,10 +612,10 @@ def V(f, elev, azim, title, span, zc=None, zs=1.0):
 
 
 VIEWS = [
-    V("preview_axo.png", 22, -125, "From the east — prow, rake and patio", 150),
+    V("preview_axo.png", 22, -145, "From the south-east — the diagonal wall on the far side", 160),
     V("preview_aerial.png", 40, -60, "Aerial — the bar, garden and deck", 220),
     V("preview_plan.png", 90, 0, "Plan — traced zone, bar and garden", 240),
-    V("preview_elevation.png", 2, -90, "East elevation along the bar", 160),
+    V("preview_elevation.png", 2, 0, "East elevation — prow left, diagonal wall right", 170),
     V("preview_city.png", 18, -105, "In the Lower City, Carmel behind", 700,
       120, 0.35),
 ]

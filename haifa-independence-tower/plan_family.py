@@ -10,11 +10,12 @@ Reconciling the sources:
     the building is a long, slender bar - which is exactly the proportion the
     hand sketches show.
 
-So the bar follows the ZONE's curved spine: its centreline is the zone's own
-centreline, its SE end sits at the zone's rounded tip, and its width profile
-tapers from a blunt prow to a wider NW end. Each floor is the same bar cut at
-length L, with L solved so the plate nets its tabled area. The patio void is
-a rounded wedge on the centreline, positioned by the drawn patio's stations.
+So the bar rides the PLOT's centreline - midway between Derech HaAtzma'ut
+and Natanzon - with a fixed rounded prow at its NW end facing the Sail Tower
+and the garden. Each floor is the bar cut at length L toward the plot tip,
+with L solved so the plate nets its tabled area; the moving SE end face is
+therefore the raked diagonal wall, on the far side from the Sail Tower. The
+patio void is a rounded wedge on the centreline at the drawn stations.
 
 All output is in world metres (Sail Tower centroid = origin, +Y true north).
 """
@@ -56,11 +57,11 @@ class Family:
         # plate (level 2), whose length itself depends on the patio area.
         self._patio(cap=None)
         L2 = self.solve(1820.0)
-        self._patio(cap=L2 - 7.0)
+        self._patio(cap=self.anchor - L2 + 7.0)
 
-    # -- the zone's curved spine, tip at s = 0 ------------------------------
+    # -- the PLOT's curved spine (mid-way between the two streets) ----------
     def _centreline(self):
-        z = self.zone
+        z = self.plot
         c = np.asarray(z.exterior.coords)
         mean = c.mean(axis=0)
         u, s, vt = np.linalg.svd(c - mean, full_matrices=False)
@@ -94,7 +95,7 @@ class Family:
         tipdir /= np.linalg.norm(tipdir)
         p = sm[0].copy()
         for _ in range(60):
-            if not self.zone.contains(Point(p + tipdir)):
+            if not z.contains(Point(p + tipdir)):
                 break
             p = p + tipdir
         self.spine = np.vstack([[p], sm])
@@ -104,6 +105,12 @@ class Family:
         seg = np.linalg.norm(np.diff(self.spine, axis=0), axis=1)
         self.s = np.concatenate([[0], np.cumsum(seg)])
         self.length = float(self.s[-1])
+        # the bar's fixed NW end: the zone's furthest station along the spine
+        zs = []
+        for q in np.asarray(self.zone.exterior.coords):
+            d = np.linalg.norm(self.spine - q, axis=1)
+            zs.append(self.s[int(np.argmin(d))])
+        self.anchor = float(min(max(zs), self.length - 2.0)) - 3.0
 
     def at(self, l):
         """Point and unit tangent/normal on the spine at arclength l from tip."""
@@ -116,17 +123,19 @@ class Family:
         d = d / np.linalg.norm(d)
         return p, d, np.array([-d[1], d[0]])
 
-    # -- bar outline at length L, CCW, tip rounded --------------------------
-    # ring() keeps a stable parameterisation (same sample count and ordering
-    # for every L), which lets floors loft vertex-to-vertex with no resampling.
+    # -- bar outline at length L, CCW ---------------------------------------
+    # Fixed rounded prow at the NW anchor (facing the Sail Tower); the SE end
+    # at anchor - L is the flat moving face - the raked diagonal wall. ring()
+    # keeps a stable parameterisation so floors loft vertex-to-vertex.
     def ring(self, L, extra_hw=0.0, samples=100):
         L = float(L)
+        A = self.anchor
         left, right = [], []
-        for l in np.linspace(TIP_SETBACK, TIP_SETBACK + L, samples):
-            lb = l - TIP_SETBACK
-            hw = TIP_HALFWIDTH + TAPER * lb + extra_hw
-            if lb < PROW_R:  # elliptical prow cap
-                hw *= math.sqrt(max(1e-4, 1 - ((PROW_R - lb) / PROW_R) ** 2))
+        for l in np.linspace(A - L, A, samples):
+            hw = TIP_HALFWIDTH + TAPER * l + extra_hw
+            back = A - l
+            if back < PROW_R:  # elliptical prow at the fixed NW end
+                hw *= math.sqrt(max(1e-4, 1 - ((PROW_R - back) / PROW_R) ** 2))
                 hw = max(hw, 0.8)
             p, d, n = self.at(l)
             left.append(p + n * hw)
@@ -148,10 +157,10 @@ class Family:
         l0, l1 = min(ls), max(ls)
         span = l1 - l0
         a = l0 + span * 0.08
-        b = l1 - span * 0.08
-        if cap is not None and b > cap:
-            b = cap
-            a = min(a, b - 30.0)
+        b = min(l1 - span * 0.08, self.anchor - 12.0)
+        if cap is not None and a < cap:
+            a = cap
+            b = max(b, a + 30.0)
         pts_l, pts_r = [], []
         for f in np.linspace(0, 1, 24):
             l = a + (b - a) * f
@@ -167,7 +176,7 @@ class Family:
 
     # -- solve L for a net tabled area --------------------------------------
     def solve(self, net_area, extra_hw=0.0):
-        lo, hi = 20.0, self.length - TIP_SETBACK - 1
+        lo, hi = 20.0, self.anchor - 4.0
         for _ in range(70):
             mid = (lo + hi) / 2
             a = self.outline(mid, extra_hw).difference(self.patio).area
@@ -192,7 +201,8 @@ class Family:
 
 if __name__ == "__main__":
     f = Family()
-    print(f"zone {f.zone.area:,.0f} m2, spine {f.length:.0f} m")
+    print(f"zone {f.zone.area:,.0f} m2, plot spine {f.length:.0f} m, "
+          f"anchor at {f.anchor:.0f}")
     print(f"patio {f.patio_area:.0f} m2 at l = {f.patio_l0:.0f}..{f.patio_l1:.0f}")
     for a in (1820, 2150, 2370, 2640):
         L = f.solve(a)
