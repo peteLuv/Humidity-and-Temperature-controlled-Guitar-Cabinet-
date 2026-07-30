@@ -1,0 +1,631 @@
+<title>Patio Building — Derech HaAtzma'ut, Haifa</title>
+
+<style>
+:root{
+  --paper:#EDEFEB; --surface:#FBFCFA; --surface-2:#F3F5F1;
+  --ink:#141920; --ink-2:#5A6470; --ink-3:#8A939E;
+  --rule:#D3D8D2; --rule-2:#E3E7E2;
+  --accent:#B8860F; --accent-fill:#E6B32E; --accent-soft:#F6E8BF;
+  --ctx:#9AA1A8;
+  --scene:#E4E7E2;
+  --shadow:0 1px 2px rgba(20,25,32,.06),0 8px 24px rgba(20,25,32,.07);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0E1218; --surface:#161C24; --surface-2:#1B222B;
+    --ink:#E8EBEE; --ink-2:#9AA4B0; --ink-3:#6D7885;
+    --rule:#28313C; --rule-2:#1F2731;
+    --accent:#F0C34A; --accent-fill:#E8B62F; --accent-soft:#3A3116;
+    --ctx:#79818B;
+    --scene:#0B0F14;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="light"]{
+  --paper:#EDEFEB; --surface:#FBFCFA; --surface-2:#F3F5F1;
+  --ink:#141920; --ink-2:#5A6470; --ink-3:#8A939E;
+  --rule:#D3D8D2; --rule-2:#E3E7E2;
+  --accent:#B8860F; --accent-fill:#E6B32E; --accent-soft:#F6E8BF;
+  --ctx:#9AA1A8; --scene:#E4E7E2;
+  --shadow:0 1px 2px rgba(20,25,32,.06),0 8px 24px rgba(20,25,32,.07);
+}
+:root[data-theme="dark"]{
+  --paper:#0E1218; --surface:#161C24; --surface-2:#1B222B;
+  --ink:#E8EBEE; --ink-2:#9AA4B0; --ink-3:#6D7885;
+  --rule:#28313C; --rule-2:#1F2731;
+  --accent:#F0C34A; --accent-fill:#E8B62F; --accent-soft:#3A3116;
+  --ctx:#79818B; --scene:#0B0F14;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+
+/* Title-block type: mono carries every label and number, as on a drawing
+   sheet; the humanist sans is reserved for running prose. */
+:root{
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"DejaVu Sans Mono",Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+     -webkit-text-size-adjust:100%;overflow:hidden}
+
+#app{position:fixed;inset:0;display:grid;
+     grid-template-columns:1fr minmax(300px,352px);
+     grid-template-rows:100%}
+
+/* ---------- stage ---------- */
+#stage{position:relative;overflow:hidden;background:var(--scene)}
+#gl{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+#gl.dragging{cursor:grabbing}
+
+.sheetmark{position:absolute;left:18px;top:16px;pointer-events:none;
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);line-height:1.7}
+.sheetmark b{display:block;color:var(--ink-2);font-weight:600}
+
+.viewbar{position:absolute;left:16px;bottom:16px;display:flex;gap:6px;flex-wrap:wrap;
+  max-width:calc(100% - 32px)}
+.viewbar button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;padding:7px 11px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink-2);border-radius:2px;cursor:pointer;
+  transition:color .12s,border-color .12s,background .12s}
+.viewbar button:hover{color:var(--ink);border-color:var(--ink-3)}
+.viewbar button[aria-pressed="true"]{color:var(--ink);border-color:var(--accent);
+  background:var(--accent-soft)}
+.viewbar button:focus-visible,.tog:focus-visible,.row:focus-visible,
+#tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.compass{position:absolute;right:16px;bottom:16px;width:54px;height:54px;
+  pointer-events:none;opacity:.85}
+
+/* ---------- title block ---------- */
+#panel{background:var(--surface);border-left:1px solid var(--rule);
+  display:flex;flex-direction:column;min-height:0}
+
+.tb{padding:16px 18px 14px;border-bottom:1px solid var(--rule)}
+.tb .eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3)}
+.tb h1{margin:7px 0 0;font-size:17px;line-height:1.25;letter-spacing:-.01em;
+  font-weight:620;text-wrap:balance}
+.tb .sub{margin:5px 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.45}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--rule)}
+.stat{padding:11px 18px;border-top:1px solid var(--rule-2)}
+.stat:nth-child(odd){border-right:1px solid var(--rule-2)}
+.stat dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);margin:0}
+.stat dd{margin:3px 0 0;font-family:var(--mono);font-size:15px;font-weight:600;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.stat dd small{font-size:10px;font-weight:400;color:var(--ink-2);letter-spacing:0}
+
+#tabs{display:flex;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+#tabs button{flex:1;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;padding:10px 4px;border:0;border-bottom:2px solid transparent;
+  background:none;color:var(--ink-3);cursor:pointer}
+#tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);
+  background:var(--surface)}
+
+.pane{display:none;overflow-y:auto;overflow-x:hidden;flex:1;min-height:0}
+.pane.on{display:block}
+
+/* ---------- area profile ---------- */
+.legend{display:flex;justify-content:space-between;align-items:baseline;
+  padding:12px 18px 8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);position:sticky;top:0;
+  background:var(--surface);border-bottom:1px solid var(--rule-2);z-index:1}
+.rows{padding:6px 12px 18px}
+.row{display:grid;grid-template-columns:30px 1fr 58px;align-items:center;gap:8px;
+  width:100%;padding:1px 6px;border:0;background:none;color:inherit;cursor:pointer;
+  border-radius:2px;text-align:left;font:inherit}
+.row:hover,.row.hot{background:var(--surface-2)}
+.row .lv{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;text-align:right}
+.row.hot .lv{color:var(--ink)}
+.row .barwrap{height:13px;display:flex;align-items:center}
+.row .bar{height:9px;background:var(--accent-fill);border-radius:0 1px 1px 0;
+  transition:filter .1s}
+.row.below .bar{background:var(--ctx)}
+.row.hot .bar{filter:brightness(1.12) saturate(1.2)}
+.row .val{font-family:var(--mono);font-size:10.5px;font-variant-numeric:tabular-nums;
+  color:var(--ink-2);text-align:right}
+.row.hot .val{color:var(--ink);font-weight:600}
+.tick{display:grid;grid-template-columns:30px 1fr 58px;gap:8px;padding:4px 6px 0;
+  font-family:var(--mono);font-size:9px;color:var(--ink-3);letter-spacing:.06em}
+.tick i{grid-column:2;font-style:normal;display:flex;justify-content:space-between}
+.note{margin:2px 12px 0;padding:8px 12px;border-left:2px solid var(--accent);
+  background:var(--surface-2);font-size:11.5px;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- layers ---------- */
+.togs{padding:12px 18px 4px;display:flex;flex-direction:column;gap:2px}
+.tog{display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink-2);
+  border:0;background:none;width:100%;text-align:left}
+.tog:hover{color:var(--ink)}
+.tog .sw{width:26px;height:15px;border-radius:8px;background:var(--rule);
+  position:relative;flex:none;transition:background .15s}
+.tog .sw::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;
+  border-radius:50%;background:var(--surface);transition:transform .15s;
+  box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.tog[aria-pressed="true"]{color:var(--ink)}
+.tog[aria-pressed="true"] .sw{background:var(--accent-fill)}
+.tog[aria-pressed="true"] .sw::after{transform:translateX(11px)}
+.tog .key{width:9px;height:9px;flex:none;border:1px solid rgba(0,0,0,.18)}
+
+.prose{padding:14px 18px 22px;font-size:12.5px;line-height:1.6;color:var(--ink-2);
+  max-width:62ch}
+.prose h2{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-3);margin:18px 0 6px;font-weight:600}
+.prose h2:first-child{margin-top:0}
+.prose p{margin:0 0 9px}
+.prose ul{margin:0 0 9px;padding-left:16px}
+.prose li{margin:0 0 5px}
+.prose code{font-family:var(--mono);font-size:11px;background:var(--surface-2);
+  padding:1px 4px;border-radius:2px;color:var(--ink)}
+.prose strong{color:var(--ink);font-weight:600}
+.flag{border:1px solid var(--accent);background:var(--accent-soft);color:var(--ink);
+  padding:9px 11px;border-radius:2px;margin:0 0 12px;font-size:12px;line-height:1.5}
+
+/* ---------- mobile ---------- */
+@media (max-width:820px){
+  #app{grid-template-columns:100%;grid-template-rows:1fr auto}
+  #panel{border-left:0;border-top:1px solid var(--rule);max-height:52vh}
+  .stats{grid-template-columns:1fr 1fr 1fr 1fr}
+  .stat:nth-child(odd){border-right:0}
+  .stat{border-right:1px solid var(--rule-2);padding:9px 10px}
+  .stat dd{font-size:13px}
+  .tb{padding:12px 14px 10px}
+  .tb h1{font-size:15px}
+  .viewbar{left:12px;bottom:12px}
+  .compass{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div id="app">
+  <div id="stage">
+    <canvas id="gl"></canvas>
+    <div class="sheetmark">
+      <b>Massing study</b>
+      Haifa · Derech HaAtzma'ut<br>
+      Patio-building alternative
+    </div>
+    <div class="viewbar" role="group" aria-label="Preset views">
+      <button data-view="axo" aria-pressed="true">Axo</button>
+      <button data-view="aerial" aria-pressed="false">Aerial</button>
+      <button data-view="plan" aria-pressed="false">Plan</button>
+      <button data-view="elev" aria-pressed="false">Elevation</button>
+      <button data-view="street" aria-pressed="false">Street</button>
+    </div>
+    <svg class="compass" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor"
+              stroke-opacity=".22" stroke-width="1.5"/>
+      <g id="needle">
+        <path d="M50 10 L58 52 L50 46 L42 52 Z" fill="currentColor" opacity=".55"/>
+      </g>
+      <text x="50" y="90" text-anchor="middle" font-size="15"
+            font-family="ui-monospace,monospace" fill="currentColor"
+            opacity=".5">N</text>
+    </svg>
+  </div>
+
+  <aside id="panel">
+    <div class="tb">
+      <div class="eyebrow">Alternative 2 · 22 storeys</div>
+      <h1>Patio building, Derech HaAtzma'ut</h1>
+      <p class="sub">Massing generated from the floor-area schedule, next to the
+         existing government tower.</p>
+    </div>
+
+    <dl class="stats">
+      <div class="stat"><dt>Roof</dt><dd id="s-roof">—<small> m</small></dd></div>
+      <div class="stat"><dt>Above grade</dt><dd id="s-above">—<small> m²</small></dd></div>
+      <div class="stat"><dt>Basements</dt><dd id="s-below">—<small> m²</small></dd></div>
+      <div class="stat"><dt>Patio void</dt><dd id="s-patio">—<small> m²</small></dd></div>
+    </dl>
+
+    <div id="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-pane="areas">Areas</button>
+      <button role="tab" aria-selected="false" data-pane="layers">Layers</button>
+      <button role="tab" aria-selected="false" data-pane="basis">Basis</button>
+    </div>
+
+    <div class="pane on" id="pane-areas" role="tabpanel">
+      <div class="legend"><span>Level</span><span>Area per floor</span></div>
+      <div class="rows" id="rows"></div>
+    </div>
+
+    <div class="pane" id="pane-layers" role="tabpanel">
+      <div class="togs" id="togs"></div>
+      <div class="note">Drag to orbit, scroll or pinch to zoom. Hovering a level
+        in <strong>Areas</strong> picks out that slab edge in the model.</div>
+    </div>
+
+    <div class="pane" id="pane-basis" role="tabpanel">
+      <div class="prose">
+        <div class="flag" id="assumption"></div>
+        <h2>How the shape was derived</h2>
+        <p>The sketches set the <strong>shape</strong>; the area schedule sets every
+           <strong>dimension</strong>. A schematic plan traced off the site drawing is
+           scaled once so the ground floor nets its tabled area, then each upper
+           slab is that outline scaled about the tight south-east tip until it hits
+           its own tabled area.</p>
+        <p>That single rule reproduces what the section shows: a podium at ground
+           and level 1, a waist at level 2, and a steadily raking north-west
+           facade all the way to level 21. Every one of the 27 levels lands on its
+           target area to within 0.05 m².</p>
+        <h2>Fixed inputs</h2>
+        <ul>
+          <li>5 basements at 2.80 m, 3,200 m² each</li>
+          <li>Ground and level 1 at 5.00 m</li>
+          <li>Levels 2–21 at <code id="b-typ"></code> m</li>
+          <li>Patio open from grade through the roof, constant in plan</li>
+        </ul>
+        <h2>Read with care</h2>
+        <ul>
+          <li>Plan proportions and the plot bearing (<code id="b-brg"></code>°) are
+              scaled off the sketches, not surveyed.</li>
+          <li>Basements are shown as one plate enlarged about the tower centroid;
+              in reality they would run asymmetrically under the plaza.</li>
+          <li>The grey tower and its podium are schematic context only.</li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const DATA = __MESH_JSON__;
+
+/* ------------------------------------------------------------------ maths */
+const M4 = {
+  ident: () => new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]),
+  mul(a,b){ const o=new Float32Array(16);
+    for(let i=0;i<4;i++) for(let j=0;j<4;j++){ let s=0;
+      for(let k=0;k<4;k++) s+=a[k*4+j]*b[i*4+k]; o[i*4+j]=s; }
+    return o; },
+  persp(fov,asp,n,f){ const t=1/Math.tan(fov/2), o=new Float32Array(16);
+    o[0]=t/asp; o[5]=t; o[10]=(f+n)/(n-f); o[11]=-1; o[14]=2*f*n/(n-f); return o; },
+  look(eye,tgt,up){
+    const z=norm(sub(eye,tgt)), x=norm(cross(up,z)), y=cross(z,x);
+    return new Float32Array([x[0],y[0],z[0],0, x[1],y[1],z[1],0, x[2],y[2],z[2],0,
+      -dot(x,eye),-dot(y,eye),-dot(z,eye),1]); }
+};
+const sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const norm=a=>{const l=Math.hypot(...a)||1; return [a[0]/l,a[1]/l,a[2]/l];};
+
+/* ------------------------------------------------------------------- gl */
+const cv = document.getElementById('gl');
+const gl = cv.getContext('webgl',{antialias:true,alpha:false});
+
+const VS = `
+attribute vec3 aPos; attribute vec3 aNrm;
+uniform mat4 uMVP; uniform mat4 uModel;
+varying vec3 vN; varying float vZ;
+void main(){ vN = aNrm; vZ = (uModel*vec4(aPos,1.0)).z;
+  gl_Position = uMVP*vec4(aPos,1.0); }`;
+const FS = `
+precision mediump float;
+varying vec3 vN; varying float vZ;
+uniform vec3 uColor; uniform vec3 uKey; uniform vec3 uFill;
+uniform float uAmb; uniform float uAlpha; uniform float uGround;
+void main(){
+  vec3 n = normalize(vN);
+  float k = max(dot(n,uKey),0.0);
+  float f = max(dot(n,uFill),0.0);
+  float l = uAmb + 0.56*k + 0.16*f;
+  vec3 c = uColor*l;
+  if(vZ < uGround) c = mix(c, uColor*uAmb*0.9, 0.45);  // below grade, muted
+  gl_FragColor = vec4(c,uAlpha); }`;
+const LVS = `attribute vec3 aPos; uniform mat4 uMVP;
+void main(){ gl_Position = uMVP*vec4(aPos,1.0); gl_Position.z -= 0.0006; }`;
+const LFS = `precision mediump float; uniform vec4 uColor;
+void main(){ gl_FragColor = uColor; }`;
+
+function shader(t,src){ const s=gl.createShader(t); gl.shaderSource(s,src);
+  gl.compileShader(s);
+  if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(s);
+  return s; }
+function program(v,f){ const p=gl.createProgram();
+  gl.attachShader(p,shader(gl.VERTEX_SHADER,v));
+  gl.attachShader(p,shader(gl.FRAGMENT_SHADER,f));
+  gl.linkProgram(p);
+  if(!gl.getProgramParameter(p,gl.LINK_STATUS)) throw gl.getProgramInfoLog(p);
+  return p; }
+
+const P = program(VS,FS), LP = program(LVS,LFS);
+const loc = n => gl.getUniformLocation(P,n);
+const U = {mvp:loc('uMVP'),model:loc('uModel'),color:loc('uColor'),key:loc('uKey'),
+  fill:loc('uFill'),amb:loc('uAmb'),alpha:loc('uAlpha'),ground:loc('uGround')};
+const LU = {mvp:gl.getUniformLocation(LP,'uMVP'),color:gl.getUniformLocation(LP,'uColor')};
+const A = {pos:gl.getAttribLocation(P,'aPos'),nrm:gl.getAttribLocation(P,'aNrm')};
+const LA = gl.getAttribLocation(LP,'aPos');
+
+/* --------------------------------------------------------------- buffers */
+const V = DATA.vertices;
+const LAYERS = [
+  {id:'new_tower',      label:'New building',   color:[0.97,0.78,0.20], on:true},
+  // only the basement box is darkened below grade; the plot plate sits at
+  // -0.15 m purely to avoid z-fighting with the podium deck.
+  {id:'new_tower_basement', label:'Basements',  color:[0.72,0.60,0.30], on:true,
+   fade:true},
+  {id:'context_existing_tower', label:'Government tower', color:[0.70,0.72,0.75], on:true},
+  {id:'context_podium', label:'Existing plaza', color:[0.74,0.76,0.78], on:true},
+  {id:'context_mast',   label:'Mast',           color:[0.62,0.64,0.67], on:true},
+  {id:'site',           label:'Plot',           color:[0.80,0.81,0.78], on:true}
+];
+
+function buildLayer(idx){
+  const tri = DATA.groups[idx] || [];
+  const pos = new Float32Array(tri.length*3), nrm = new Float32Array(tri.length*3);
+  for(let t=0;t<tri.length;t+=3){
+    const a=tri[t]*3,b=tri[t+1]*3,c=tri[t+2]*3;
+    const p=[V[a],V[a+1],V[a+2]], q=[V[b],V[b+1],V[b+2]], r=[V[c],V[c+1],V[c+2]];
+    const n = norm(cross(sub(q,p),sub(r,p)));
+    for(let k=0;k<3;k++){
+      const src = k===0?p:k===1?q:r, o=(t+k)*3;
+      pos[o]=src[0]; pos[o+1]=src[1]; pos[o+2]=src[2];
+      nrm[o]=n[0];  nrm[o+1]=n[1];  nrm[o+2]=n[2];
+    }
+  }
+  const bp=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,bp);
+  gl.bufferData(gl.ARRAY_BUFFER,pos,gl.STATIC_DRAW);
+  const bn=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,bn);
+  gl.bufferData(gl.ARRAY_BUFFER,nrm,gl.STATIC_DRAW);
+  return {bp,bn,count:tri.length};
+}
+LAYERS.forEach(L => Object.assign(L, buildLayer(L.id)));
+
+// slab lines, split into "all" and a per-level slice used for highlighting
+const LN = DATA.lines, TAGS = DATA.line_tags;
+const lineBuf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER,lineBuf);
+gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(LN),gl.STATIC_DRAW);
+const lineCount = LN.length/3;
+const hotBuf = gl.createBuffer();
+let hotCount = 0, hotLevel = null;
+const byLevel = {};
+for(let i=0;i<TAGS.length;i++){
+  if(!TAGS[i]) continue;
+  (byLevel[TAGS[i]] ||= []).push(...LN.slice(i*6,i*6+6));
+}
+function setHot(lv){
+  hotLevel = lv;
+  const d = lv && byLevel[lv];
+  hotCount = d ? d.length/3 : 0;
+  if(d){ gl.bindBuffer(gl.ARRAY_BUFFER,hotBuf);
+         gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(d),gl.STATIC_DRAW); }
+  draw();
+}
+
+/* -------------------------------------------------------------- camera */
+let lo=[1e9,1e9,1e9], hi=[-1e9,-1e9,-1e9];
+for(let i=0;i<V.length;i+=3) for(let k=0;k<3;k++){
+  lo[k]=Math.min(lo[k],V[i+k]); hi[k]=Math.max(hi[k],V[i+k]); }
+const CTR=[(lo[0]+hi[0])/2,(lo[1]+hi[1])/2,(lo[2]+hi[2])/2];
+const RAD=Math.hypot(hi[0]-lo[0],hi[1]-lo[1],hi[2]-lo[2])/2;
+
+// Plan and elevation are shot long-lens so they read as orthographic
+// drawings rather than perspectives; distance compensates for the narrow fov.
+const VIEWS = {
+  axo:    {yaw:-118, pitch:16, dist:2.45, tgt:0.05, fov:38},
+  aerial: {yaw:-152, pitch:42, dist:2.55, tgt:0.05, fov:38},
+  plan:   {yaw:-125, pitch:88, dist:6.20, tgt:0.00, fov:13},
+  elev:   {yaw: -35, pitch: 2, dist:6.80, tgt:0.02, fov:13},
+  street: {yaw:  62, pitch: 6, dist:1.85, tgt:-0.10, fov:42}
+};
+let cam = {...VIEWS.axo};
+function eye(){
+  const y=cam.yaw*Math.PI/180, p=cam.pitch*Math.PI/180, d=cam.dist*RAD;
+  return [CTR[0]+d*Math.cos(p)*Math.cos(y), CTR[1]+d*Math.cos(p)*Math.sin(y),
+          CTR[2]+d*Math.sin(p)];
+}
+function target(){ return [CTR[0],CTR[1],CTR[2]+cam.tgt*RAD]; }
+
+/* ---------------------------------------------------------------- theme */
+const probe = document.createElement('div');
+function themeColors(){
+  const cs = getComputedStyle(document.body);
+  const parse = v => { probe.style.color = v.trim();
+    document.body.appendChild(probe);
+    const m = getComputedStyle(probe).color.match(/[\d.]+/g);
+    probe.remove();
+    return m ? [m[0]/255,m[1]/255,m[2]/255] : [0,0,0]; };
+  const dark = matchMedia('(prefers-color-scheme:dark)').matches;
+  const attr = document.documentElement.getAttribute('data-theme');
+  const isDark = attr ? attr === 'dark' : dark;
+  return {bg: parse(cs.getPropertyValue('--scene')), isDark};
+}
+let TH = themeColors();
+
+/* ----------------------------------------------------------------- draw */
+function resize(){
+  const dpr = Math.min(devicePixelRatio||1, 2);
+  const w = cv.clientWidth*dpr|0, h = cv.clientHeight*dpr|0;
+  if(cv.width!==w || cv.height!==h){ cv.width=w; cv.height=h; }
+}
+function draw(){
+  resize();
+  gl.viewport(0,0,cv.width,cv.height);
+  gl.clearColor(TH.bg[0],TH.bg[1],TH.bg[2],1);
+  gl.enable(gl.DEPTH_TEST);
+  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+
+  const proj = M4.persp((cam.fov||38)*Math.PI/180, cv.width/cv.height,
+                        RAD*0.05, RAD*40);
+  const view = M4.look(eye(), target(), [0,0,1]);
+  const mvp  = M4.mul(proj, view);
+
+  gl.useProgram(P);
+  gl.uniformMatrix4fv(U.mvp,false,mvp);
+  gl.uniformMatrix4fv(U.model,false,M4.ident());
+  gl.uniform3fv(U.key, norm([-0.42,-0.72,0.55]));
+  gl.uniform3fv(U.fill, norm([0.65,0.35,0.67]));
+  gl.uniform1f(U.amb, TH.isDark ? 0.30 : 0.40);
+  gl.uniform1f(U.alpha, 1.0);
+  gl.enableVertexAttribArray(A.pos); gl.enableVertexAttribArray(A.nrm);
+  for(const L of LAYERS){
+    if(!L.on || !L.count) continue;
+    gl.uniform1f(U.ground, L.fade ? 0.0 : -1e9);
+    gl.uniform3fv(U.color, L.color);
+    gl.bindBuffer(gl.ARRAY_BUFFER,L.bp); gl.vertexAttribPointer(A.pos,3,gl.FLOAT,false,0,0);
+    gl.bindBuffer(gl.ARRAY_BUFFER,L.bn); gl.vertexAttribPointer(A.nrm,3,gl.FLOAT,false,0,0);
+    gl.drawArrays(gl.TRIANGLES,0,L.count);
+  }
+  gl.disableVertexAttribArray(A.nrm);
+
+  if(showLines){
+    gl.useProgram(LP);
+    gl.uniformMatrix4fv(LU.mvp,false,mvp);
+    gl.enableVertexAttribArray(LA);
+    gl.uniform4f(LU.color, ...(TH.isDark?[0,0,0,0.42]:[0.16,0.12,0.02,0.30]));
+    gl.bindBuffer(gl.ARRAY_BUFFER,lineBuf);
+    gl.vertexAttribPointer(LA,3,gl.FLOAT,false,0,0);
+    gl.drawArrays(gl.LINES,0,lineCount);
+    if(hotCount){
+      // Depth test off: most browsers clamp lineWidth to 1, so the highlight
+      // has to read by drawing through the mass rather than by getting fatter.
+      gl.disable(gl.DEPTH_TEST);
+      gl.uniform4f(LU.color, 0.93,0.27,0.09,1.0);
+      gl.bindBuffer(gl.ARRAY_BUFFER,hotBuf);
+      gl.vertexAttribPointer(LA,3,gl.FLOAT,false,0,0);
+      gl.drawArrays(gl.LINES,0,hotCount);
+      gl.enable(gl.DEPTH_TEST);
+    }
+  }
+  document.getElementById('needle').style.transform =
+    `rotate(${-cam.yaw-90}deg)`;
+  document.getElementById('needle').style.transformOrigin = '50px 50px';
+}
+let showLines = true;
+
+/* ------------------------------------------------------------ interaction */
+let drag=null;
+cv.addEventListener('pointerdown', e=>{
+  drag={x:e.clientX,y:e.clientY}; cv.setPointerCapture(e.pointerId);
+  cv.classList.add('dragging');
+});
+cv.addEventListener('pointermove', e=>{
+  if(!drag) return;
+  cam.yaw   -= (e.clientX-drag.x)*0.32;
+  cam.pitch  = Math.max(-14, Math.min(89, cam.pitch + (e.clientY-drag.y)*0.28));
+  drag={x:e.clientX,y:e.clientY};
+  clearPreset(); draw();
+});
+const stop=e=>{ drag=null; cv.classList.remove('dragging'); };
+cv.addEventListener('pointerup',stop); cv.addEventListener('pointercancel',stop);
+cv.addEventListener('wheel', e=>{
+  e.preventDefault();
+  cam.dist = Math.max(0.4, Math.min(12, cam.dist*(1+Math.sign(e.deltaY)*0.09)));
+  draw();
+},{passive:false});
+
+let pinch=null;
+cv.addEventListener('touchstart', e=>{
+  if(e.touches.length===2){ drag=null;
+    pinch=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,
+                     e.touches[0].clientY-e.touches[1].clientY); }
+},{passive:true});
+cv.addEventListener('touchmove', e=>{
+  if(e.touches.length===2 && pinch){
+    e.preventDefault();
+    const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,
+                       e.touches[0].clientY-e.touches[1].clientY);
+    cam.dist=Math.max(0.4,Math.min(12,cam.dist*pinch/d)); pinch=d; draw();
+  }
+},{passive:false});
+cv.addEventListener('touchend',()=>{pinch=null;},{passive:true});
+
+function clearPreset(){
+  document.querySelectorAll('.viewbar button')
+    .forEach(b=>b.setAttribute('aria-pressed','false'));
+}
+document.querySelectorAll('.viewbar button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    clearPreset(); b.setAttribute('aria-pressed','true');
+    cam={...VIEWS[b.dataset.view]}; draw();
+  });
+});
+
+/* --------------------------------------------------------------- panel */
+const meta = DATA.meta, sched = DATA.schedule;
+const fmt = n => n.toLocaleString('en-US');
+document.getElementById('s-roof').innerHTML  = meta.roof_m.toFixed(1)+'<small> m</small>';
+document.getElementById('s-above').innerHTML = fmt(meta.above_sqm)+'<small> m²</small>';
+document.getElementById('s-below').innerHTML = fmt(meta.below_sqm)+'<small> m²</small>';
+document.getElementById('s-patio').innerHTML = fmt(Math.round(meta.patio_sqm))+'<small> m²</small>';
+document.getElementById('b-typ').textContent = meta.typical_floor_h.toFixed(2);
+document.getElementById('b-brg').textContent = meta.bearing_deg;
+document.getElementById('assumption').innerHTML =
+  '<strong>One value still to confirm.</strong> Levels 2–21 are drawn at '+
+  meta.typical_floor_h.toFixed(2)+' m floor-to-floor — the note says “same as a '+
+  'typical floor in the government tower”, which was not given as a number. '+
+  'Change <code>TYPICAL_FLOOR_H</code> in the build script and every level above '+
+  'moves with it; areas are unaffected.';
+
+const maxA = Math.max(...sched.map(r=>r.target_sqm));
+const rowsEl = document.getElementById('rows');
+const ordered = [...sched].reverse();       // roof at the top, like a section
+let html = '';
+for(const r of ordered){
+  const below = r.level[0]==='B';
+  const name = r.level==='G' ? 'G' : r.level;
+  html += `<button class="row${below?' below':''}" data-lv="${r.level}">
+    <span class="lv">${name}</span>
+    <span class="barwrap"><span class="bar" style="width:${(r.target_sqm/maxA*100).toFixed(2)}%"></span></span>
+    <span class="val">${fmt(r.target_sqm)}</span></button>`;
+}
+html += `<div class="tick"><i><span>0</span><span>${fmt(maxA)} m²</span></i></div>`;
+rowsEl.innerHTML = html;
+rowsEl.addEventListener('pointerover', e=>{
+  const row = e.target.closest('.row'); if(!row) return;
+  rowsEl.querySelectorAll('.row.hot').forEach(x=>x.classList.remove('hot'));
+  row.classList.add('hot'); setHot(row.dataset.lv);
+});
+rowsEl.addEventListener('pointerleave', ()=>{
+  rowsEl.querySelectorAll('.row.hot').forEach(x=>x.classList.remove('hot'));
+  setHot(null);
+});
+rowsEl.addEventListener('focusin', e=>{
+  const row = e.target.closest('.row'); if(row) setHot(row.dataset.lv);
+});
+
+const togsEl = document.getElementById('togs');
+function tog(label, on, fn, swatch){
+  const b=document.createElement('button');
+  b.className='tog'; b.setAttribute('aria-pressed',String(on));
+  b.innerHTML = `<span class="sw"></span>`+
+    (swatch?`<span class="key" style="background:${swatch}"></span>`:'')+
+    `<span>${label}</span>`;
+  b.addEventListener('click',()=>{
+    const v = b.getAttribute('aria-pressed')!=='true';
+    b.setAttribute('aria-pressed',String(v)); fn(v); draw();
+  });
+  togsEl.appendChild(b);
+}
+const css = a => `rgb(${a.map(c=>Math.round(c*255)).join(',')})`;
+for(const L of LAYERS){
+  if(L.id==='context_mast') continue;
+  tog(L.label, L.on, v=>{ L.on=v; if(L.id==='context_existing_tower')
+    LAYERS.find(x=>x.id==='context_mast').on=v; }, css(L.color));
+}
+tog('Slab lines', true, v=>{showLines=v;});
+
+document.querySelectorAll('#tabs button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#tabs button')
+      .forEach(x=>x.setAttribute('aria-selected',String(x===b)));
+    document.querySelectorAll('.pane')
+      .forEach(p=>p.classList.toggle('on', p.id==='pane-'+b.dataset.pane));
+  });
+});
+
+/* ---------------------------------------------------------------- boot */
+addEventListener('resize', draw);
+matchMedia('(prefers-color-scheme:dark)')
+  .addEventListener('change', ()=>{ TH=themeColors(); draw(); });
+new MutationObserver(()=>{ TH=themeColors(); draw(); })
+  .observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+draw();
+</script>
