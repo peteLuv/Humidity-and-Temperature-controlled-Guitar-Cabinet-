@@ -1,17 +1,68 @@
-newmtl new_tower
-Kd 0.98 0.84 0.35
-Ka 0.20 0.17 0.07
-Ks 0.10 0.10 0.10
-Ns 12
+newmtl new_glass
+Kd 0.420 0.580 0.570
+Ka 0.084 0.116 0.114
 
-newmtl context
-Kd 0.80 0.80 0.82
-Ka 0.18 0.18 0.19
-Ks 0.05 0.05 0.05
-Ns 8
+newmtl new_roof
+Kd 0.820 0.800 0.760
+Ka 0.164 0.160 0.152
 
-newmtl site
-Kd 0.90 0.90 0.88
-Ka 0.20 0.20 0.20
-Ks 0.00 0.00 0.00
-Ns 1
+newmtl new_bands
+Kd 0.880 0.760 0.500
+Ka 0.176 0.152 0.100
+
+newmtl new_basement
+Kd 0.620 0.580 0.500
+Ka 0.124 0.116 0.100
+
+newmtl deck_structure
+Kd 0.720 0.690 0.640
+Ka 0.144 0.138 0.128
+
+newmtl deck_top
+Kd 0.780 0.750 0.700
+Ka 0.156 0.150 0.140
+
+newmtl landscape_terraces
+Kd 0.550 0.660 0.420
+Ka 0.110 0.132 0.084
+
+newmtl trees
+Kd 0.340 0.480 0.270
+Ka 0.068 0.096 0.054
+
+newmtl plot_plate
+Kd 0.800 0.790 0.750
+Ka 0.160 0.158 0.150
+
+newmtl sail_glass
+Kd 0.620 0.680 0.740
+Ka 0.124 0.136 0.148
+
+newmtl sail_bands
+Kd 0.850 0.860 0.880
+Ka 0.170 0.172 0.176
+
+newmtl sail_sails
+Kd 0.920 0.930 0.940
+Ka 0.184 0.186 0.188
+
+newmtl sail_mast
+Kd 0.550 0.570 0.600
+Ka 0.110 0.114 0.120
+
+newmtl city_buildings
+Kd 0.790 0.770 0.730
+Ka 0.158 0.154 0.146
+
+newmtl city_roads
+Kd 0.420 0.420 0.420
+Ka 0.084 0.084 0.084
+
+newmtl terrain
+Kd 0.720 0.700 0.610
+Ka 0.144 0.140 0.122
+
+newmtl sea
+Kd 0.360 0.510 0.580
+Ka 0.072 0.102 0.116
+

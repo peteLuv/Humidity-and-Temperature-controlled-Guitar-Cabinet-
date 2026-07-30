@@ -286,15 +286,22 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
       <div class="prose">
         <div class="flag" id="assumption"></div>
         <h2>How the shape was derived</h2>
-        <p>The sketches set the <strong>shape</strong>; the area schedule sets every
-           <strong>dimension</strong>. A schematic plan traced off the site drawing is
-           scaled once so the ground floor nets its tabled area, then each upper
-           slab is that outline scaled about the tight south-east tip until it hits
-           its own tabled area.</p>
-        <p>That single rule reproduces what the section shows: a podium at ground
-           and level 1, a waist at level 2, and a steadily raking north-west
-           facade all the way to level 21. Every one of the 27 levels lands on its
-           target area to within 0.05 m².</p>
+        <p>The client's site plan was digitized by colour: plot, building zone,
+           patio, garden and paving, street-fitted to OSM. The yellow zone
+           (13,500 m²) is far larger than any tabled floor plate, so the building
+           is a <strong>slender curved bar</strong> along the zone's own spine —
+           exactly the proportion the hand sketches show. Each floor is the bar
+           cut at a length solved so the plate nets its tabled area; the tabled
+           areas grow linearly, so the NW end face comes out as one straight
+           raked plane on its own.</p>
+        <p>Ground and level 1 form a vertical podium set back 7 m under the rake;
+           levels 2–3 are pushed onto the rake line and gain ~860 m² (declared in
+           the schedule); every other level is exact to 0.0 m².</p>
+        <h2>The datum</h2>
+        <p>The Sail Tower's ground zero is not the street: it stands on the
+           existing raised plaza — a multi-storey structure whose roof is the
+           deck, here modelled +10 m over the new building's grade. The garden
+           terraces step down from that deck to the new building's forecourt.</p>
         <h2>Fixed inputs</h2>
         <ul>
           <li>5 basements at 2.80 m, 3,200 m² each</li>
@@ -410,24 +417,30 @@ const LA = gl.getAttribLocation(LP,'aPos');
 /* --------------------------------------------------------------- buffers */
 const V = DATA.vertices;
 const LAYERS = [
-  {id:'new_tower',      label:'New building',   color:[0.97,0.78,0.20], on:true},
-  // only the basement box is darkened below grade; the plot plate sits at
-  // -0.15 m purely to avoid z-fighting with the podium deck.
-  {id:'new_tower_basement', label:'Basements',  color:[0.72,0.60,0.30], on:true,
-   fade:true},
-  {id:'landscape',      label:'Landscaped steps',color:[0.72,0.77,0.63], on:true},
-  {id:'sail_tower',     label:'Sail Tower',     color:[0.86,0.87,0.90], on:true},
-  {id:'sail_mast',      label:'Sail Tower mast',color:[0.60,0.62,0.66], on:true,
-   hidden:true},
-  {id:'city_buildings', label:'City fabric',    color:[0.80,0.79,0.75], on:true},
-  {id:'city_roads',     label:'Streets',        color:[0.55,0.55,0.54], on:true},
-  {id:'terrain',        label:'Terrain',        color:[0.74,0.73,0.64], on:true},
+  {id:'new_glass',      label:'New building',   color:[0.30,0.52,0.52], on:true},
+  {id:'new_bands',      label:'Facade bands',   color:[0.88,0.76,0.50], on:true},
+  {id:'new_roof',       label:'Roof',           color:[0.82,0.80,0.76], on:true, hidden:true},
+  {id:'new_basement',   label:'Basements',      color:[0.62,0.58,0.50], on:true, fade:true},
+  {id:'landscape_terraces', label:'Garden terraces', color:[0.55,0.66,0.42], on:true},
+  {id:'trees',          label:'Trees',          color:[0.34,0.48,0.27], on:true, hidden:true},
+  {id:'deck_structure', label:'Existing plaza deck', color:[0.72,0.69,0.64], on:true},
+  {id:'deck_top',       label:'Deck top',       color:[0.78,0.75,0.70], on:true, hidden:true},
+  {id:'sail_glass',     label:'Sail Tower',     color:[0.62,0.68,0.74], on:true},
+  {id:'sail_bands',     label:'Sail bands',     color:[0.85,0.86,0.88], on:true, hidden:true},
+  {id:'sail_sails',     label:'Sails',          color:[0.92,0.93,0.94], on:true, hidden:true},
+  {id:'sail_mast',      label:'Mast',           color:[0.55,0.57,0.60], on:true, hidden:true},
+  {id:'city_buildings', label:'City fabric',    color:[0.79,0.77,0.73], on:true},
+  {id:'city_roads',     label:'Streets',        color:[0.42,0.42,0.42], on:true},
+  {id:'terrain',        label:'Terrain',        color:[0.72,0.70,0.61], on:true},
   {id:'sea',            label:'Haifa Bay',      color:[0.44,0.57,0.66], on:true},
-  {id:'context_existing_tower', label:'Government tower', color:[0.70,0.72,0.75], on:true},
-  {id:'context_podium', label:'Existing plaza', color:[0.74,0.76,0.78], on:true},
-  {id:'context_mast',   label:'Mast',  color:[0.62,0.64,0.67], on:true, hidden:true},
-  {id:'site',           label:'Plot',           color:[0.80,0.81,0.78], on:true}
+  {id:'plot_plate',     label:'Plot',           color:[0.80,0.79,0.75], on:true, hidden:true}
 ];
+const SLAVES = {
+  new_glass:['new_roof','new_bands'],
+  landscape_terraces:['trees'],
+  deck_structure:['deck_top'],
+  sail_glass:['sail_bands','sail_sails','sail_mast']
+};
 
 function buildLayer(idx){
   const tri = DATA.groups[idx] || [];
@@ -475,7 +488,7 @@ function setHot(lv){
 /* -------------------------------------------------------------- camera */
 // Frame on the new building, not on 3.6 km of terrain.
 let lo=[1e9,1e9,1e9], hi=[-1e9,-1e9,-1e9];
-const tri0 = DATA.groups['new_tower']||[];
+const tri0 = DATA.groups['new_glass']||[];
 for(const idx of tri0) for(let k=0;k<3;k++){
   const c=V[idx*3+k]; lo[k]=Math.min(lo[k],c); hi[k]=Math.max(hi[k],c); }
 const CTR=[(lo[0]+hi[0])/2,(lo[1]+hi[1])/2,(lo[2]+hi[2])/2];
@@ -488,14 +501,13 @@ for(let i=0;i<V.length;i+=3)
 // Plan and elevation are shot long-lens so they read as orthographic
 // drawings rather than perspectives; distance compensates for the narrow fov.
 const VIEWS = {
-  axo:     {yaw:-118, pitch:16, dist: 3.3, tgt: 0.05, fov:38},
-  aerial:  {yaw:-152, pitch:42, dist: 3.5, tgt: 0.05, fov:38},
-  plan:    {yaw:-146, pitch:88, dist: 8.0, tgt: 0.00, fov:13},
-  elev:    {yaw: -56, pitch: 2, dist: 8.6, tgt: 0.02, fov:13},
-  street:  {yaw:  42, pitch: 6, dist: 2.4, tgt:-0.10, fov:42},
-  district:{yaw:-160, pitch:30, dist:11.0, tgt: 0.50, fov:38},
-  // keep the camera inside the 3.6 km terrain tile, or its edge shows
-  bay:     {yaw:  72, pitch: 8, dist:16.5, tgt: 1.05, fov:30}
+  axo:     {yaw: -38, pitch:17, dist: 2.9, tgt: 0.05, fov:38},
+  aerial:  {yaw: -95, pitch:44, dist: 3.2, tgt: 0.05, fov:38},
+  plan:    {yaw: -90, pitch:88, dist: 8.0, tgt: 0.00, fov:13},
+  elev:    {yaw:   2, pitch: 3, dist: 8.6, tgt: 0.05, fov:13},
+  street:  {yaw: -65, pitch: 5, dist: 2.2, tgt:-0.08, fov:42},
+  district:{yaw: -55, pitch:30, dist: 9.0, tgt: 0.45, fov:38},
+  bay:     {yaw:  35, pitch: 9, dist:14.0, tgt: 0.90, fov:30}
 };
 let cam = {...VIEWS.axo};
 function eye(){
@@ -718,31 +730,29 @@ document.getElementById('s-patio').innerHTML = fmt(Math.round(meta.patio_sqm))+'
 document.getElementById('b-typ').textContent = meta.typical_floor_h.toFixed(2);
 document.getElementById('b-brg').textContent = meta.bearing_deg;
 document.getElementById('assumption').innerHTML =
-  '<strong>One value still to confirm.</strong> Levels 2–21 are drawn at '+
-  meta.typical_floor_h.toFixed(2)+' m floor-to-floor. The brief says “same as a '+
-  'typical floor in the Sail Tower” without giving a number; this is that tower’s '+
-  'published 95 m roof over 29 storeys, less a 5 m lobby. Change '+
-  '<code>TYPICAL_FLOOR_H</code> and every level above moves with it — areas are '+
-  'unaffected.';
+  '<strong>Two values still to confirm.</strong> The existing plaza deck is '+
+  'modelled '+meta.deck_h.toFixed(0)+' m above the new building\u2019s grade '+
+  '(\u201ca few storeys with a garden on top\u201d \u2014 no level was given), '+
+  'and levels 2\u201321 are drawn at '+meta.typical_floor_h.toFixed(2)+' m, '+
+  'derived from the Sail Tower\u2019s published 95 m over 29 storeys. Both are '+
+  'single constants in the build script.';
 
 if(meta.city_buildings){
   document.getElementById('b-city').textContent =
     `${fmt(meta.city_buildings)} building footprints and ${meta.city_roads} streets `+
-    `within ${meta.city_radius_m} m of the site, on SRTM terrain running from the `+
-    `bay up to +${meta.carmel_m} m on Mount Carmel.`;
+    `within ${meta.city_radius_m} m, on SRTM terrain rising to +${Math.round(meta.carmel_m)} m `+
+    `on Mount Carmel. The tender plot itself is cleared.`;
   document.getElementById('b-asl').textContent = meta.site_asl;
   document.getElementById('b-assumed').textContent =
     `${fmt(meta.heights_assumed)} of ${fmt(meta.city_buildings)}`;
   document.getElementById('b-north').innerHTML =
-    'The model is georeferenced, so +Y in the scene is <strong>true north</strong> '+
-    'and the needle is projected through the same matrix that draws the geometry. '+
+    'The model is georeferenced: +Y in the scene is <strong>true north</strong>, and '+
+    'the needle is projected through the same matrix that draws the geometry. '+
     (meta.declination != null
-      ? `The dashed needle is magnetic north: declination ${meta.declination}°E at `+
-        `this location (NOAA WMM, ${meta.declination_date}), so a hand compass here `+
-        `reads about ${Math.abs(meta.declination)}° off the drawing's north.`
-      : 'Magnetic declination was not available.') +
-    ' Grid north on the Israeli ITM grid sits within about 7′ of true north here, '+
-    'so the two are interchangeable at this scale.';
+      ? `The dashed needle is magnetic north \u2014 declination ${meta.declination}\u00b0E `+
+        `(NOAA WMM, ${meta.declination_date}).`
+      : '') +
+    ' Grid north on the Israeli ITM grid sits within about 7\u2032 of true north here.';
 }
 
 const maxA = Math.max(...sched.map(r=>r.target_sqm));
@@ -786,13 +796,14 @@ function tog(label, on, fn, swatch){
   togsEl.appendChild(b);
 }
 const css = a => `rgb(${a.map(c=>Math.round(c*255)).join(',')})`;
-const MASTS = {sail_tower:'sail_mast', context_existing_tower:'context_mast'};
 for(const L of LAYERS){
-  if(L.hidden || !L.count) continue;          // schematic groups are empty in city mode
+  if(L.hidden || !L.count) continue;
   tog(L.label, L.on, v=>{
     L.on = v;
-    const mast = MASTS[L.id] && LAYERS.find(x=>x.id===MASTS[L.id]);
-    if(mast) mast.on = v;
+    for(const sid of (SLAVES[L.id]||[])){
+      const sl = LAYERS.find(x=>x.id===sid);
+      if(sl) sl.on = v;
+    }
   }, css(L.color));
 }
 tog('Slab lines', true, v=>{showLines=v;});

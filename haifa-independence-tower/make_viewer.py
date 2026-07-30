@@ -11,7 +11,7 @@ OUT = os.path.join(HERE, "out")
 
 with open(os.path.join(HERE, "viewer_template.html"), encoding="utf-8") as fh:
     tpl = fh.read()
-with open(os.path.join(OUT, "mesh.json"), encoding="utf-8") as fh:
+with open(os.path.join(OUT, "mesh_lite.json"), encoding="utf-8") as fh:
     mesh = fh.read()
 
 assert "__MESH_JSON__" in tpl, "template lost its geometry placeholder"

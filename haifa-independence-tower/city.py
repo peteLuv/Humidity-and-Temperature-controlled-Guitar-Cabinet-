@@ -208,7 +208,7 @@ def _height(tags):
     return DEFAULT_LEVELS * LEVEL_H, "assumed"
 
 
-def add_buildings(m, proj, terr, skip_ids=(), radius=900.0):
+def add_buildings(m, proj, terr, skip_ids=(), radius=900.0, exclude_poly=None):
     data = _load("osm_buildings.json")
     m.group("city_buildings")
     stats = {"height tag": 0, "levels tag": 0, "assumed": 0}
@@ -226,6 +226,10 @@ def add_buildings(m, proj, terr, skip_ids=(), radius=900.0):
         cy = sum(p[1] for p in ring) / len(ring)
         if math.hypot(cx, cy) > radius:
             continue
+        if exclude_poly is not None:
+            from shapely.geometry import Point as _P
+            if exclude_poly.contains(_P(cx, cy)):
+                continue          # inside the tender plot - site cleared
         h, src = _height(el.get("tags", {}))
         stats[src] += 1
         ground = min(terr.sample(*p) for p in ring)
