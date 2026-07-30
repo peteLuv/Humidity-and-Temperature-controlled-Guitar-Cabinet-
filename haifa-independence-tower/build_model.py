@@ -22,11 +22,14 @@ is authoritative:
 Every ring is resampled by ray-casting from a common centre, so the whole
 building is one clean quad grid -> trivial to loft, triangulate and export.
 
+The result is georeferenced (see city.py): the plot sits on its real bearing
+next to the Sail Tower, on OSM fabric and SRTM terrain, with +Y true north.
+
 Outputs (out/):
-  new_tower.obj / .mtl   new building + schematic context massing
+  new_tower.obj / .mtl   whole scene, grouped by layer
   new_tower.stl          new building only, watertight
   floor_schedule.csv     verification: target vs achieved area, per level
-  preview_*.png          shaded axonometric / plan / elevation views
+  preview_*.png          building views plus two of the site in the city
   mesh.json              geometry for the interactive viewer
 """
 
@@ -52,7 +55,13 @@ OUT = os.path.join(HERE, "out")
 BASEMENT_H = 2.80
 GROUND_H = 5.00
 LEVEL1_H = 5.00
-TYPICAL_H = 3.60  # <-- ASSUMPTION. Change to the measured value and re-run.
+
+# The brief pins the typical storey to the Sail Tower without giving a number.
+# That tower's published figures are a 95 m main roof over 29 storeys; taking a
+# 5 m lobby leaves (95 - 5) / 28 = 3.21 m floor to floor, so 3.20 m is used
+# here. STILL AN ESTIMATE - replace it with the measured value if you have one.
+# Only the level heights depend on it; the floor areas do not.
+TYPICAL_H = 3.20
 
 # --- schematic plan, local metres. +X runs NW -> SE along the plot ---------
 # Convex tapering quadrilateral with a clipped SE tip, traced off the site plan.
@@ -82,8 +91,17 @@ PATIO_BASE = [
 # the tight SE tip and opens toward the NW / the government building.
 ANCHOR_MODE = "se_tip"  # "se_tip" | "nw_edge" | "centroid"
 
-# Plot bearing: long axis runs roughly NW->SE, parallel to Derech HaAtzma'ut.
-SITE_BEARING_DEG = 145.0  # approximate, from the site plan's north arrow
+# Plot bearing: the long axis runs parallel to Derech HaAtzma'ut. Measured at
+# 133.0 deg from the OSM centrelines of the street's long segments, which run
+# 131.8-134.6 deg. (The site plan's north arrow suggested ~138; the street
+# geometry is the better source.)
+SITE_BEARING_DEG = 133.0
+
+# Context: "city" uses the real OSM + SRTM data cached in data/ (terrain, bay,
+# streets, 900 m of built fabric and the Sail Tower on its surveyed footprint).
+# "schematic" falls back to the hand-proportioned stand-in; "none" drops it.
+CONTEXT_MODE = "city"
+CITY_RADIUS_M = 900.0
 
 RING_SAMPLES = 72  # extra uniform samples per ring (polygon corners are exact)
 
@@ -420,19 +438,33 @@ def build():
     for p in tower[0][3]:
         m.vline(p, 0.0, tower[0][2])
 
-    if CONTEXT_ENABLED:
+    if CONTEXT_MODE == "schematic":
         add_context(m, k)
         add_site(m, k)
 
-    m.weld()
-
     # --- world orientation: rotate the plot onto its real bearing ----------
+    # After this the frame is geographic: +X east, +Y true north, +Z up.
     rot = math.radians(90.0 - SITE_BEARING_DEG)
     ca, sa = math.cos(rot), math.sin(rot)
     m.v = [(x * ca - y * sa, x * sa + y * ca, zz) for x, y, zz in m.v]
     m.lines = [(x1 * ca - y1 * sa, x1 * sa + y1 * ca, z1,
                 x2 * ca - y2 * sa, x2 * sa + y2 * ca, z2)
                for x1, y1, z1, x2, y2, z2 in m.lines]
+
+    # --- real surroundings, generated straight into the geographic frame ---
+    city_info = None
+    if CONTEXT_MODE == "city":
+        import city
+        if not city.available():
+            raise SystemExit("no cached context — run fetch_context.py first")
+        # The site plan fixes the plot relative to the Sail Tower, and OSM
+        # fixes the Sail Tower on the globe; composing the two georeferences
+        # the model. CTX_CENTER is that offset, in pre-scale local metres.
+        ax, ay = CTX_CENTER[0] * k, CTX_CENTER[1] * k
+        anchor_world = (ax * ca - ay * sa, ax * sa + ay * ca)
+        city_info = city.build_context(m, anchor_world, CITY_RADIUS_M)
+
+    m.weld()
 
     schedule = []
     for lbl, zb, zt, ring, tgt, s in R_tower:
@@ -455,9 +487,18 @@ def build():
     worst = max(abs(r["error_sqm"]) for r in schedule)
     print(f"worst area error ....... {worst:.2f} m2")
 
+    if city_info:
+        s = city_info["height_sources"]
+        print(f"city context ........... {city_info['buildings']:,} buildings "
+              f"({s['height tag']} measured, {s['levels tag']} by storeys, "
+              f"{s['assumed']} assumed), {city_info['roads']} streets")
+        print(f"terrain ................ site +{city_info['site_asl']} m ASL, "
+              f"Carmel to +{city_info['terrain_max']:.0f} m")
+
     return dict(mesh=m, schedule=schedule, z_roof=z_roof,
                 z_base_bottom=z_base_bottom, above_total=sum(areas[l] for l in uppers),
-                below_total=sum(areas[l] for l in basements), k=k, patio_area=a_pat)
+                below_total=sum(areas[l] for l in basements), k=k, patio_area=a_pat,
+                city=city_info)
 
 
 def add_context(m, k):
@@ -638,16 +679,25 @@ def write_mesh_json(m, path, meta, schedule):
 # 6. PREVIEW RENDERS
 # --------------------------------------------------------------------------
 
+def V(f, elev, azim, title, span, zc=None, zs=1.0):
+    """span = half-width framed, zc = height at frame centre, zs = vertical
+    squash (city views are wide and shallow, so a cube wastes the canvas)."""
+    return dict(f=f, elev=elev, azim=azim, title=title, span=span, zc=zc, zs=zs)
+
+
 VIEWS = [
-    # file, elev, azim, title
-    ("preview_axo_a.png", 25, 200,
-     "Axonometric — raked NW end and the long SW facade"),
-    ("preview_axo_b.png", 40, 235,
-     "Aerial three-quarter — roof, patio void and the government tower"),
-    ("preview_plan.png", 90, 125,
-     "Roof plan — tapering plate with the patio void through it"),
-    ("preview_elevation.png", 1, 215,
-     "Elevation across the plot — compare with the section"),
+    V("preview_axo_a.png", 25, 200,
+      "Axonometric — raked NW end and the long SW facade", 95),
+    V("preview_axo_b.png", 40, 235,
+      "Aerial three-quarter — roof, patio void and the Sail Tower", 105),
+    V("preview_plan.png", 90, 133,
+      "Roof plan — tapering plate with the patio void through it", 85),
+    V("preview_elevation.png", 1, 223,
+      "Elevation across the plot — compare with the section", 100),
+    V("preview_city_aerial.png", 24, 250,
+      "The site in the Lower City, Mount Carmel rising behind", 640, 105, 0.34),
+    V("preview_city_bay.png", 7, 18,
+      "From Haifa Bay — the site against the Carmel ridge", 680, 100, 0.30),
 ]
 
 
@@ -689,7 +739,12 @@ def render(m, meta, views=VIEWS, prefix=""):
     # One collection for everything: matplotlib sorts each collection
     # independently, so separate layers interleave wrongly at a shared depth.
     layers = [
+        (["sea"], (0.50, 0.62, 0.70), (0, 0, 0, 0.0), 0.0),
+        (["terrain"], (0.76, 0.75, 0.66), (0, 0, 0, 0.0), 0.0),
+        (["city_roads"], (0.56, 0.56, 0.55), (0, 0, 0, 0.0), 0.0),
         (["site"], (0.91, 0.91, 0.89), (0, 0, 0, 0.05), 0.10),
+        (["city_buildings"], (0.82, 0.81, 0.77), (0, 0, 0, 0.14), 0.10),
+        (["sail_tower", "sail_mast"], (0.88, 0.89, 0.91), (0, 0, 0, 0.16), 0.12),
         ([n for n in m.groups if n.startswith("context")], (0.87, 0.87, 0.90),
          (0, 0, 0, 0.10), 0.15),
         (["new_tower_basement"], (0.80, 0.70, 0.34), (0.30, 0.24, 0.05, 0.25), 0.18),
@@ -703,11 +758,13 @@ def render(m, meta, views=VIEWS, prefix=""):
         all_e += [(*edge[:3], 0.0) if fl else edge for fl in flat]
         all_w += [0.0 if fl else lw for fl in flat]
 
-    lo, hi = v.min(axis=0), v.max(axis=0)
-    ctr = (lo + hi) / 2
-    span = float((hi - lo).max()) / 2 * 1.02
+    # Frame on the new building, not the whole 3.6 km of terrain.
+    tv = np.array([v[i] for f in m.groups["new_tower"] for i in f])
+    focus = (tv.min(axis=0) + tv.max(axis=0)) / 2
 
-    for fname, elev, azim, title in views:
+    for vw in views:
+        fname, elev, azim = vw["f"], vw["elev"], vw["azim"]
+        title, span, zs = vw["title"], vw["span"], vw["zs"]
         fig = plt.figure(figsize=(11, 8.5), dpi=135)
         ax = fig.add_subplot(111, projection="3d")
         try:
@@ -717,10 +774,11 @@ def render(m, meta, views=VIEWS, prefix=""):
         ax.add_collection3d(Poly3DCollection(
             all_p, facecolors=all_c, edgecolors=all_e,
             linewidths=all_w, zsort="average"))
-        ax.set_xlim(ctr[0] - span, ctr[0] + span)
-        ax.set_ylim(ctr[1] - span, ctr[1] + span)
-        ax.set_zlim(min(0.0, lo[2]), ctr[2] + span)
-        ax.set_box_aspect((1, 1, 1))
+        cz = focus[2] if vw["zc"] is None else vw["zc"]
+        ax.set_xlim(focus[0] - span, focus[0] + span)
+        ax.set_ylim(focus[1] - span, focus[1] + span)
+        ax.set_zlim(cz - span * zs, cz + span * zs)
+        ax.set_box_aspect((1, 1, zs))
         ax.view_init(elev=elev, azim=azim)
         ax.set_axis_off()
         ax.set_title(
@@ -745,7 +803,19 @@ def main():
     meta = dict(roof_m=r["z_roof"], lowest_m=r["z_base_bottom"],
                 above_sqm=r["above_total"], below_sqm=r["below_total"],
                 storeys=22, basements=5, patio_sqm=round(r["patio_area"], 1),
-                typical_floor_h=TYPICAL_H, bearing_deg=SITE_BEARING_DEG)
+                typical_floor_h=TYPICAL_H, bearing_deg=SITE_BEARING_DEG,
+                context_mode=CONTEXT_MODE)
+    c = r.get("city")
+    if c:
+        meta.update(
+            site_asl=c["site_asl"], carmel_m=c["terrain_max"],
+            city_buildings=c["buildings"], city_roads=c["roads"],
+            heights_assumed=c["height_sources"]["assumed"],
+            declination=(c["declination"] or {}).get("declination_deg"),
+            declination_date=(c["declination"] or {}).get("date"),
+            city_radius_m=CITY_RADIUS_M,
+            anchor=[__import__("city").ANCHOR_LAT, __import__("city").ANCHOR_LON],
+            sail=c["sail"])
 
     write_obj(m, os.path.join(OUT, "new_tower.obj"))
     ntri = write_stl(m, os.path.join(OUT, "new_tower.stl"),

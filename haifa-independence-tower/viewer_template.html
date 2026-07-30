@@ -6,7 +6,7 @@
   --ink:#141920; --ink-2:#5A6470; --ink-3:#8A939E;
   --rule:#D3D8D2; --rule-2:#E3E7E2;
   --accent:#B8860F; --accent-fill:#E6B32E; --accent-soft:#F6E8BF;
-  --ctx:#9AA1A8;
+  --ctx:#9AA1A8; --north:#B23A22;
   --scene:#E4E7E2;
   --shadow:0 1px 2px rgba(20,25,32,.06),0 8px 24px rgba(20,25,32,.07);
 }
@@ -16,7 +16,7 @@
     --ink:#E8EBEE; --ink-2:#9AA4B0; --ink-3:#6D7885;
     --rule:#28313C; --rule-2:#1F2731;
     --accent:#F0C34A; --accent-fill:#E8B62F; --accent-soft:#3A3116;
-    --ctx:#79818B;
+    --ctx:#79818B; --north:#EE7A54;
     --scene:#0B0F14;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
   }
@@ -26,7 +26,7 @@
   --ink:#141920; --ink-2:#5A6470; --ink-3:#8A939E;
   --rule:#D3D8D2; --rule-2:#E3E7E2;
   --accent:#B8860F; --accent-fill:#E6B32E; --accent-soft:#F6E8BF;
-  --ctx:#9AA1A8; --scene:#E4E7E2;
+  --ctx:#9AA1A8; --north:#B23A22; --scene:#E4E7E2;
   --shadow:0 1px 2px rgba(20,25,32,.06),0 8px 24px rgba(20,25,32,.07);
 }
 :root[data-theme="dark"]{
@@ -34,7 +34,7 @@
   --ink:#E8EBEE; --ink-2:#9AA4B0; --ink-3:#6D7885;
   --rule:#28313C; --rule-2:#1F2731;
   --accent:#F0C34A; --accent-fill:#E8B62F; --accent-soft:#3A3116;
-  --ctx:#79818B; --scene:#0B0F14;
+  --ctx:#79818B; --north:#EE7A54; --scene:#0B0F14;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
 }
 
@@ -75,8 +75,25 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
 .viewbar button:focus-visible,.tog:focus-visible,.row:focus-visible,
 #tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-.compass{position:absolute;right:16px;bottom:16px;width:54px;height:54px;
-  pointer-events:none;opacity:.85}
+/* compass + scale bar: the drawing-sheet instruments, bottom right */
+.instrument{position:absolute;right:14px;bottom:12px;display:flex;
+  align-items:flex-end;gap:10px;pointer-events:none;color:var(--ink-2);
+  padding:8px 12px 6px;border-radius:3px;
+  background:color-mix(in srgb, var(--surface) 78%, transparent);
+  border:1px solid color-mix(in srgb, var(--rule) 60%, transparent);
+  backdrop-filter:blur(3px)}
+.compass{width:74px;height:74px;overflow:visible}
+.compass .card{font-family:var(--mono);font-size:10px;fill:currentColor;
+  opacity:.55;letter-spacing:.04em}
+.readout{text-align:right;font-family:var(--mono);font-size:9px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+  padding-bottom:6px}
+.scalebar{display:flex;align-items:center;gap:6px;justify-content:flex-end;
+  margin-bottom:4px}
+.scalebar i{display:block;height:6px;border:1px solid currentColor;
+  border-top:0;min-width:12px;opacity:.6}
+#northnote,#scalenote{white-space:nowrap}
+#scalenote{opacity:.7;margin-bottom:3px}
 
 /* ---------- title block ---------- */
 #panel{background:var(--surface);border-left:1px solid var(--rule);
@@ -195,25 +212,50 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
       <button data-view="plan" aria-pressed="false">Plan</button>
       <button data-view="elev" aria-pressed="false">Elevation</button>
       <button data-view="street" aria-pressed="false">Street</button>
+      <button data-view="district" aria-pressed="false">District</button>
+      <button data-view="bay" aria-pressed="false">Bay</button>
     </div>
-    <svg class="compass" viewBox="0 0 100 100" aria-hidden="true">
-      <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor"
-              stroke-opacity=".22" stroke-width="1.5"/>
-      <g id="needle">
-        <path d="M50 10 L58 52 L50 46 L42 52 Z" fill="currentColor" opacity=".55"/>
-      </g>
-      <text x="50" y="90" text-anchor="middle" font-size="15"
-            font-family="ui-monospace,monospace" fill="currentColor"
-            opacity=".5">N</text>
-    </svg>
+
+    <div class="instrument">
+      <svg class="compass" viewBox="0 0 120 120" role="img"
+           aria-label="Compass showing true north">
+        <g id="rose">
+          <circle cx="60" cy="60" r="47" fill="none" stroke="currentColor"
+                  stroke-opacity=".18" stroke-width="1"/>
+          <circle cx="60" cy="60" r="38" fill="none" stroke="currentColor"
+                  stroke-opacity=".10" stroke-width="1"/>
+          <g id="ticks"></g>
+          <!-- magnetic north, offset by the WMM declination -->
+          <g id="magneedle">
+            <path d="M60 22 L60 60" stroke="currentColor" stroke-opacity=".45"
+                  stroke-width="1.4" stroke-dasharray="3 2.5"/>
+            <circle cx="60" cy="21" r="2.2" fill="none" stroke="currentColor"
+                    stroke-opacity=".5" stroke-width="1.2"/>
+          </g>
+          <!-- true north -->
+          <path d="M60 13 L67.5 62 L60 56 L52.5 62 Z" fill="var(--north)"/>
+          <path d="M60 107 L67.5 58 L60 64 L52.5 58 Z" fill="currentColor"
+                opacity=".28"/>
+          <text class="card" x="60" y="9"   text-anchor="middle">N</text>
+          <text class="card" x="112" y="63" text-anchor="middle">E</text>
+          <text class="card" x="60" y="118" text-anchor="middle">S</text>
+          <text class="card" x="8" y="63"   text-anchor="middle">W</text>
+        </g>
+      </svg>
+      <div class="readout">
+        <div class="scalebar"><i id="scaleline"></i><span id="scaletxt">—</span></div>
+        <div id="scalenote">at the site</div>
+        <div id="northnote">true north</div>
+      </div>
+    </div>
   </div>
 
   <aside id="panel">
     <div class="tb">
       <div class="eyebrow">Alternative 2 · 22 storeys</div>
       <h1>Patio building, Derech HaAtzma'ut</h1>
-      <p class="sub">Massing generated from the floor-area schedule, next to the
-         existing government tower.</p>
+      <p class="sub">Massing generated from the floor-area schedule, set in the
+         real Lower City: OSM fabric on SRTM terrain, true north.</p>
     </div>
 
     <dl class="stats">
@@ -260,13 +302,36 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
           <li>Levels 2–21 at <code id="b-typ"></code> m</li>
           <li>Patio open from grade through the roof, constant in plan</li>
         </ul>
+        <h2>The neighbour</h2>
+        <p>The tower next door is the <strong>Sail Tower</strong> (מגדל המפרש),
+           Building B of the Rabin Government Complex on Derech HaAtzma'ut, and
+           the building the brief calls בניין הטיל. Amer–Curiel Architects,
+           1999–2002: 29 storeys, main roof at 95 m, sail tips at 113 m, antenna
+           at 137 m. It is modelled on its surveyed OSM footprint at those
+           published heights.</p>
+        <h2>Surroundings</h2>
+        <p id="b-city">—</p>
+        <ul>
+          <li>Buildings, streets and the shoreline: OpenStreetMap (ODbL).</li>
+          <li>Terrain: SRTM 30 m, sampled on a <code>50 m</code> grid — enough for
+              the Carmel slope, too coarse for individual port quays.</li>
+          <li>Heights are shown relative to grade at the site, which SRTM puts at
+              <code id="b-asl"></code> m above sea level.</li>
+        </ul>
+        <h2>The compass</h2>
+        <p id="b-north">—</p>
         <h2>Read with care</h2>
         <ul>
-          <li>Plan proportions and the plot bearing (<code id="b-brg"></code>°) are
-              scaled off the sketches, not surveyed.</li>
+          <li>The plot bearing is <code id="b-brg"></code>°, measured from the OSM
+              centrelines of Derech HaAtzma'ut. Plan proportions still come from
+              the sketches, not from a survey.</li>
+          <li>The plot's position is fixed relative to the Sail Tower as drawn on
+              the client's site plan; OSM then fixes the Sail Tower on the globe.</li>
+          <li><span id="b-assumed">Most</span> context buildings have no height in
+              OSM and are drawn at an assumed 4 storeys — indicative fabric, not
+              survey.</li>
           <li>Basements are shown as one plate enlarged about the tower centroid;
               in reality they would run asymmetrically under the plaza.</li>
-          <li>The grey tower and its podium are schematic context only.</li>
         </ul>
       </div>
     </div>
@@ -350,9 +415,16 @@ const LAYERS = [
   // -0.15 m purely to avoid z-fighting with the podium deck.
   {id:'new_tower_basement', label:'Basements',  color:[0.72,0.60,0.30], on:true,
    fade:true},
+  {id:'sail_tower',     label:'Sail Tower',     color:[0.86,0.87,0.90], on:true},
+  {id:'sail_mast',      label:'Sail Tower mast',color:[0.60,0.62,0.66], on:true,
+   hidden:true},
+  {id:'city_buildings', label:'City fabric',    color:[0.80,0.79,0.75], on:true},
+  {id:'city_roads',     label:'Streets',        color:[0.55,0.55,0.54], on:true},
+  {id:'terrain',        label:'Terrain',        color:[0.74,0.73,0.64], on:true},
+  {id:'sea',            label:'Haifa Bay',      color:[0.44,0.57,0.66], on:true},
   {id:'context_existing_tower', label:'Government tower', color:[0.70,0.72,0.75], on:true},
   {id:'context_podium', label:'Existing plaza', color:[0.74,0.76,0.78], on:true},
-  {id:'context_mast',   label:'Mast',           color:[0.62,0.64,0.67], on:true},
+  {id:'context_mast',   label:'Mast',  color:[0.62,0.64,0.67], on:true, hidden:true},
   {id:'site',           label:'Plot',           color:[0.80,0.81,0.78], on:true}
 ];
 
@@ -400,20 +472,29 @@ function setHot(lv){
 }
 
 /* -------------------------------------------------------------- camera */
+// Frame on the new building, not on 3.6 km of terrain.
 let lo=[1e9,1e9,1e9], hi=[-1e9,-1e9,-1e9];
-for(let i=0;i<V.length;i+=3) for(let k=0;k<3;k++){
-  lo[k]=Math.min(lo[k],V[i+k]); hi[k]=Math.max(hi[k],V[i+k]); }
+const tri0 = DATA.groups['new_tower']||[];
+for(const idx of tri0) for(let k=0;k<3;k++){
+  const c=V[idx*3+k]; lo[k]=Math.min(lo[k],c); hi[k]=Math.max(hi[k],c); }
 const CTR=[(lo[0]+hi[0])/2,(lo[1]+hi[1])/2,(lo[2]+hi[2])/2];
 const RAD=Math.hypot(hi[0]-lo[0],hi[1]-lo[1],hi[2]-lo[2])/2;
+// how far the scene as a whole reaches, for the far clip plane
+let SCENE_RAD=RAD;
+for(let i=0;i<V.length;i+=3)
+  SCENE_RAD=Math.max(SCENE_RAD, Math.hypot(V[i]-CTR[0], V[i+1]-CTR[1], V[i+2]-CTR[2]));
 
 // Plan and elevation are shot long-lens so they read as orthographic
 // drawings rather than perspectives; distance compensates for the narrow fov.
 const VIEWS = {
-  axo:    {yaw:-118, pitch:16, dist:2.45, tgt:0.05, fov:38},
-  aerial: {yaw:-152, pitch:42, dist:2.55, tgt:0.05, fov:38},
-  plan:   {yaw:-125, pitch:88, dist:6.20, tgt:0.00, fov:13},
-  elev:   {yaw: -35, pitch: 2, dist:6.80, tgt:0.02, fov:13},
-  street: {yaw:  62, pitch: 6, dist:1.85, tgt:-0.10, fov:42}
+  axo:     {yaw:-118, pitch:16, dist: 2.6, tgt: 0.05, fov:38},
+  aerial:  {yaw:-152, pitch:42, dist: 2.7, tgt: 0.05, fov:38},
+  plan:    {yaw:-133, pitch:88, dist: 6.6, tgt: 0.00, fov:13},
+  elev:    {yaw: -43, pitch: 2, dist: 7.2, tgt: 0.02, fov:13},
+  street:  {yaw:  55, pitch: 6, dist: 1.9, tgt:-0.10, fov:42},
+  district:{yaw:-160, pitch:30, dist:11.0, tgt: 0.50, fov:38},
+  // keep the camera inside the 3.6 km terrain tile, or its edge shows
+  bay:     {yaw:  72, pitch: 8, dist:16.5, tgt: 1.05, fov:30}
 };
 let cam = {...VIEWS.axo};
 function eye(){
@@ -452,8 +533,11 @@ function draw(){
   gl.enable(gl.DEPTH_TEST);
   gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
 
+  // Clip planes follow the whole scene, not the building: the terrain runs
+  // 1.8 km out, so a far plane sized off the tower punches holes in the bay.
+  const dist = cam.dist * RAD;
   const proj = M4.persp((cam.fov||38)*Math.PI/180, cv.width/cv.height,
-                        RAD*0.05, RAD*40);
+                        Math.max(0.5, dist*0.004), dist + SCENE_RAD*2.2);
   const view = M4.look(eye(), target(), [0,0,1]);
   const mvp  = M4.mul(proj, view);
 
@@ -494,11 +578,86 @@ function draw(){
       gl.enable(gl.DEPTH_TEST);
     }
   }
-  document.getElementById('needle').style.transform =
-    `rotate(${-cam.yaw-90}deg)`;
-  document.getElementById('needle').style.transformOrigin = '50px 50px';
+  updateInstruments(mvp);
 }
 let showLines = true;
+
+/* ------------------------------------------------- compass + scale bar */
+// The model is georeferenced: +Y is true north, +X is east. Rather than
+// re-deriving the screen angle from yaw and pitch, push the north vector
+// through the same matrix the scene was drawn with — then the needle cannot
+// disagree with the geometry.
+function xform(m, v){
+  const o = [0,0,0,0];
+  for(let j=0;j<4;j++){ let s=0; for(let i=0;i<4;i++) s += m[i*4+j]*v[i]; o[j]=s; }
+  return o;
+}
+function screenDir(mvp, base, d){
+  const a = xform(mvp, [base[0], base[1], base[2], 1]);
+  const b = xform(mvp, [base[0]+d[0], base[1]+d[1], base[2]+d[2], 1]);
+  if(Math.abs(a[3]) < 1e-9 || Math.abs(b[3]) < 1e-9) return null;
+  return [b[0]/b[3] - a[0]/a[3], b[1]/b[3] - a[1]/a[3]];  // NDC, +y up
+}
+const DECL = DATA.meta.declination;          // degrees east, NOAA WMM
+const NICE = [10,20,25,50,100,200,250,500,1000,2000];
+
+function updateInstruments(mvp){
+  const t = target();
+  const nd = screenDir(mvp, t, [0, 100, 0]);
+  if(nd){
+    const deg = Math.atan2(nd[0], nd[1]) * 180/Math.PI;   // clockwise from up
+    const rose = document.getElementById('rose');
+    rose.style.transformOrigin = '60px 60px';
+    rose.style.transform = `rotate(${deg.toFixed(2)}deg)`;
+    // Cardinals ride the rose, so counter-rotate them to stay upright.
+    for(const el of rose.querySelectorAll('.card')){
+      const x = el.getAttribute('x'), y = el.getAttribute('y');
+      el.style.transformOrigin = `${x}px ${parseFloat(y)-3.5}px`;
+      el.style.transform = `rotate(${(-deg).toFixed(2)}deg)`;
+    }
+  }
+  // scale bar: measure how many pixels 100 m of true east spans on screen
+  const ed = screenDir(mvp, t, [100, 0, 0]);
+  if(ed){
+    const pxPer100 = Math.hypot(ed[0]*cv.clientWidth/2, ed[1]*cv.clientHeight/2);
+    if(pxPer100 > 0.01){
+      const target_px = 78;
+      let best = NICE[0];
+      for(const n of NICE)
+        if(Math.abs(n/100*pxPer100 - target_px) <
+           Math.abs(best/100*pxPer100 - target_px)) best = n;
+      const w = best/100*pxPer100;
+      document.getElementById('scaleline').style.width = w.toFixed(0)+'px';
+      document.getElementById('scaletxt').textContent =
+        best >= 1000 ? (best/1000)+' km' : best+' m';
+    }
+  }
+}
+
+// degree ticks, every 15 deg with the cardinals longer
+(function(){
+  const g = document.getElementById('ticks');
+  let s = '';
+  for(let a=0;a<360;a+=15){
+    const r0 = (a%90===0) ? 39 : 43.5, r1 = 47;
+    const rad = a*Math.PI/180;
+    const x0 = 60 + r0*Math.sin(rad), y0 = 60 - r0*Math.cos(rad);
+    const x1 = 60 + r1*Math.sin(rad), y1 = 60 - r1*Math.cos(rad);
+    s += `<line x1="${x0.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x1.toFixed(1)}"`
+       + ` y2="${y1.toFixed(1)}" stroke="currentColor" stroke-width="`
+       + (a%90===0?'1.3':'0.7') + `" stroke-opacity="${a%90===0?0.45:0.22}"/>`;
+  }
+  g.innerHTML = s;
+  if(DECL != null){
+    const mn = document.getElementById('magneedle');
+    mn.style.transformOrigin = '60px 60px';
+    mn.style.transform = `rotate(${DECL}deg)`;
+    document.getElementById('northnote').innerHTML =
+      `true north · mag ${DECL > 0 ? DECL+'°E' : (-DECL)+'°W'}`;
+  } else {
+    document.getElementById('magneedle').remove();
+  }
+})();
 
 /* ------------------------------------------------------------ interaction */
 let drag=null;
@@ -559,10 +718,31 @@ document.getElementById('b-typ').textContent = meta.typical_floor_h.toFixed(2);
 document.getElementById('b-brg').textContent = meta.bearing_deg;
 document.getElementById('assumption').innerHTML =
   '<strong>One value still to confirm.</strong> Levels 2–21 are drawn at '+
-  meta.typical_floor_h.toFixed(2)+' m floor-to-floor — the note says “same as a '+
-  'typical floor in the government tower”, which was not given as a number. '+
-  'Change <code>TYPICAL_FLOOR_H</code> in the build script and every level above '+
-  'moves with it; areas are unaffected.';
+  meta.typical_floor_h.toFixed(2)+' m floor-to-floor. The brief says “same as a '+
+  'typical floor in the Sail Tower” without giving a number; this is that tower’s '+
+  'published 95 m roof over 29 storeys, less a 5 m lobby. Change '+
+  '<code>TYPICAL_FLOOR_H</code> and every level above moves with it — areas are '+
+  'unaffected.';
+
+if(meta.city_buildings){
+  document.getElementById('b-city').textContent =
+    `${fmt(meta.city_buildings)} building footprints and ${meta.city_roads} streets `+
+    `within ${meta.city_radius_m} m of the site, on SRTM terrain running from the `+
+    `bay up to +${meta.carmel_m} m on Mount Carmel.`;
+  document.getElementById('b-asl').textContent = meta.site_asl;
+  document.getElementById('b-assumed').textContent =
+    `${fmt(meta.heights_assumed)} of ${fmt(meta.city_buildings)}`;
+  document.getElementById('b-north').innerHTML =
+    'The model is georeferenced, so +Y in the scene is <strong>true north</strong> '+
+    'and the needle is projected through the same matrix that draws the geometry. '+
+    (meta.declination != null
+      ? `The dashed needle is magnetic north: declination ${meta.declination}°E at `+
+        `this location (NOAA WMM, ${meta.declination_date}), so a hand compass here `+
+        `reads about ${Math.abs(meta.declination)}° off the drawing's north.`
+      : 'Magnetic declination was not available.') +
+    ' Grid north on the Israeli ITM grid sits within about 7′ of true north here, '+
+    'so the two are interchangeable at this scale.';
+}
 
 const maxA = Math.max(...sched.map(r=>r.target_sqm));
 const rowsEl = document.getElementById('rows');
@@ -605,10 +785,14 @@ function tog(label, on, fn, swatch){
   togsEl.appendChild(b);
 }
 const css = a => `rgb(${a.map(c=>Math.round(c*255)).join(',')})`;
+const MASTS = {sail_tower:'sail_mast', context_existing_tower:'context_mast'};
 for(const L of LAYERS){
-  if(L.id==='context_mast') continue;
-  tog(L.label, L.on, v=>{ L.on=v; if(L.id==='context_existing_tower')
-    LAYERS.find(x=>x.id==='context_mast').on=v; }, css(L.color));
+  if(L.hidden || !L.count) continue;          // schematic groups are empty in city mode
+  tog(L.label, L.on, v=>{
+    L.on = v;
+    const mast = MASTS[L.id] && LAYERS.find(x=>x.id===MASTS[L.id]);
+    if(mast) mast.on = v;
+  }, css(L.color));
 }
 tog('Slab lines', true, v=>{showLines=v;});
 
