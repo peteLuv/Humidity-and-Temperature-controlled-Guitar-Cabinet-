@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 1520" font-family="'Segoe UI',Arial,sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#c0392b"/></marker>
+    <marker id="dm" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#34495e"/></marker>
+  </defs>
+  <style>
+    .maple{fill:#f2dfae;stroke:#8a6b30;stroke-width:1.6;}
+    .maple2{fill:#e8d09a;stroke:#8a6b30;stroke-width:1.6;}
+    .ply{fill:#e9d8b8;stroke:#5a4632;stroke-width:1.4;}
+    .glass{fill:#cfe8f5;stroke:#3a86a8;stroke-width:1.2;opacity:0.45;}
+    .metal{fill:#3b4045;stroke:#22262a;stroke-width:1.4;}
+    .insert{fill:#c9a227;stroke:#7a6210;stroke-width:1.4;}
+    .blk{fill:#d9b98c;stroke:#7a5a2e;stroke-width:1.4;}
+    .h1{fill:#8a4b2f;font-size:21px;font-weight:bold;}
+    .ttl{fill:#2c3e50;font-size:15px;font-weight:bold;}
+    .nt{fill:#40515c;font-size:12.5px;}
+    .red{fill:#c0392b;font-size:12.5px;font-weight:bold;}
+    .dim{stroke:#34495e;stroke-width:0.9;}
+    .dl{fill:#34495e;font-size:11.5px;}
+    .ghost{fill:none;stroke:#c0392b;stroke-width:1.4;stroke-dasharray:5 4;}
+  </style>
+
+  <text x="28" y="34" class="h1">Removable center stile — threaded inserts + brackets</text>
+  <text x="28" y="56" class="nt">Anchors to the FACE FRAME: top rail above, wide middle rail below. Registration blocks set the position; screws just hold it there.</text>
+
+  <!-- ============ PANEL A — FRONT VIEW ============ -->
+  <text x="40" y="92" class="ttl">A · Front view — where the two anchor points are</text>
+
+  <rect x="70" y="110" width="380" height="430" fill="#faf6ec" stroke="#8a6b30" stroke-width="1.6"/>
+  <!-- top rail -->
+  <rect x="70" y="110" width="380" height="34" class="maple"/>
+  <text x="260" y="132" text-anchor="middle" class="nt">TOP RAIL</text>
+  <!-- middle rail (wide) -->
+  <rect x="70" y="450" width="380" height="90" class="maple"/>
+  <text x="260" y="500" text-anchor="middle" class="nt">WIDE MIDDLE RAIL (covers the plenum)</text>
+  <!-- side stiles -->
+  <rect x="70" y="110" width="30" height="430" class="maple2"/>
+  <rect x="420" y="110" width="30" height="430" class="maple2"/>
+  <!-- glass openings -->
+  <rect x="110" y="152" width="130" height="290" class="glass"/>
+  <rect x="282" y="152" width="130" height="290" class="glass"/>
+  <!-- center stile -->
+  <rect x="243" y="144" width="34" height="306" class="maple"/>
+  <text x="260" y="300" text-anchor="middle" class="nt" transform="rotate(-90 260 300)">CENTER STILE · 5 cm × 19 mm</text>
+  <!-- ghost brackets -->
+  <rect x="238" y="146" width="44" height="26" class="ghost"/>
+  <rect x="238" y="422" width="44" height="26" class="ghost"/>
+  <text x="500" y="160" class="red">① top anchor</text>
+  <text x="500" y="178" class="nt">bracket behind, into the TOP RAIL</text>
+  <line x1="497" y1="155" x2="286" y2="158" class="dim" marker-end="url(#ar)"/>
+  <text x="500" y="428" class="red">② bottom anchor</text>
+  <text x="500" y="446" class="nt">bracket behind, into the MIDDLE RAIL</text>
+  <line x1="497" y1="424" x2="286" y2="434" class="dim" marker-end="url(#ar)"/>
+
+  <rect x="500" y="210" width="470" height="190" rx="9" fill="#f7fbfd" stroke="#bdd4e0"/>
+  <text x="518" y="238" class="ttl">Two jobs, two parts</text>
+  <text x="518" y="264" class="nt"><tspan class="red">REGISTRATION</tspan> = small wood blocks glued to the rails.</text>
+  <text x="518" y="284" class="nt">The stile end drops into the pocket → it can only sit</text>
+  <text x="518" y="304" class="nt">in ONE place. This is what makes the seal repeatable.</text>
+  <text x="518" y="332" class="nt"><tspan class="red">RETENTION</tspan> = bracket + machine screw into the insert.</text>
+  <text x="518" y="352" class="nt">Stops it lifting or tipping forward. Undo 2 screws</text>
+  <text x="518" y="372" class="nt">(one top, one bottom) and the stile lifts straight out.</text>
+
+  <!-- ============ PANEL B — SECTION DETAIL ============ -->
+  <text x="40" y="600" class="ttl">B · Side section at the TOP end (looking from the side, room on the left)</text>
+
+  <g transform="translate(120,625)">
+    <!-- top rail (cut) -->
+    <rect x="120" y="20" width="60" height="70" class="maple"/>
+    <text x="150" y="12" text-anchor="middle" class="nt">top rail (cut)</text>
+    <!-- carcass top panel behind -->
+    <rect x="180" y="20" width="230" height="36" class="ply"/>
+    <text x="300" y="44" text-anchor="middle" class="nt">carcass top panel (behind the frame)</text>
+    <!-- center stile below -->
+    <rect x="120" y="90" width="60" height="230" class="maple"/>
+    <text x="150" y="220" text-anchor="middle" class="nt" transform="rotate(-90 150 220)">center stile</text>
+    <!-- registration block -->
+    <rect x="180" y="90" width="26" height="40" class="blk"/>
+    <text x="222" y="106" class="red">registration block</text>
+    <text x="222" y="123" class="nt">glued to the rail — stile butts on it</text>
+    <!-- L bracket -->
+    <path d="M180 140 h10 v-40 h14 v54 h-24 z" class="metal"/>
+    <rect x="180" y="140" width="46" height="11" class="metal"/>
+    <text x="248" y="152" class="red">black L-bracket</text>
+    <!-- machine screw into insert -->
+    <rect x="150" y="140" width="34" height="9" class="metal"/>
+    <circle cx="152" cy="144" r="5" class="metal"/>
+    <!-- insert in the stile back face -->
+    <rect x="150" y="134" width="22" height="20" class="insert"/>
+    <text x="248" y="176" class="red">M5 threaded insert — 10 mm long</text>
+    <text x="248" y="194" class="nt">into the stile's BACK face; 9 mm of solid</text>
+    <text x="248" y="212" class="nt">maple stays in front → nothing shows.</text>
+    <!-- thickness dim -->
+    <line x1="112" y1="140" x2="112" y2="320" class="dim"/>
+    <line x1="106" y1="180" x2="118" y2="180" class="dim"/>
+    <text x="60" y="184" class="dl">19 mm thick</text>
+    <!-- front face callout -->
+    <line x1="120" y1="260" x2="70" y2="260" class="dim" marker-end="url(#ar)"/>
+    <text x="-42" y="264" class="dl">FRONT (doors seal here — stays clean)</text>
+  </g>
+
+  <!-- ============ PANEL C — INSERT SIZING ============ -->
+  <text x="40" y="1000" class="ttl">C · Insert sizing — why 10 mm max</text>
+  <g transform="translate(90,1015)">
+    <rect x="40" y="20" width="240" height="90" class="maple"/>
+    <text x="160" y="128" text-anchor="middle" class="nt">stile in section — 19 mm thick</text>
+    <!-- insert from back -->
+    <rect x="200" y="48" width="80" height="34" class="insert"/>
+    <text x="240" y="70" text-anchor="middle" class="nt" font-size="11">M5 × 10</text>
+    <!-- remaining wood -->
+    <line x1="40" y1="140" x2="200" y2="140" class="dim" marker-start="url(#dm)" marker-end="url(#dm)"/>
+    <text x="120" y="158" text-anchor="middle" class="dl">9 mm solid maple left ✓</text>
+    <line x1="200" y1="140" x2="280" y2="140" class="dim" marker-start="url(#dm)" marker-end="url(#dm)"/>
+    <text x="240" y="158" text-anchor="middle" class="dl">10 mm</text>
+    <text x="20" y="16" class="nt">front face ↓</text>
+    <text x="250" y="16" class="nt">back ↓</text>
+  </g>
+  <rect x="440" y="1010" width="530" height="185" rx="9" fill="#fdf6ec" stroke="#e0c48a"/>
+  <text x="458" y="1038" class="ttl">Buy this</text>
+  <text x="458" y="1064" class="nt">• <tspan class="red">M5 × 10 mm hex-drive screw-in threaded inserts</tspan> (4 pcs — 2 needed, 2 spare)</text>
+  <text x="458" y="1086" class="nt">• Matching <tspan class="red">M5 machine screws</tspan>, length = bracket thickness + 8 mm (≈ 12–14 mm)</text>
+  <text x="458" y="1108" class="nt">• 2 black L-brackets / corner braces, ~40 mm legs</text>
+  <text x="458" y="1130" class="nt">• Scrap maple offcut for the test hole</text>
+  <text x="458" y="1158" class="red">Hex-drive, NOT slotted — slotted inserts cam out and split hard maple.</text>
+  <text x="458" y="1180" class="nt">Pilot hole: use the size printed on the insert package (≈ 7 mm for M5) — not a guess.</text>
+
+  <!-- ============ PANEL D — STEPS ============ -->
+  <text x="40" y="1245" class="h1">Step by step</text>
+  <text x="40" y="1276" class="nt"><tspan class="ttl">1.</tspan> Dry-fit the stile, centered. Trace a <tspan class="red">pencil line down both sides of it</tspan> onto the top and middle rails — that's your permanent position reference.</text>
+  <text x="40" y="1300" class="nt"><tspan class="ttl">2.</tspan> Cut 4 small blocks (~20 × 20 × 15 mm). Glue two to the back of the top rail and two to the middle rail, <tspan class="red">just outside your pencil lines</tspan>, so the stile end slides snugly between them.</text>
+  <text x="40" y="1324" class="nt"><tspan class="ttl">3.</tspan> Mark the insert spots on the stile's <tspan class="red">back face</tspan> — about 25 mm in from each end, centered across the 50 mm width.</text>
+  <text x="40" y="1348" class="nt"><tspan class="ttl">4.</tspan> <tspan class="red">Practice on a maple scrap first.</tspan> Drill the pilot, drive an insert, check it sits flush and didn't split. Maple is hard — this test is not optional.</text>
+  <text x="40" y="1372" class="nt"><tspan class="ttl">5.</tspan> Drill the two real pilot holes <tspan class="red">12 mm deep</tspan> (tape a depth mark on the bit). Drill square to the face — a tilted insert pulls the stile crooked.</text>
+  <text x="40" y="1396" class="nt"><tspan class="ttl">6.</tspan> Drive the inserts with a hex key, slowly, until the rim sits <tspan class="red">flush or 1 mm below</tspan> the back face. Back off if it fights you; add a drop of wax on the threads.</text>
+  <text x="40" y="1420" class="nt"><tspan class="ttl">7.</tspan> Hold the stile in position, mark where each bracket lands on the rail, then <tspan class="red">screw the brackets to the rails permanently</tspan> (wood screws, pre-drilled).</text>
+  <text x="40" y="1444" class="nt"><tspan class="ttl">8.</tspan> Fit the stile: drop it into the block pockets, run an M5 machine screw through each bracket into its insert. Snug, don't crank.</text>
+  <text x="40" y="1468" class="nt"><tspan class="ttl">9.</tspan> Grab it mid-height and wiggle. <tspan class="red">Zero movement</tspan> = ready. Then take it out, shellac it separately, reinstall on your pencil lines, and gasket last.</text>
+</svg>
