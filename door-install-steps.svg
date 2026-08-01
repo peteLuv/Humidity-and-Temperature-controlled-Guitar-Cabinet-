@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1030 620" font-family="'Segoe UI',Arial,sans-serif">
+  <style>
+    .maple{fill:#f2dfae;stroke:#8a6b30;stroke-width:1.3;}
+    .rail{fill:#e8d09a;stroke:#8a6b30;stroke-width:1.3;}
+    .cstile{fill:#ecd7a4;stroke:#8a6b30;stroke-width:1.3;}
+    .cav{fill:#4a4034;}
+    .gask{fill:none;stroke:#1c1c1c;stroke-width:3.4;}
+    .hinge{fill:#c3cbd2;stroke:#5c666e;stroke-width:1.1;}
+    .door{fill:#f2dfae;stroke:#7a5a2e;stroke-width:1.5;}
+    .glass{fill:#cfe8f5;stroke:#3a86a8;stroke-width:1.2;opacity:0.72;}
+    .silver{fill:#dfe6ea;stroke:#8d99a2;stroke-width:1;}
+    .h1{fill:#8a4b2f;font-size:20px;font-weight:bold;}
+    .step{fill:#2c3e50;font-size:13.5px;font-weight:bold;}
+    .num{fill:#c0392b;font-size:13.5px;font-weight:bold;}
+    .nt{fill:#40515c;font-size:11.5px;}
+    .red{fill:#c0392b;font-size:11.5px;font-weight:bold;}
+    .tiny{fill:#5a6b78;font-size:10px;}
+  </style>
+
+  <text x="24" y="30" class="h1">Door installation — front view, step by step</text>
+  <text x="24" y="52" class="nt">Vault opening only (top rail down to the wide middle rail). Same sequence for each door.</text>
+
+  <!-- ================= 1 · FRAME ONLY ================= -->
+  <g transform="translate(24,88)">
+    <text x="0" y="-8"><tspan class="num">1</tspan> <tspan class="step">Frame only</tspan></text>
+    <rect x="0" y="0" width="160" height="220" class="cav"/>
+    <rect x="0" y="0" width="160" height="12" class="rail"/>
+    <rect x="0" y="190" width="160" height="30" class="rail"/>
+    <rect x="0" y="0" width="14" height="220" class="maple"/>
+    <rect x="146" y="0" width="14" height="220" class="maple"/>
+    <rect x="72" y="12" width="16" height="178" class="cstile"/>
+    <text x="80" y="240" text-anchor="middle" class="tiny">center stile</text>
+    <text x="7" y="252" text-anchor="middle" class="tiny">stile</text>
+    <text x="153" y="252" text-anchor="middle" class="tiny">stile</text>
+    <text x="43" y="105" text-anchor="middle" class="tiny" fill="#d8cbb4">opening</text>
+    <text x="117" y="105" text-anchor="middle" class="tiny" fill="#d8cbb4">opening</text>
+  </g>
+
+  <!-- ================= 2 · + GASKET ================= -->
+  <g transform="translate(224,88)">
+    <text x="0" y="-8"><tspan class="num">2</tspan> <tspan class="step">+ Gasket</tspan></text>
+    <rect x="0" y="0" width="160" height="220" class="cav"/>
+    <rect x="0" y="0" width="160" height="12" class="rail"/>
+    <rect x="0" y="190" width="160" height="30" class="rail"/>
+    <rect x="0" y="0" width="14" height="220" class="maple"/>
+    <rect x="146" y="0" width="14" height="220" class="maple"/>
+    <rect x="72" y="12" width="16" height="178" class="cstile"/>
+    <!-- two closed loops -->
+    <rect x="7" y="6" width="71" height="190" class="gask"/>
+    <rect x="82" y="6" width="71" height="190" class="gask"/>
+    <text x="80" y="240" text-anchor="middle" class="red">2 separate loops</text>
+    <text x="80" y="255" text-anchor="middle" class="tiny">the center stile carries</text>
+    <text x="80" y="268" text-anchor="middle" class="tiny">one strip for EACH door</text>
+  </g>
+
+  <!-- ================= 3 · + HINGES ================= -->
+  <g transform="translate(424,88)">
+    <text x="0" y="-8"><tspan class="num">3</tspan> <tspan class="step">+ Hinges</tspan></text>
+    <rect x="0" y="0" width="160" height="220" class="cav"/>
+    <rect x="0" y="0" width="160" height="12" class="rail"/>
+    <rect x="0" y="190" width="160" height="30" class="rail"/>
+    <rect x="0" y="0" width="14" height="220" class="maple"/>
+    <rect x="146" y="0" width="14" height="220" class="maple"/>
+    <rect x="72" y="12" width="16" height="178" class="cstile"/>
+    <rect x="7" y="6" width="71" height="190" class="gask"/>
+    <rect x="82" y="6" width="71" height="190" class="gask"/>
+    <!-- hinges on the OUTER stiles, outboard of the gasket -->
+    <rect x="1" y="26" width="6" height="26" class="hinge"/>
+    <rect x="1" y="88" width="6" height="26" class="hinge"/>
+    <rect x="1" y="150" width="6" height="26" class="hinge"/>
+    <rect x="153" y="26" width="6" height="26" class="hinge"/>
+    <rect x="153" y="88" width="6" height="26" class="hinge"/>
+    <rect x="153" y="150" width="6" height="26" class="hinge"/>
+    <text x="80" y="240" text-anchor="middle" class="red">hinges sit OUTBOARD</text>
+    <text x="80" y="255" text-anchor="middle" class="tiny">of the gasket line — they never</text>
+    <text x="80" y="268" text-anchor="middle" class="tiny">interrupt the seal loop</text>
+    <text x="80" y="284" text-anchor="middle" class="tiny">(3 butts shown; a piano hinge</text>
+    <text x="80" y="296" text-anchor="middle" class="tiny">runs the full height instead)</text>
+  </g>
+
+  <!-- ================= 4 · + DOOR 1 ================= -->
+  <g transform="translate(624,88)">
+    <text x="0" y="-8"><tspan class="num">4</tspan> <tspan class="step">+ Left door</tspan></text>
+    <rect x="0" y="0" width="160" height="220" class="cav"/>
+    <rect x="0" y="0" width="160" height="12" class="rail"/>
+    <rect x="0" y="190" width="160" height="30" class="rail"/>
+    <rect x="0" y="0" width="14" height="220" class="maple"/>
+    <rect x="146" y="0" width="14" height="220" class="maple"/>
+    <rect x="72" y="12" width="16" height="178" class="cstile"/>
+    <!-- right side still bare -->
+    <rect x="82" y="6" width="71" height="190" class="gask"/>
+    <rect x="153" y="26" width="6" height="26" class="hinge"/>
+    <rect x="153" y="88" width="6" height="26" class="hinge"/>
+    <rect x="153" y="150" width="6" height="26" class="hinge"/>
+    <!-- LEFT DOOR overlays -->
+    <rect x="3" y="4" width="75" height="194" class="door"/>
+    <rect x="11" y="12" width="59" height="178" class="glass"/>
+    <!-- hinge knuckles peeking at the outer edge -->
+    <rect x="0" y="26" width="4" height="26" class="hinge"/>
+    <rect x="0" y="88" width="4" height="26" class="hinge"/>
+    <rect x="0" y="150" width="4" height="26" class="hinge"/>
+    <text x="80" y="240" text-anchor="middle" class="red">door OVERLAYS the frame</text>
+    <text x="80" y="255" text-anchor="middle" class="tiny">it covers the opening and laps</text>
+    <text x="80" y="268" text-anchor="middle" class="tiny">onto the frame + center stile,</text>
+    <text x="80" y="281" text-anchor="middle" class="tiny">squeezing the gasket behind it</text>
+  </g>
+
+  <!-- ================= 5 · + DOOR 2 ================= -->
+  <g transform="translate(824,88)">
+    <text x="0" y="-8"><tspan class="num">5</tspan> <tspan class="step">+ Right door (done)</tspan></text>
+    <rect x="0" y="0" width="160" height="220" class="cav"/>
+    <rect x="0" y="0" width="160" height="12" class="rail"/>
+    <rect x="0" y="190" width="160" height="30" class="rail"/>
+    <rect x="0" y="0" width="14" height="220" class="maple"/>
+    <rect x="146" y="0" width="14" height="220" class="maple"/>
+    <!-- both doors -->
+    <rect x="3" y="4" width="75" height="194" class="door"/>
+    <rect x="11" y="12" width="59" height="178" class="glass"/>
+    <rect x="82" y="4" width="75" height="194" class="door"/>
+    <rect x="90" y="12" width="59" height="178" class="glass"/>
+    <!-- silver strip in the gap -->
+    <rect x="78" y="4" width="4" height="194" class="silver"/>
+    <!-- hinge knuckles both sides -->
+    <rect x="0" y="26" width="4" height="26" class="hinge"/>
+    <rect x="0" y="88" width="4" height="26" class="hinge"/>
+    <rect x="0" y="150" width="4" height="26" class="hinge"/>
+    <rect x="156" y="26" width="4" height="26" class="hinge"/>
+    <rect x="156" y="88" width="4" height="26" class="hinge"/>
+    <rect x="156" y="150" width="4" height="26" class="hinge"/>
+    <text x="80" y="240" text-anchor="middle" class="red">silver strip shows in the gap</text>
+    <text x="80" y="255" text-anchor="middle" class="tiny">cut it to the ACTUAL gap once</text>
+    <text x="80" y="268" text-anchor="middle" class="tiny">both doors are hung</text>
+  </g>
+
+  <!-- ================= NOTES ================= -->
+  <rect x="24" y="420" width="982" height="176" rx="10" fill="#f7fbfd" stroke="#bdd4e0"/>
+  <text x="44" y="448" class="step">Order matters — and two of these are easy to get backwards</text>
+  <text x="44" y="476" class="nt"><tspan class="num">•</tspan> <tspan class="red">Gasket goes on the FRAME, not the door.</tspan> One continuous closed loop per opening — four segments butted tight at the corners. A gap at any corner is a leak.</text>
+  <text x="44" y="500" class="nt"><tspan class="num">•</tspan> <tspan class="red">The center stile carries two strips side by side</tspan> — one for each door. That is why it was ripped to 50 mm: ~20 mm of landing per door for an 8 mm gasket.</text>
+  <text x="44" y="524" class="nt"><tspan class="num">•</tspan> <tspan class="red">Hang the doors BARE first</tspan> (step 3→4 with no gasket, no glass, no finish). Adjust, plane, re-drill freely. Then remove them, shellac, and re-hang on the same screw holes.</text>
+  <text x="44" y="548" class="nt"><tspan class="num">•</tspan> <tspan class="red">Gasket goes on late</tspan> — after the shellac has cured 48 h and the surface is wiped with alcohol. Adhesive on fresh finish is where these seals fail.</text>
+  <text x="44" y="572" class="nt"><tspan class="num">•</tspan> <tspan class="red">Glass and the silver strip are last</tspan> — both are measured off the doors as actually built and hung, never off a drawing.</text>
+</svg>
